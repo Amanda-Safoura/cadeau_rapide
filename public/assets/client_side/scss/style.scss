@@ -1,0 +1,2859 @@
+ /*
+Theme Name: Coupmy-Coupons, Affiliates, Offers, Deals, Discounts & Marketplace
+Author: Htmlbeans
+Author URI: https://themeforest.net/user/Htmlbeans
+Version: 1
+Description: Base theme for HTML5
+Text Domain: base
+Tags: one-column, two-columns, three-columns
+Theme URI: http://www.htmlbeans.com/html/coupon/
+*/
+
+/*------------------------------------------------------------------
+
+1. import files / import files
+2. Body / body
+3. Wrapper / #wrapper
+4. Header / #header
+5. Logo / .logo
+6. Nav / #nav
+7. Nav Active / .nav-active
+8. Btn Primary / .btn-primary
+9. Main / #main
+10. Banner / .banner
+11. Latest Coupon / .latest-coupon
+12. Heading / .heading
+13. Heading2 / .heading2
+14. Heading3 / .heading3
+15. Heading4 / .heading4
+16. Heading5 / .heading5
+17. Heading6 / .heading6
+18. Header / .header
+19. Store Sec / .store-sec
+20. Feature Sec / .feature-sec
+21. Callout Sec / .callout-sec
+22. Offer Sec / .offer-sec
+23. Offer Holder / .offer-holder
+24. App Sec / .app-sec
+25. Blog Sec / .blog-sec
+26. Blog Holder / .blog-holder
+27. Subscribe Sec / .subscribe-sec
+28. Counter Sec / .counter-sec
+29. Testimonail Sec / .testimonail-sec
+30. Testimonail Slider / .testimonail-slider
+31. Service Sec / .service-sec
+32. Abt Sec / .abt-sec
+33. Team Sec / .team-sec
+34. Team / .team
+35. Brand Sec / .brand-sec
+36. Brand List / .brand-list
+37. Pagination / .pagination
+38. Twocolumns / .twocolumns
+39. Content / #content
+40. Sidebar / #sidebar
+41. Widget / .widget
+42. Sub Form / .sub-form
+43. Post Block / .post-block
+44. Post Detail / .post-detail
+45. Comments Block / .comments-block
+46. Comments Form / .comments-form
+47. Register holder / .register-holder
+48. Contact Sec / .contact-sec
+49. Map Holder / .map-holder
+50. Footer / #footer
+51. Back Top / #back-top
+52. Loader Holder / .loader-holder
+
+-------------------------------------------------------------------*/
+
+
+
+
+// devices viewport width starts at:
+$breakpoints: (
+	xs-phone: 480px,
+	phone: 640px,
+	tablet: 768px,
+	desktop: 992px,
+	widescreen: 1200px
+);
+ 
+// keywords
+$media-expressions: (
+	'screen': 'screen',
+	'print': 'print',
+	'handheld': 'handheld',
+	'landscape': '(orientation: landscape)',
+	'portrait': '(orientation: portrait)',
+	'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+	'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+
+// ligatured operators ≥ ≤
+
+
+/*------------------------------------------------------------------
+1. import files / import files
+-------------------------------------------------------------------*/
+
+//@import 'vendors/include-media';
+
+@import "bootstrap-custom";
+@import "vendors/bootstrap/variables";
+@import "vendors/bootstrap/mixins";
+
+@import 'base/mixins';
+@import 'base/helpers';
+
+
+/*------------------------------------------------------------------
+2. Body / body
+-------------------------------------------------------------------*/
+body{
+    font-weight: 400;
+    margin: 0;
+}
+a{
+    &:hover,
+    &:focus,
+    &.active{
+        text-decoration: none;
+        outline: none;
+    }
+}
+.overlay{
+    position: relative;
+    z-index: 1;
+    &:before{
+        @include element(0, 0, 0, 0);
+        background: rgba(0, 0, 0, 0.7);
+    }
+}
+.bg-full{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.bg-parallax{
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.bg-grey{ background: $clr-14; }
+.round{border-radius: 100%;}
+.md-round{border-radius: 5px;}
+.lg-round{border-radius: 45px;}
+.mar-top-xs{margin-top: 30px !important;}
+.mar-top-sm{margin-top: 60px !important;}
+.mar-top-md{margin-top: 100px !important;}
+.pad-top-xs{padding-top: 30px !important;}
+.pad-top-sm{padding-top: 60px !important;}
+.pad-top-md{padding-top: 100px !important;}
+.mar-top-lg{margin-top: 130px !important;}
+.pad-top-lg{padding-top: 130px !important;}
+.mar-bottom-xs{margin-bottom: 30px !important;}
+.mar-bottom-sm{margin-bottom: 60px !important;}
+.mar-bottom-md{margin-bottom: 100px !important;}
+.pad-bottom-sm{padding-bottom: 60px !important;}
+.pad-bottom-xs{padding-bottom: 30px !important;}
+.pad-bottom-md{padding-bottom: 100px !important;}
+.mar-bottom-lg{margin-bottom: 130px !important;}
+.pad-bottom-lg{padding-bottom: 130px !important;}
+/*------------------------------------------------------------------
+3. Wrapper / #wrapper
+-------------------------------------------------------------------*/
+#wrapper{ @extend %boxreset; }
+/*------------------------------------------------------------------
+4. Header / #header
+-------------------------------------------------------------------*/
+#header{
+    position: relative;
+    @extend %clearfix;
+    .header-top{
+        overflow: hidden;
+        padding: 12px 0 8px;
+        background: $clr-2;
+        .txt{
+            float: left;
+            font-family: $heading-font-family-sans;
+        }
+        .align-left{
+            text-align: right;
+            overflow: hidden;
+            margin: -3px 0 0;
+            li{
+                display: inline-block;
+                vertical-align: middle;
+                padding: 0 0 0 18px;
+                position: relative;
+                z-index: 1;
+                &:before{
+                    @include element(6px, auto, auto, 7px);
+                    @include size(1px, 14px);
+                    background: $clr-3;
+                }
+                &:first-child{ &:before{ display: none; } }
+            }
+            a{
+                color: $clr-3;
+                display: block;
+                transition: all 0.25s linear;
+            }
+            .fa{
+                margin: 0 2px 0 0;
+            }
+        }
+    }
+    .header-holder{
+        padding-top: 30px;
+        padding-bottom: 29px;
+        overflow: hidden;
+    }
+    .search-cart{
+        float: right;
+        width: 56.7%;
+        @extend %clearfix;
+    }
+    .search-form{
+        width: 559px;
+        float: left;
+        overflow: hidden;
+        border: 2px solid $clr-4;
+        border-right: none;
+        margin: 0 40px 0 0;
+        .jcf-select{
+            min-width: 185px;
+            height: 43px;
+            margin: 0;
+            border: none;
+            float: left;
+            background: none;
+            border-right: 1px solid $clr-4;
+            .jcf-select-opener{
+                width: 38px;
+                background: none;
+                &:before{
+                    position: absolute;
+                    content: "\f107";
+                    top: 13px;
+                    left: 0;
+                    font-family: "FontAwesome";
+                    @include font(13px, 16px);
+                    color: $clr-5;
+                }
+            }
+            .jcf-select-text{
+                color: $clr-5;
+                font-weight: 600;
+                margin: 8px 37px 0 24px;
+                text-transform: uppercase;
+            }
+        }
+        .form-control{
+            @include font(13px, 16px);
+            color: $clr-6;
+            font-weight: 400;
+            float: left;
+            @include size(56%, 43px);
+            background: none;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            padding: 6px 26px;
+            text-transform: uppercase;
+            @include placeholder{ color: $clr-6; }
+        }
+        .sub-btn{
+            @include font(20px, 22px);
+            color: $white;
+            width: 10.7%;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            text-align: center;
+            float: left;
+            padding: 11px 5px 10px 7px;
+            background: $clr-7;
+            transition: all 0.25s linear;
+        }
+    }
+    .cart{
+        @include font(28px, 33px);
+        padding: 10px 0 0;
+        float: left;
+        color: $clr-5;
+        position: relative;
+        transition: all 0.25s linear;
+        .num{
+            position: absolute;
+            top: 2px;
+            right: -17px;
+            display: block;
+            @include size(24px, 24px);
+            @include font(13px, 16px);
+            font-weight: 700;
+            color: $white;
+            padding: 3px 8px;
+        }
+    }
+    .nav-holder{
+        @extend %clearfix;
+        background: $clr-1;
+        .btn-primary{
+            float: right;
+            padding: 22px 33px;
+            background: $clr-9;
+        }
+    }
+    &.header2{
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        .border{
+            padding: 31px 0;
+            @extend %clearfix;
+            border-bottom: 1px solid rgba($white, 0.45);
+        }
+        .nav-holder{
+            width: 71.7%;
+            float: right;
+            background: none;
+        }
+        #nav{
+            @include font(13px, 15px);
+            padding: 15px 0 0;
+            > ul{
+                > li{
+                    margin: 0 0 0 35px;
+                    &:first-child{ margin: 0;}
+                    &:hover{
+                        padding-bottom: 20px;
+                        margin-bottom: -20px;
+                    }
+                    > a{
+                        text-transform: uppercase;
+                        padding: 0;
+                        background: none;
+                    }
+                }
+            }
+            .drop-down{ top: 30px; }
+        }
+        .align-left{
+            @include font(13px, 15px);
+            font-weight: 500;
+            font-family: $heading-font-family-sans;
+            float: left;
+            margin: 0 0 0 33px;
+            padding: 15px 0 0;
+            li{
+                color: $clr-7;
+                float: left;
+                margin: 0 0 0 4px;
+                &:first-child{ margin: 0; }
+            }
+            a{
+                color: $clr-7;
+                display: block;
+                transition: all 0.25s linear;
+            }
+        }
+        .cart{
+            color: $white;
+            margin: 0 0 0 20px;
+        }
+        .btn-primary{
+            padding: 15px 38px;
+            background: $clr-7;
+        }
+        .nav-opener{
+            padding: 0;
+            background: none;
+        }
+    }
+    &.header3{
+        .border{
+            padding: 31px 0;
+            @extend %clearfix;
+        }
+        .nav-holder{
+            width: 71.7%;
+            float: right;
+            background: none;
+        }
+        #nav{
+            @include font(13px, 15px);
+            padding: 15px 0 0;
+            color: $clr-1;
+            > ul{
+                > li{
+                    margin: 0 0 0 35px;
+                    &:first-child{ margin: 0;}
+                    &:hover{
+                        padding-bottom: 20px;
+                        margin-bottom: -20px;
+                    }
+                    > a{
+                        text-transform: uppercase;
+                        padding: 0;
+                        color: $clr-1;
+                        background: none;
+                    }
+                }
+            }
+            .drop-down{ top: 30px; }
+        }
+        .align-left{
+            @include font(13px, 15px);
+            font-weight: 500;
+            font-family: $heading-font-family-sans;
+            float: left;
+            margin: 0 0 0 33px;
+            padding: 15px 0 0;
+            li{
+                color: $clr-7;
+                float: left;
+                margin: 0 0 0 4px;
+                &:first-child{ margin: 0; }
+            }
+            a{
+                color: $clr-7;
+                display: block;
+                transition: all 0.25s linear;
+            }
+        }
+        .cart{
+            color: $clr-1;
+            margin: 0 0 0 20px;
+        }
+        .btn-primary{
+            padding: 15px 38px;
+            background: $clr-7;
+        }
+        .nav-opener{
+            padding: 0;
+            color: $clr-1;
+            background: none;
+        }
+    }
+    .nav-opener{
+        @include font(30px, 40px);
+        float: left;
+        color: $white;
+        padding: 10px 13px;
+    }
+}
+/*------------------------------------------------------------------
+5. Logo / .logo
+-------------------------------------------------------------------*/
+.logo{
+    width: 221px;
+    float: left;
+    margin: 0 10px 0 0;
+    img{ width: 100%; }
+}
+/*------------------------------------------------------------------
+6. Nav / #nav
+-------------------------------------------------------------------*/
+#nav{
+    @include font(15px, 17px);
+    font-weight: 500;
+    font-family: $heading-font-family-sans;
+    color: $white;
+    float: left;
+    @extend %clearfix;
+    > ul{
+        margin: 0;
+        > li{
+            float: left;
+            margin: 0 4px 0 0;
+            position: relative;
+            z-index: 2;
+            &:hover{
+                .drop-down{
+                    visibility: visible;
+                    opacity: 1;
+                    transform: translateY(0%);
+                }
+            }
+            > a{
+                color: $white;
+                display: block;
+                padding: 20px 19px 23px;
+                transition: all 0.25s linear;
+            }
+        }
+    }
+    .drop-down{
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: -1;
+        width: 250px;
+        background: $clr-1;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.25s linear;
+        transform: translateY(-2em);
+        > li{
+            float: none;
+            margin: 0;
+            > a{
+                color: $white;
+                display: block;
+                padding: 20px 19px 23px;
+                transition: all 0.25s linear;
+            }
+        }
+    }
+}
+/*------------------------------------------------------------------
+7. Nav Active / .nav-active
+-------------------------------------------------------------------*/
+.nav-active{
+    #header{
+        &.header2,
+        &.header3{
+            #nav{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+    #nav{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+/*------------------------------------------------------------------
+8. Btn Primary / .btn-primary
+-------------------------------------------------------------------*/
+.btn-primary{
+    @include font(14px, 16px);
+    color: $white;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: $heading-font-family-sans;
+    transition: all 0.25s linear;
+    padding: 10px;
+}
+/*------------------------------------------------------------------
+9. Main / #main
+-------------------------------------------------------------------*/
+#main{ overflow: hidden; }
+/*------------------------------------------------------------------
+10. Banner / .banner
+-------------------------------------------------------------------*/
+.banner{
+    @include v-align(100vh, middle, after);
+    &:before{z-index: 0; }
+    .holder{ overflow: hidden; }
+    &.banner2{
+        .search-form{
+            width: 725px;
+            height: auto;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.7);
+            .jcf-select{
+                min-width: 260px;
+                height: 50px;
+                margin: 0 10px 0 0;
+                border: none;
+                float: left;
+                text-align: left;
+                background: $white;
+                .jcf-select-opener{
+                    width: 38px;
+                    right: 119px;
+                    background: none;
+                    &:before{
+                        position: absolute;
+                        content: "\f107";
+                        top: 17px;
+                        left: 0;
+                        font-family: "FontAwesome";
+                        @include font(13px, 16px);
+                        color: $clr-5;
+                    }
+                }
+                .jcf-select-text{
+                    color: $clr-5;
+                    font-weight: 600;
+                    margin: 12px 37px 0 29px;
+                    text-transform: uppercase;
+                }
+            }
+            .form-control{
+                @include font(13px, 16px);
+                color: $clr-5;
+                font-weight: 400;
+                float: left;
+                @include size(260px, 50px);
+                background: $white;
+                border: none;
+                box-shadow: none;
+                outline: none;
+                padding: 5px 29px;
+                margin: 0 10px 0 0;
+                text-transform: uppercase;
+                @include placeholder{ color: $clr-5; }
+            }
+            .sub-btn{
+                @include font(16px, 18px);
+                color: $white;
+                font-weight: 500;
+                font-family: $heading-font-family-sans;
+                width: 165px;
+                border: none;
+                outline: none;
+                box-shadow: none;
+                text-align: center;
+                float: left;
+                padding: 17px 5px 15px;
+                background: $clr-7;
+                text-transform: uppercase;
+                transition: all 0.25s linear;
+            }
+        }
+    }
+    &.banner3{
+        &:after{ min-height: 300px; }
+        h1{
+            @include font(46px, 58px);
+            font-weight: 900;
+            margin: 0;
+        }
+    }
+    h1{
+        @include font(52px, 70px);
+        font-weight: 900;
+        color: $white;
+        margin: 0 0 25px;
+        .clr{ color: $clr-7; }
+    }
+    h2{
+        @include font(40px, 50px);
+        font-weight: 600;
+        color: $white;
+        margin: 0 0 8px;
+    }
+    .txt{
+        @include font(22px, 30px);
+        font-weight: 400;
+        font-family: $heading-font-family-sans;
+        color: $white;
+        margin: 0 0 35px;
+        display: block;
+    }
+    .search-form{
+        @include size(557px, 57px);
+        overflow: hidden;
+        position: relative;
+        border: 1px solid $white;
+        label{
+            @include font(22px, 24px);
+            color: $clr-9;
+            position: absolute;
+            left: 32px;
+            top: 17px;
+        }
+        .form-control{
+            color: $clr-10;
+            @include size(100%, 100%);
+            padding: 15px 65px;
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-radius: 0;
+            @include placeholder{ color: $clr-10; }
+        }
+        .btn-icon{
+            @include font(16px, 18px);
+            color: $clr-9;
+            position: absolute;
+            right: 22px;
+            top: 20px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            transition: all 0.25s linear;
+        }
+    }
+}
+/*------------------------------------------------------------------
+11. Latest Coupon / .latest-coupon
+-------------------------------------------------------------------*/
+.latest-coupon{
+    overflow: hidden;
+    &.style2{
+        .coupon-box{
+            .heading6{
+                letter-spacing: 1px;
+                margin: 0 0 11px;
+            }
+            .txt-holder{ padding: 25px 27px 27px; }
+            .list-show{ margin: 0 0 24px; }
+            .btn-primary{ margin: 0 0 12px; }
+        }
+    }
+    .coupon-box{
+        border: 1px solid $clr-12;
+        transition: all 0.25s linear;
+        &:hover{
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+            .img-holder{
+                img{ transform: scale(1.1); }
+            }
+        }
+        .img-holder{
+            overflow: hidden;
+            width: 100%;
+            img{ width: 100%; transition: all 0.25s linear; }
+        }
+        .txt-holder{
+            overflow: hidden;
+            padding: 26px 27px;
+        }
+        .heading6{
+            margin: 0 0 4px;
+            a{
+                color: $clr-11;
+                display: block;
+                transition: all 0.25s linear;
+            }
+        }
+        .list-show{
+            color: $clr-7;
+            overflow: hidden;
+            margin: 0 0 18px;
+            padding: 0 0 0 3px;
+            li{
+                float: left;
+                margin: 0 15px 0 0;
+            }
+            a{
+                color: $clr-7;
+                display: block;
+                transition: all 0.25s linear;
+            }
+            .icon{
+                @include font(15px, 17px);
+                margin: 0 4px 0 0;
+            }
+        }
+        .btn-primary{
+            font-size: 13px;
+            padding: 13px 10px;
+            width: 100%;
+            display: block;
+            margin: 0 0 5px;
+            &:hover{ background: $clr-9; }
+        }
+        .time{
+            font-size: 13px;
+            display: block;
+            color: $clr-13;
+        }
+    }
+}
+/*------------------------------------------------------------------
+12. Heading / .heading
+-------------------------------------------------------------------*/
+.heading{
+    font: 36px/38px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+13. Heading2 / .heading2
+-------------------------------------------------------------------*/
+.heading2{
+    font: 28px/30px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+14. Heading3 / .heading3
+-------------------------------------------------------------------*/
+.heading3{
+    font: 22px/24px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+15. Heading4 / .heading4
+-------------------------------------------------------------------*/
+.heading4{
+    font: 20px/22px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+16. Heading5 / .heading5
+-------------------------------------------------------------------*/
+.heading5{
+    font: 18px/20px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+17. Heading6 / .heading6
+-------------------------------------------------------------------*/
+.heading6{
+    font: 17px/26px $heading-font-family-sans;
+    font-weight: 500;
+    color: $clr-11;
+    margin: 0;
+}
+/*------------------------------------------------------------------
+18. Header / .header
+-------------------------------------------------------------------*/
+.header{
+    @include font(18px, 22px);
+    font-weight: 300;
+    color: $clr-15;
+    overflow: hidden;
+    margin: 0 0 61px;
+    p{ margin: 0; }
+}
+/*------------------------------------------------------------------
+19. Store Sec / .store-sec
+-------------------------------------------------------------------*/
+.store-sec{
+    overflow: hidden;
+    .heading{
+        margin: 0 0 18px;
+        .clr{ color: $clr-13; }
+    }
+    .header{ margin: 0 0 63px; }
+    .store-logo{
+        overflow: hidden;
+        margin: 0 0 61px;
+        border-top: 1px solid $clr-16;
+        border-left: 1px solid $clr-16;
+        li{
+            width: 20%;
+            height: 120px;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            border-right: 1px solid $clr-16;
+            border-bottom: 1px solid $clr-16;
+            background: $white;
+        }
+        a{
+            padding: 10px;
+            display: block;
+            img{
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+    .btn-primary{
+        font-size: 15px;
+        padding: 17px 63px;
+        font-weight: 600;
+        background: $clr-9;
+    }
+}
+/*------------------------------------------------------------------
+20. Feature Sec / .feature-sec
+-------------------------------------------------------------------*/
+.feature-sec{
+    overflow: hidden;
+    .heading{ margin: 0 0 18px; }
+    .header{ margin: 0 0 63px; }
+    .feature-box{
+        overflow: hidden;
+        margin: 0 0 37px;
+        &:hover{
+            .icon{
+                color: $white;
+                background: $clr-9;
+            }
+        }
+        .icon{
+            @include font(35px, 37px);
+            color: $clr-9;
+            padding: 7px;
+            @include size(84px, 84px);
+            background: $white;
+            margin: 0 auto -38px;
+            display: block;
+            position: relative;
+            z-index: 2;
+            transition: all 0.25s linear;
+            .border{
+                @include size(73px, 74px);
+                display: block;
+                padding: 20px 10px 10px;
+                border: 1px solid $clr-9;
+            }
+        }
+        .img-holder{
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            &:before{ z-index: 0; }
+            .over{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 100%;
+                @include font(15px, 17px);
+                color: $white;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .heading2{
+            color: $white;
+            margin: 0 0 10px;
+        }
+        p{ margin: 0; }
+        .btn-primary{
+            font-size: 15px;
+            display: block;
+            padding: 12px 10px;
+            &:hover{ background: $clr-9; }
+        }
+    }
+}
+/*------------------------------------------------------------------
+21. Callout Sec / .callout-sec
+-------------------------------------------------------------------*/
+.callout-sec{
+    overflow: hidden;
+    background: $clr-7;
+    h3{
+        @include font(37px, 40px);
+        color: $white;
+        font-weight: 400;
+        font-family: 'Lily Script One', cursive;
+        margin: 0;
+        strong{ @include font(51px, 55px); }
+    }
+    .btn-primary{
+        font-size: 15px;
+        width: 200px;
+        display: block;
+        padding: 17px 15px;
+        margin: 9px 0 0;
+        float: right;
+        background: $clr-17;
+    }
+}
+/*------------------------------------------------------------------
+22. Offer Sec / .offer-sec
+-------------------------------------------------------------------*/
+.offer-sec{
+    overflow: hidden;
+    .heading{ margin: 0 0 27px; }
+    .header{ margin: 0 0 69px; }
+    .filter-list{
+        font-size: 0;
+        font-family: $font-family-sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        margin: 0;
+        li{
+            font-size: 14px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .active{
+            a{
+                color: $white;
+                background: $clr-7;
+            }
+        }
+        a{
+            color: $clr-7;
+            display: block;
+            padding: 9px 29px;
+            text-transform: uppercase;
+            border: 1px solid $clr-7;
+            transition: all 0.25s linear;
+            &:hover{
+                color: $white;
+                background: $clr-7;
+            }
+        }
+    }
+}
+/*------------------------------------------------------------------
+23. Offer Holder / .offer-holder
+-------------------------------------------------------------------*/
+.offer-holder{
+    overflow: hidden;
+    width: 110%;
+    .col{
+        width: 351px;
+        float: left;
+        height: 361px !important;
+        padding: 29px 25px;
+        border: 1px solid $clr-12;
+        margin-right: 30px;
+        transition: all 0.25s linear;
+        &:nth-child(3n){ margin-right: 0; }
+        &:hover{
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+            .offer{ color: $white; }
+        }
+        .header{
+            overflow: hidden;
+            margin: 0 0 23px;
+        }
+        .c-logo{
+            width: 106px;
+            float: left;
+            margin: 0 28px 0 0;
+        }
+        .offer{
+            @include font(16px, 18px);
+            color: $clr-3;
+            padding: 9px 25px 7px;
+            float: right;
+            text-align: center;
+            margin: 18px 0 0;
+            border: 1px solid $clr-18;
+            transition: all 0.25s linear;
+        }
+        .heading6{
+            margin: 0 0 8px;
+            display: block;
+        }
+        .sub-title{
+            color: $clr-7;
+            display: block;
+            margin: 0 0 42px;
+        }
+        .btn-primary{
+            padding: 12px 41px;
+            margin: 0 0 9px;
+            position: relative;
+            &:hover{
+                padding: 12px 60px 12px 41px;
+                background: $clr-9;
+                .code{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+            .code{
+                position: absolute;
+                right: 0;
+                top: 0;
+                opacity: 0;
+                visibility: hidden;
+                padding: 11px 5px 10px;
+                border-width: 2px 2px 2px 0;
+                border-style: dashed;
+                background: $white;
+                transition: all 0.25s linear;
+            }
+        }
+        .time{
+            font-size: 12px;
+            display: block;
+            color: $clr-13;
+        }
+    }
+}
+/*------------------------------------------------------------------
+24. App Sec / .app-sec
+-------------------------------------------------------------------*/
+.app-sec{
+    overflow: hidden;
+    background: $clr-7;
+    .img-holder{
+        margin: 0 0 0 63px;
+        overflow: hidden;
+        width: 100%;
+    }
+    .txt-holder{
+        padding: 82px 0 0 25px;
+        font-size: 16px;
+        color: $white;
+        p{ margin: 0 0 29px; }
+    }
+    .heading{
+        color: $white;
+        margin: 0 0 15px;
+    }
+    .btn-holder{
+        overflow: hidden;
+        a{ margin: 0 10px 0 0; }
+    }
+}
+/*------------------------------------------------------------------
+25. Blog Sec / .blog-sec
+-------------------------------------------------------------------*/
+.blog-sec{
+    overflow: hidden;
+    .header{ margin: 0 0 62px; }
+}
+/*------------------------------------------------------------------
+26. Blog Holder / .blog-holder
+-------------------------------------------------------------------*/
+.blog-holder{
+    overflow: hidden;
+    font-size: 16px;
+    color: $clr-6;
+    &:hover{
+        .img-holder{
+            img{ transform: scale(1.1); }
+            .time{
+                top: 120px;
+                background: $clr-9;
+            }
+        }
+    }
+    .img-holder{
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 27px;
+        position: relative;
+        .time{
+            position: absolute;
+            left: 11px;
+            top: 10px;
+            @include font(31px, 48px);
+            color: $white;
+            font-weight: 700;
+            display: block;
+            width: 58px;
+            padding: 0 11px 10px 9px;
+            transition: all 0.25s linear;
+            .txt{
+                @include font(16px, 18px);
+                color: $white;
+                font-weight: 500;
+                display: block;
+                border-top: 1px solid $white;
+                padding: 10px 0 0;
+            }
+        }
+        img{ transition: all 0.25s linear; }
+    }
+    .heading3{
+        margin: 0 0 14px;
+        a{
+            color: $clr-11;
+            display: block;
+            transition: all 0.25s linear;
+        }
+    }
+    p{ margin: 0 0 22px; }
+    .btn-primary{
+        @include font(12px, 14px);
+        padding: 13px 30px;
+        &:hover{ background: $clr-9; }
+    }
+}
+/*------------------------------------------------------------------
+27. Subscribe Sec / .subscribe-sec
+-------------------------------------------------------------------*/
+.subscribe-sec{
+    overflow: hidden;
+    padding: 46px 0;
+    min-height: 137px;
+    position: relative;
+    z-index: 1;
+    &:before{
+        @include element(0, 0, 0, 0);
+        background: rgba(51, 184, 108, 0.85);
+        z-index: -1;
+    }
+    h5{
+        @include font(26px, 30px);
+        font-weight: 600;
+        color: $white;
+        margin: 0;
+        padding: 10px 0 0;
+    }
+    .subscribe-form{
+        @include size(488px, 46px);
+        border: 1px solid $white;
+        overflow: hidden;
+        position: relative;
+        .form-control{
+            @include font(16px, 20px);
+            color: $white;
+            font-weight: 400;
+            @include size(100%, 46px);
+            padding: 6px 57px 6px 27px;
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            @include placeholder{ color: $white; }
+        }
+        .sub-btn{
+            position: absolute;
+            right: 25px;
+            top: 12px;
+            @include font(20px, 22px);
+            color: $white;
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            transition: all 0.25s linear;
+        }
+    }
+}
+/*------------------------------------------------------------------
+28. Counter Sec / .counter-sec
+-------------------------------------------------------------------*/
+.counter-sec{
+    overflow: hidden;
+    min-height: 305px;
+    .icon{
+        @include font(50px, 60px);
+        color: $white;
+        display: block;
+        margin: 0 0 5px;
+    }
+    .counter{
+        @include font(50px, 60px);
+        font-weight: 700;
+        color: $white;
+        display: block;
+    }
+    .sub-title{
+        @include font(20px, 25px);
+        font-weight: 500;
+        display: block;
+    }
+}
+/*------------------------------------------------------------------
+29. Testimonail Sec / .testimonail-sec
+-------------------------------------------------------------------*/
+.testimonail-sec{
+    overflow: hidden;
+    min-height: 618px;
+    .heading{ margin: 0; }
+    .header{ margin: 0 0 64px; }
+    &.overlay{
+        &:before{ background: rgba(255, 255, 255, 0.8); }
+    }
+}
+/*------------------------------------------------------------------
+30. Testimonail Slider / .testimonail-slider
+-------------------------------------------------------------------*/
+.testimonail-slider{
+    overflow: hidden;
+    .slide{
+        font: 15px/26px $font-family-sans-serif;
+        font-style: italic;
+        color: $clr-15;
+        background: $white;
+        padding: 36px 22px 43px 29px;
+        margin: 0 0 0 30px;
+        border: none;
+        q{
+            display: block;
+            margin: 0 0 21px;
+            &:before,
+            &:after{ display: none; }
+        }
+        cite{ display: block; }
+        .img-holder{
+            width: 72px;
+            overflow: hidden;
+            margin: 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .align-left{
+            display: inline-block;
+            vertical-align: middle;
+            padding: 4px 0 0 15px;
+        }
+        strong{
+            @include font(18px, 20px);
+            font-weight: 500;
+            color: $clr-17;
+            display: block;
+            margin: 0 0 5px;
+        }
+        .sub-title{
+            @include font(13px, 15px);
+            font-weight: 400;
+            font-style: italic;
+            color: $clr-13;
+            display: block;
+            margin: 0 0 5px;
+        }
+    }
+}
+/*------------------------------------------------------------------
+31. Service Sec / .service-sec
+-------------------------------------------------------------------*/
+.service-sec{
+    overflow: hidden;
+    &.style2{
+        .service{
+            padding: 0;
+            border: none;
+            color: $clr-6;
+            .icon{
+                @include font(60px, 60px);
+                margin: 0 0 23px;
+                width: auto;
+            }
+            .headng5{
+                margin: 0 0 17px;
+                color: $clr-1;
+            }
+            p{ margin: 0 0 12px; }
+            .read-more{
+                font: 13px/15px $heading-font-family-sans;
+                font-weight: 600;
+                color: $clr-7;
+            }
+        }
+    }
+    .service{
+        font-size: 15px;
+        line-height: 26px;
+        color: $clr-24;
+        padding: 57px 20px 43px 20px;
+        overflow: hidden;
+        border: 3px solid $clr-23;
+        .icon{
+            width: 81px;
+            margin: 0 auto 38px;
+            display: block;
+        }
+        .heading3{ margin: 0 0 17px; }
+        p{ margin: 0 0 14px; }
+        .read-more{
+            @include font(12px, 15px);
+            font-weight: 500;
+            color: $clr-13;
+            transition: all 0.25s linear;
+            .fa{ margin: 0 0 0 5px; }
+        }
+    }
+}
+/*------------------------------------------------------------------
+32. Abt Sec / .abt-sec
+-------------------------------------------------------------------*/
+.abt-sec{
+    overflow: hidden;
+    .img-holder{
+        width: 100%;
+        overflow: hidden;
+    }
+    .abt-txt{
+        overflow: hidden;
+        padding: 10px 0 0 10px;
+        color: $clr-6;
+        p{ margin: 0 0 21px; }
+    }
+    .title{
+        font: 14px/16px $heading-font-family-sans;
+        font-weight: 500;
+        display: block;
+        margin: 0 0 8px;
+        letter-spacing: 1px;
+    }
+    .heading{ margin: 0 0 25px; }
+    .btn-primary{
+        padding: 16px 32px;
+        background: $clr-7;
+    }
+}
+/*------------------------------------------------------------------
+33. Team Sec / .team-sec
+-------------------------------------------------------------------*/
+.team-sec{
+    overflow: hidden;
+    .heading{ margin: 0; }
+    .header{ margin: 0 0 61px; }
+}
+/*------------------------------------------------------------------
+34. Team / .team
+-------------------------------------------------------------------*/
+.team{
+    overflow: hidden;
+    &.v2{
+        .socail-network{
+            @include font(15px, 17px);
+            color: $clr-42;
+            overflow: hidden;
+            margin: 0;
+            padding: 12px 0;
+            li{
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 0 0 5px;
+                &:first-child{ margin: 0; }
+            }
+            a{
+                @include size(40px, 40px);
+                display: block;
+                color: $clr-42;
+                border-radius: 100%;
+                border: 1px solid $clr-42;
+                text-align: center;
+                padding: 9px 4px;
+                transition: all 0.25s linear;
+                &:hover{ color: $white; }
+            }
+        }
+        .sub-title{ margin: 0 0 17px; }
+        p{ margin: 0 0 4px; }
+    }
+    .img-holder{
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 23px;
+        position: relative;
+        &:hover{
+            .over{ bottom: 0; }
+        }
+        .over{
+            position: absolute;
+            left: 0;
+            bottom: -90px;
+            right: 0;
+            z-index: 1;
+            transition: all 0.25s linear;
+        }
+        .socail-network{
+            @include font(15px, 17px);
+            color: $white;
+            overflow: hidden;
+            margin: 0;
+            padding: 12px 0;
+            text-align: center;
+            li{
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 0 0 2px;
+                &:first-child{ margin: 0; }
+            }
+            a{
+                @include size(35px, 35px);
+                display: block;
+                color: $white;
+                border: 1px solid $white;
+                text-align: center;
+                padding: 6px 4px;
+                transition: all 0.25s linear;
+                &:hover{ background: $white; }
+            }
+        }
+    }
+    .heading4{
+        display: block;
+        margin: 0 0 7px;
+    }
+    .sub-title{
+        font: 14px/16px $font-family-sans-serif;
+        font-weight: 400;
+        color: $clr-7;
+        display: block;
+    }
+}
+/*------------------------------------------------------------------
+35. Brand Sec / .brand-sec
+-------------------------------------------------------------------*/
+.brand-sec{
+    overflow: hidden;
+    padding-top: 145px;
+    padding-bottom: 130px;
+}
+/*------------------------------------------------------------------
+36. Brand List / .brand-list
+-------------------------------------------------------------------*/
+.brand-list{
+    overflow: hidden;
+    margin: 0;
+    li{
+        float: left;
+        margin: 0 20px 20px 0;
+        &:nth-child(5n+5){ margin: 0 0 20px; }
+    }
+    img{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    a{
+        width: 212px;
+        height: 142px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 4px solid $clr-23;
+    }
+}
+/*------------------------------------------------------------------
+37. Pagination / .pagination
+-------------------------------------------------------------------*/
+.pagination{
+    overflow: hidden;
+    margin: 0;
+    text-align: center;
+    padding: 28px 0 0;
+    li{
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 0 0 5px;
+        &:first-child{ margin: 0;}
+    }
+    a{
+        color: $clr-15;
+        display: block;
+        @include size(44px, 44px);
+        @include font(16px, 18px);
+        border: 2px solid $clr-25;
+        text-align: center;
+        padding: 10px;
+        transition: all 0.25s linear;
+    }
+}
+/*------------------------------------------------------------------
+38. Twocolumns / .twocolumns
+-------------------------------------------------------------------*/
+.twocolumns{ overflow: hidden; }
+/*------------------------------------------------------------------
+39. Content / #content
+-------------------------------------------------------------------*/
+#content{
+    width: 72%;
+    float: left;
+    padding: 0 41px 0 0;
+    overflow: hidden;
+    .header{
+        overflow: hidden;
+        margin: 0 0 48px;
+    }
+    .heading2{
+        color: $clr-1;
+        margin: 0 0 30px;
+        border-bottom: 1px solid $clr-1;
+        padding: 0 0 24px;
+    }
+    .abc-list{
+        overflow: hidden;
+        margin: 0;
+        @include font(13px, 15px);
+        color: $clr-15;
+        li{
+            float: left;
+            margin: 0 7px 0 0;
+        }
+        a{
+            display: block;
+            @include size(22px, 22px);
+            border: 1px solid $clr-26;
+            text-align: center;
+            padding: 3px 4px;
+            text-transform: uppercase;
+            transition: all 0.25s linear;
+            &:hover{ color: $white; }
+        }
+    }
+    .holder{
+        overflow: hidden;
+        margin: 0 0 20px;
+    }
+    .header-holder{
+        overflow: hidden;
+        padding: 14px 32px 12px 29px;
+        background: $clr-14;
+        margin: 0 0 28px;
+        .txt{
+            font: 18px/20px $heading-font-family-sans;
+            color: $clr-1;
+            font-weight: 600;
+        }
+        .store-txt{
+            font: 12px/14px $heading-font-family-sans;
+            color: $clr-13;
+            font-weight: 400;  
+            transition: all 0.25s linear;
+        }
+    }
+    .store-logo{
+        overflow: hidden;
+        margin: 0;
+        li{
+            float: left;
+            margin: 0 30px 30px 0;
+            &:nth-child(4n+4){ margin: 0 0 20px; }
+        }
+        img{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        a{
+            width: 172px;
+            height: 132px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid $clr-27;
+        }
+    }
+    .header-content{
+        @include font(16px, 26px);
+        color: $clr-15;
+        font-weight: 400;
+        font-style: italic;
+        overflow: hidden;
+        margin: 0 0 31px;
+        p{ margin: 0; }
+        .heading3{
+            color: $clr-1;
+            margin: 0 0 10px;
+        }
+    }
+    .comments-block{
+        .heading2{
+            border: none;
+            padding: 0;
+            margin: 0 0 44px;
+        }
+        .commment-area{
+            h3{
+                font: 20px/23px $heading-font-family-sans;
+                color: $clr-1;
+                font-weight: 600;
+                margin: 0 0 6px;
+                border: none;
+                padding: 0;
+                a{
+                    color: $clr-1;
+                    transition: all 0.25s linear;
+                }
+            }
+            .header{
+                @extend %clearfix;
+                margin: 0 0 18px;
+            }
+        }
+    }
+    .comments-form{
+        .heading2{
+            border: none;
+            padding: 0;
+            margin: 0 0 44px;
+        }
+    }
+    .post-detail{ &.style2{ .txt-holder{ .header{ margin: 0 0 15px; } } } }
+}
+/*------------------------------------------------------------------
+40. Sidebar / #sidebar
+-------------------------------------------------------------------*/
+#sidebar{
+    width: 28%;
+    float: left;
+    padding: 38px 23px 0;
+    overflow: hidden;
+    background: $clr-14;
+}
+/*------------------------------------------------------------------
+41. Widget / .widget
+-------------------------------------------------------------------*/
+.widget{
+    overflow: hidden;
+    margin: 0 0 47px;
+    &.coupon-submit-widget{
+        min-height: 205px;
+        padding: 40px 0 0;
+        .icon{
+            @include font(27px, 32px);
+            margin: 0 0 12px;
+            display: block;
+        }
+        .title{ margin: 0 0 27px; }
+        .btn-primary{ padding: 10px 19px; }
+    }
+    &.search-widget{ padding: 5px 0 0; }
+    .category-list{
+        @include font(15px, 17px);
+        color: $clr-6;
+        font-weight: 400;
+        overflow: hidden;
+        margin: 0;
+        li{
+            overflow: hidden;
+            padding: 16px 0;
+            display: block;
+            border-bottom: 1px solid $clr-29;
+        }
+        a{
+            display: block;
+            color: $clr-6;
+            transition: all 0.25s linear;
+        }
+    }
+    .title{
+        font: 17px/20px $heading-font-family-sans;
+        font-weight: 700;
+        color: $white;
+        display: block;
+        margin: 0 0 10px;
+    }
+    .btn-primary{
+        @include font(12px, 14px);
+        background: $clr-7;
+    }
+    .heading4{
+        color: $clr-28;
+        margin: 0 0 11px;
+        padding: 0 0 20px;
+        position: relative;
+        z-index: 1;
+        &:before{
+            @include element(auto, auto, 3px, 0);
+            border-bottom: 2px dashed $clr-28;
+            @include size(83px, 1px);
+        }
+        &:after{
+            @include element(auto, auto, 0, 0);
+            border-bottom: 2px dashed $clr-28;
+            @include size(83px, 1px);
+        }
+    }
+    .popular-list{
+        overflow: hidden;
+        margin: 0;
+        padding: 18px 0 0 2px;
+        li{
+            width: 31.33%;
+            float: left;
+            overflow: hidden;
+            margin: 0 9px 10px 0;
+            &:nth-child(3n+3){
+                width: 30.32%;
+                margin: 0 0 10px;
+            }
+            &:last-child{
+                display: block;
+                float: none;
+                width: 100%;
+                padding: 12px 0 0;
+            }
+        }
+        a{
+            @include font(13px, 15px);
+            font-weight: 600;
+            font-family: $heading-font-family-sans;
+            display: block;
+            color: $clr-7;
+            transition: all 0.25s linear;
+        }
+    }
+    .latest-news-list{
+        overflow: hidden;
+        margin: 0;
+        padding: 0 0 0 2px;
+        li{
+            padding: 16px 0;
+            overflow: hidden;
+            border-bottom: 1px solid $clr-29;
+        }
+        .img-holder{
+            width: 27%;
+            float: left;
+            overflow: hidden;
+        }
+        .txt-holder{
+            width: 73%;
+            float: left;
+            overflow: hidden;
+            padding: 0 0 0 20px;
+        }
+        h3{
+            font: 16px/20px $heading-font-family-sans;
+            font-weight: 500;
+            color: $clr-11;
+            margin: 0 0 8px;
+            a{
+                display: block;
+                color: $clr-11;
+                transition: all 0.25s linear;
+            }
+        }
+        .news-nav{
+            @include font(13px, 15px);
+            font-weight: 400;
+            font-style: italic;
+            color: $clr-30;
+            overflow: hidden;
+            margin: 0;
+            li{
+                float: left;
+                margin: 0 7px 0 0;
+                padding: 0;
+                border: none;
+            }
+            a{
+                color: $clr-30;
+                transition: all 0.25s linear;
+            }
+        }
+    }
+    .tags-list{
+        font: 14px/16px $heading-font-family-sans;
+        font-weight: 400;
+        color: $clr-5;
+        overflow: hidden;
+        margin: 0;
+        padding: 15px 0 0;
+        li{
+            float: left;
+            margin: 0 8px 10px 0;
+        }
+        a{
+            display: block;
+            padding: 16px 23px 18px 25px;
+            color: $clr-5;
+            background: $white;
+            transition: all 0.25s linear;
+            &:hover{ color: $white; }
+        }
+    }
+    .search-form{
+        position: relative;
+        z-index: 1;
+        .form-control{
+            @include font(14px, 16px);
+            color: $clr-6;
+            font-weight: 400;
+            @include size(100%, 45px);
+            background: $white;
+            border: 1px solid $clr-33;
+            border-right: none;
+            outline: none;
+            box-shadow: none;
+            padding: 6px 92px 6px 12px;
+        }
+        .sub-btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            @include font(16px, 20px);
+            color: $white;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            padding: 13px 29px;
+            transition: all 0.25s linear;
+            &:hover{ background: $clr-9; }
+        }
+    }
+}
+/*------------------------------------------------------------------
+42. Sub Form / .sub-form
+-------------------------------------------------------------------*/
+.sub-form{
+    overflow: hidden;
+    .form-group{
+        overflow: hidden;
+        margin: 0 0 27px;
+    }
+    .col{
+        width: 50%;
+        padding: 0 0 0 15px;
+        float: left;
+        &:first-child{ padding: 0 15px 0 0; }
+    }
+    label{
+        @include font(13px, 15px);
+        color: $clr-15;
+        font-weight: 300;
+        display: block;
+        margin: 0 0 11px;
+        .clr{
+            color: $clr-31;
+        }
+    }
+    .form-control{
+        @include size(100%, 50px);
+        border: 1px solid $clr-32;
+        background: none;
+        outline: none;
+        box-shadow: none;
+        @include placeholder{ color: $clr-15; }
+    }
+    input[type="file"]{ padding: 0; }
+    textarea{
+        width: 100%;
+        min-height: 100px;
+        border: 1px solid $clr-32;
+        background: none;
+        outline: none;
+        box-shadow: none;
+        resize: none;
+        @include placeholder{ color: $clr-15; }
+    }
+    .btn-primary{
+        padding: 19px 48px;
+        border-radius: 5px;
+        margin: 20px 0 0;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background: $clr-7;
+    }
+}
+/*------------------------------------------------------------------
+43. Post Block / .post-block
+-------------------------------------------------------------------*/
+.post-block{
+    @include font(16px, 26px);
+    color: $clr-6;
+    font-weight: 400;
+    overflow: hidden;
+    padding: 0 0 49px;
+    margin: 0 0 49px;
+    border-bottom: 1px solid $clr-27;
+    &:hover{
+        .img-holder{
+            .time{
+                top: 70%;
+                background: $clr-9;
+            }
+        }
+    }
+    .img-holder{
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        margin: 0 0 27px;
+        .time{
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            @include font(31px, 44px);
+            font-weight: 700;
+            color: $white;
+            display: inline-block;
+            vertical-align: middle;
+            padding: 4px 12px 8px 9px;
+            transition: all 0.25s linear;
+            span{
+                @include font(16px, 20px);
+                font-weight: 500;
+                display: block;
+                border-top: 1px solid $white;
+                padding: 10px 0 0;
+            }
+        }
+    }
+    .heading3{
+        margin: 0 0 13px;
+        a{
+            color: $clr-11;
+            transition: all 0.25s linear;
+        }
+    }
+    p{ margin: 0 0 24px; }
+    .btn-primary{
+        @include font(12px, 14px);
+        border-radius: 5px;
+        padding: 13px 31px 12px 29px;
+        &:hover{ background: $clr-9; }
+    }
+}
+/*------------------------------------------------------------------
+44. Post Detail / .post-detail
+-------------------------------------------------------------------*/
+.post-detail{
+    overflow: hidden;
+    &.style2{
+        .img-holder{ margin: 0 0 45px; }
+        .txt-holder{
+            padding: 0;
+            .header{
+                overflow: hidden;
+            }
+            .coupon-logo{
+                width: 132px;
+                float: left;
+            }
+            .align-left{
+                float: left;
+                padding: 0 0 0 31px;
+            }
+        }
+        .social-network{
+            position: static;
+        }
+        .heading3{ margin: 0 0 11px;}
+    }
+    .img-holder{
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 26px;
+    }
+    .txt-holder{
+        @include font(16px, 26px);
+        color: $clr-6;
+        overflow: hidden;
+        position: relative;
+        padding: 0 0 0 91px;
+        margin: 0 0 40px;
+        border-bottom: 1px solid $clr-35;
+    }
+    .heading3{ margin: 0 0 15px; }
+    p{ margin: 0 0 15px; }
+    .quote{
+        @include font(19px, 30px);
+        color: $clr-17;
+        font-style: italic;
+        font-weight: 400;
+        border: none;
+        margin: 0 0 20px;
+        padding: 9px 8px 0 48px;
+        position: relative;
+        &:before{
+            position: absolute;
+            content: "\f10d";
+            font-family: "FontAwesome";
+            left: 0;
+            top: 13px;
+            font-style: normal;
+            @include font(27px, 30px);
+            color: $clr-7;
+        }
+        q{
+            display: block;
+            &:after,
+            &:before{ display: none; }
+        }
+    }
+    .img-holder2{
+        margin: 0 0 31px;
+        overflow: hidden;
+    }
+    .tags-list{
+        font: 16px/18px $heading-font-family-sans;
+        font-weight: 500;
+        overflow: hidden;
+        margin: 0 0 50px;
+        li{
+            float: left;
+            margin: 0 10px 0 0;
+            &:first-child{
+                a{
+                    cursor: text;
+                    color: $clr-1;
+                }
+            }
+        }
+        a{
+            color: $clr-7;
+            border: 1px solid $clr-34;
+            border-radius: 5px;
+            display: block;
+            padding: 9px 24px 10px 21px;
+        }
+    }
+    .social-network{
+        overflow: hidden;
+        margin: 0;
+        @include font(16px, 19px);
+        color: $clr-17;
+        width: 50px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+        li{
+            margin: 0 0 14px;
+            display: block;
+            text-transform: uppercase;
+        }
+        a{
+            color: $clr-37;
+            @include size(44px, 44px);
+            display: block;
+            padding: 10px;
+            border-radius: 100%;
+            border: 1px solid $clr-37;
+            transition: all 0.25s linear;
+            &:hover{
+                color: $white;
+                background: $clr-7;
+            }
+        }
+    }
+    .list-show{
+        @include font(14px, 17px);
+        color: $clr-7;
+        overflow: hidden;
+        margin: 0 0 18px;
+        padding: 0 0 0 3px;
+        li{
+            float: left;
+            margin: 0 20px 0 0;
+        }
+        a{
+            color: $clr-7;
+            display: block;
+            transition: all 0.25s linear;
+        }
+        .icon{
+            @include font(15px, 17px);
+            margin: 0 4px 0 0;
+        }
+    }
+    .footer{
+        overflow: hidden;
+        padding: 30px 10px 0 0;
+        margin: 0 0 48px;
+        .btn-primary{
+            float: left;
+            padding: 12px 46px;
+            border-radius: 5px;
+            &:hover{ background: $clr-9; }
+        }
+        .social-network{
+            float: right;
+            width: auto;
+            li{
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 0 0 5px;
+            }
+        }
+    }
+}
+/*------------------------------------------------------------------
+45. Comments Block / .comments-block
+-------------------------------------------------------------------*/
+.comments-block{
+    overflow: hidden;
+    padding: 4px 0 0 90px;
+    margin: 0 0 5px;
+    &.style2{ padding: 4px 0 0; }
+    .heading2{
+        color: $clr-1;
+        margin: 0 0 44px;
+    }
+    .commment-area{
+        overflow: hidden;
+        margin: 0 0 39px;
+        padding: 0 0 3px;
+        border-bottom: 1px solid $clr-35;
+        .img{
+            width: 12%;
+            float: left;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+        .txt-holder{
+            width: 88%;
+            padding: 7px 20px 34px 16px;
+            float: left;
+        }
+        p{ margin: 0; }
+        time{
+            @include font(15px, 18px);
+            font-weight: 400;
+            font-style: italic;
+            display: block;
+            color: $clr-6;
+        }
+    }
+    .commment-onelevel{
+        padding: 0 0 0 100px;
+        overflow: hidden;
+        .commment-area{
+            .img{ width: 15%; }
+            .txt-holder{
+                width: 85%;
+                padding: 7px 20px 34px 12px;
+            }
+        }
+    }
+}
+/*------------------------------------------------------------------
+46. Comments Form / .comments-form
+-------------------------------------------------------------------*/
+.comments-form{
+    overflow: hidden;
+    padding: 0 0 0 90px;
+    &.style2{ padding: 0; }
+    .heading2{
+        color: $clr-1;
+        margin: 0 0 44px;
+    }
+    .leave-form{
+        overflow: hidden;
+        padding: 0 10px 0 0;
+        .form-group{
+            overflow: hidden;
+            margin: 0 0 20px;
+        }
+        .col{
+            width: 50%;
+            float: left;
+            padding: 0 0 0 15px;
+            &:first-child{ padding: 0 15px 0 0; }
+        }
+        .form-control{
+            @include font(12px, 15px);
+            font-weight: 600;
+            color: $clr-6;
+            @include size(100%, 45px);
+            border: 1px solid $clr-36;
+            background: none;
+            box-shadow: none;
+            outline: none;
+            padding: 6px 20px;
+            text-transform: uppercase;
+            @include placeholder{ color: $clr-6; }
+        }
+        textarea{
+            @include font(12px, 15px);
+            font-weight: 600;
+            color: $clr-6;
+            width: 100%;
+            min-height: 195px;
+            border: 1px solid $clr-36;
+            background: none;
+            box-shadow: none;
+            outline: none;
+            resize: none;
+            padding: 14px 20px;
+            margin: 0 0 38px;
+            text-transform: uppercase;
+        }
+        .btn-primary{
+            border: none;
+            box-shadow: none;
+            outline: none;
+            padding: 14px 39px 14px 34px;
+            border-radius: 5px;
+            background: $clr-7;
+            transition: all 0.25s linear;
+        }
+    }
+}
+/*------------------------------------------------------------------
+47. Register holder / .register-holder
+-------------------------------------------------------------------*/
+.register-holder{
+    @extend %clearfix;
+    background: $clr-14;
+    padding: 60px 60px 63px 58px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+    .txt-holder{
+        @include font(16px, 26px);
+        color: $clr-6;
+        width: 41%;
+        float: left;
+        padding: 0 77px 0 0;
+        p{ margin: 0 0 35px; }
+    }
+    .img-holder{
+        width: 59%;
+        float: left;
+        padding: 3px 0 0;
+    }
+    .heading2{ margin: 0 0 8px; }
+    .register-form{
+        overflow: hidden;
+        padding: 0 0 0 2px;
+        margin: 0 0 29px;
+        .form-control{
+            @include font(11px, 14px);
+            color: $clr-15;
+            font-weight: 400;
+            text-transform: uppercase;
+            @include size(100%, 44px);
+            border: 1px solid $clr-4;
+            background: none;
+            box-shadow: none;
+            outline: none;
+            padding: 6px 24px;
+            margin: 0 0 20px;
+        }
+        .form-check{
+            @include font(13px, 15px);
+            color: $clr-5;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            margin: 0 0 28px;
+            padding: 7px 0 0;
+            input[type="checkbox"]{ margin: 4px 9px 0 0; }
+            a{
+                color: $clr-13;
+                transition: all 0.25s linear;
+            }
+        }
+        .btn-primary{
+            border: none;
+            box-shadow: none;
+            outline: none;
+            padding: 15px 42px;
+            border-radius: 5px;
+            background: $clr-7;
+        }
+    }
+    .btn-holder{ overflow: hidden; }
+    .google-btn{
+        @include font(12px, 14px);
+        color: $white;
+        font-weight: 400;
+        padding: 11px 13px 12px 14px;
+        float: left;
+        margin: 0 10px 0 0;
+        background: $clr-38;
+        .fa{
+            @include font(15px, 17px);
+            margin: 0 5px 0 0;
+        }
+    }
+    .fb-btn{
+        @include font(12px, 14px);
+        color: $white;
+        font-weight: 400;
+        padding: 11px 12px 12px 11px;
+        float: left;
+        margin: 0 10px 0 0;
+        background: $clr-39;
+        .fa{
+            @include font(15px, 17px);
+            margin: 0 5px 0 0;
+        }
+    }
+}
+/*------------------------------------------------------------------
+48. Contact Sec / .contact-sec
+-------------------------------------------------------------------*/
+.contact-sec{
+    overflow: hidden;
+    .coll{
+        width: 60%;
+        float: left;
+        padding-left: 38px;
+        &:first-child{ width: 40%; padding: 0 }
+        .contact-form{ width: 722px; }
+    }
+    .header{
+        @include font(18px, 22px);
+        font-weight: 300;
+        color: $clr-15;
+        overflow: hidden;
+        margin: 0 0 62px;
+    }
+    .heading{ margin: 0 0 18px; }
+    .contact-list{
+        @include font(15px, 17px);
+        color: $clr-15;
+        font-weight: 400;
+        width: 36.6%;
+        float: left;
+        overflow: hidden;
+        margin: 0;
+        padding: 2px 0 0;
+        &.v2{
+            width: 100%;
+            li{
+                width: 25%;
+                float: left;
+                margin: 0;
+            }
+            .align-left{ width: 78%; }
+        }
+        li{
+            overflow: hidden;
+            margin: 0 0 39px;
+        }
+        .icon{
+            @include font(25px, 25px);
+            color: $white;
+            float: left;
+            @include size(60px, 60px);
+            padding: 17px 10px 15px;
+            background: $clr-7;
+            text-align: center;
+        }
+        .align-left{
+            width: 80%;
+            float: left;
+            padding: 2px 0 0 21px;
+        }
+        .title{
+            @include font(20px, 24px);
+            font-weight: 500;
+            color: $clr-11;
+            display: block;
+            margin: 0 0 5px;
+        }
+        address{
+            margin: 0;
+            font-weight: normal;
+            font-style: normal;
+            line-height: 22px;
+        }
+        .tel,
+        .mail{
+            padding: 5px 0 0;
+            display: block;
+        }
+        a{
+            color: $clr-15;
+            display: block;
+            margin: 6px 0 0;
+            transition: all 0.25s linear;
+            &:first-child{ margin: 0; }
+        }
+    }
+    .contact-form{
+        overflow: hidden;
+        .form-group{
+            overflow: hidden;
+            margin: 0 0 28px;
+        }
+        .col{
+            width: 50%;
+            float: left;
+            padding: 0 0 0 15px;
+            &:first-child{ padding: 0 15px 0 0; }
+        }
+        label{
+            @include font(15px, 17px);
+            color: $clr-24;
+            font-weight: 400;
+            display: block;
+            margin: 0 0 13px;
+            .clr{
+                color: $clr-41;
+            }
+        }
+        .form-control{
+            @include font(12px, 15px);
+            font-weight: 600;
+            color: $clr-6;
+            @include size(100%, 45px);
+            border: none;
+            background: $clr-40;
+            box-shadow: none;
+            outline: none;
+            padding: 6px 15px;
+            @include placeholder{ color: $clr-6; }
+        }
+        textarea{
+           @include font(12px, 15px);
+            font-weight: 600;
+            color: $clr-6;
+            @include size(100%, 45px);
+            width: 100%;
+            min-height: 137px;
+            border: none;
+            background: $clr-40;
+            box-shadow: none;
+            outline: none;
+            resize: none;
+            padding: 6px 15px;
+            text-transform: uppercase;
+            @include placeholder{ color: $clr-6; }
+        }
+        .btn-primary{
+            border: none;
+            box-shadow: none;
+            outline: none;
+            padding: 16px 35px 17px 32px;
+            border-radius: 5px;
+            background: $clr-7;
+            margin: 5px 0 0;
+            transition: all 0.25s linear;
+            &:hover{ background: $clr-9; }
+        }
+    }
+}
+/*------------------------------------------------------------------
+49. Map Holder / .map-holder
+-------------------------------------------------------------------*/
+.map-holder{
+    overflow: hidden;
+    width: 100%;
+}
+.contact-list2{
+    @include font(15px, 17px);
+    color: $clr-15;
+    font-weight: 400;
+    padding: 60px 0;
+    background: $clr-43;
+    overflow: hidden;
+    margin: 0;
+    li{
+        width: 25%;
+        float: left;
+        text-align: center;
+    }
+    .icon{
+        @include font(40px, 44px);
+        display: block;
+        margin: 0 0 19px;
+    }
+    .title{
+        @include font(26px, 30px);
+        font-weight: 500;
+        color: $clr-11;
+        display: block;
+        margin: 0 0 8px;
+    }
+    address{
+        margin: 0;
+        font-weight: normal;
+        font-style: normal;
+        line-height: 25px;
+    }
+    .tel,
+    .mail{
+        margin: 0 0 5px;
+        display: block;
+    }
+    a{
+        color: $clr-15;
+        display: block;
+        padding: 6px 0 0;
+        transition: all 0.25s linear;
+    }
+    .txt{ display: block; padding: 6px 0 0; }
+}
+/*------------------------------------------------------------------
+50. Footer / #footer
+-------------------------------------------------------------------*/
+#footer{
+    overflow: hidden;
+    background: $clr-19;
+    &.footer2{
+        .footer-holder{
+            padding-top: 74px;
+        }
+        .col2{
+            width: 37.5%;
+            padding: 0 50px 0 71px;
+        }
+        .col3{ width: 17.4%; }
+    }
+    .footer-holder{
+        padding-top: 72px;
+        padding-bottom: 52px;
+        overflow: hidden;
+    }
+    .footer-area{
+        color: $white;
+        padding: 26px 0;
+        overflow: hidden;
+        background: $clr-22;
+        p{ margin: 0; }
+    }
+    .col1{
+        width: 16.7%;
+        float: left;
+    }
+    .col2{
+        width: 24%;
+        float: left;
+        padding: 0 0 0 69px;
+    }
+    .col3{
+        width: 31%;
+        float: left;
+        padding: 0 30px 0 0;
+    }
+    .col4{
+        width: 28.3%;
+        float: left;
+        padding: 0 0 0 5px;
+    }
+    h3{
+        @include font(15px, 20px);
+        color: $white;
+        font-weight: 600;
+        margin: 0 0 18px;
+        letter-spacing: 1px;
+    }
+    .contact-list{
+        overflow: hidden;
+        margin: 0;
+        padding: 0 0 0 4px;
+        li{
+            overflow: hidden;
+            padding: 13px 0;
+            border-top: 1px dashed $clr-20;
+            &:first-child{ padding: 0 0 13px; border-top: none; }
+        }
+        .icon{
+            @include font(25px, 25px);
+            color: $clr-20;
+            float: left;
+            margin: 6px 0 0;
+            &.icon-phone,
+            &.icon-email{ font-size: 16px; }
+        }
+        address{
+            float: left;
+            margin: 0;
+            width: 86%;
+            color: $clr-20;
+            padding: 0 0 0 10px;
+            font-weight: normal;
+            font-style: normal;
+        }
+        .tel,
+        .mail{
+            float: left;
+            padding: 0 0 0 10px;
+        }
+        a{
+            color: $clr-20;
+            display: block;
+        }
+    }
+    .f-nav{
+        @include font(15px, 17px);
+        color: $clr-20;
+        overflow: hidden;
+        margin: 0;
+        padding: 3px 0 0;
+        li{
+            overflow: hidden;
+            margin: 0 0 13px;
+        }
+        a{
+            color: $clr-20;
+            transition: all 0.25s linear;
+        }
+    }
+    .tags{
+        @include font(13px, 15px);
+        font-weight: 400;
+        overflow: hidden;
+        margin: 0 0 30px;
+        text-align: center;
+        padding: 6px 0 0;
+        li{
+            float: left;
+            margin: 0 6px 5px 0;
+        }
+        a{
+            border: 1px solid $clr-20;
+            color: $clr-20;
+            padding: 7px 14px;
+            display: block;
+            transition: all 0.25s linear;
+            &:hover{ color: $white; }
+        }
+    }
+    .socail-network{
+        @include font(15px, 17px);
+        overflow: hidden;
+        margin: 0;
+        text-align: center;
+        padding: 7px 0 0;
+        li{
+            float: left;
+            margin: 0 5px 0 0;
+        }
+        a{
+            @include size(38px, 38px);
+            border: 1px solid $clr-20;
+            color: $clr-20;
+            padding: 9px 5px;
+            display: block;
+            transition: all 0.25s linear;
+            &:hover{ color: $white; }
+        }
+    }
+    .recent-tweet{
+        overflow: hidden;
+        margin: 0;
+        li{
+            overflow: hidden;
+            padding: 23px 0;
+            border-top: 1px dashed $clr-20;
+            &:first-child{ padding: 0 0 25px; border-top: none; }
+        }
+        .icon{
+            @include font(22px, 25px);
+            color: $clr-20;
+            float: left;
+            width: 10%;
+        }
+        .txt-holder{
+            width: 90%;
+            float: left;
+            color: $clr-20;
+            line-height: 22px;
+            overflow: hidden;
+            padding: 1px 0 0 6px;
+        }
+        p{ margin: 0 0 10px; }
+        a{
+            color: $clr-20;
+            transition: all 0.25s linear;
+        }
+        time{
+            font-size: 13px;
+            color: $clr-21;
+            display: block;
+        }
+    }
+    .footer-nav{
+        overflow: hidden;
+        margin: 0;
+        text-align: right;
+        li{
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0 0 29px;
+        }
+        a{
+            color: $white;
+            display: block;
+            transition: all 0.25s linear;
+        }
+    }
+    .newsletter-form{
+        overflow: hidden;
+        margin: 0 0 36px;
+        padding: 8px 0 0;
+        .form-control{
+            font: 12px/14px $font-family-sans-serif;
+            color: $white;
+            font-weight: 400;
+            @include size(100%, 45px);
+            border: 1px solid $clr-20;
+            box-shadow: none;
+            outline: none;
+            background: none;
+            margin: 0 0 10px;
+            @include placeholder{ color: $white; }
+        }
+        .btn-primary{
+            font-family: $heading-font-family-sans;
+            display: block;
+            width: 100%;
+            padding: 13px 10px 15px;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background: $clr-7;
+        }
+    }
+}
+/*------------------------------------------------------------------
+51. Back Top / #back-top
+-------------------------------------------------------------------*/
+#back-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    @include font(18px, 20px);
+    color: $white;
+    cursor: pointer;
+    float: right;
+    @include size(50px, 50px);
+    padding: 14px 0;
+    z-index: 9;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.6s ease 0s;
+    background: $clr-1;
+    &.active{
+        opacity: 1;
+        visibility: visible;
+    }
+    &:hover{
+        color: $white;
+    }
+}
+/*------------------------------------------------------------------
+52. Loader Holder / .loader-holder
+-------------------------------------------------------------------*/
+.loader-holder {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  position: fixed;
+  background-color: rgba($white, 0.9);
+  .block {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+}
+.trending-coupon{
+    overflow: hidden;
+    .heading{ margin: 0 0 18px; }
+    .coupon-box{
+        overflow: hidden;
+        border: 1px solid $clr-27;
+        .img-holder{
+            width: 33%;
+            float: left;
+            img{ width: 100%; }
+        }
+        .txt-holder{
+            width: 67%;
+            float: left;
+            padding: 10px 10px 20px 20px;
+        }
+        .title{
+            font: 17px/20px $heading-font-family-sans;
+            color: $clr-11;
+            display: block;
+            padding: 16px 0 0;
+            margin: 0 0 27px;
+            img{
+                margin: -16px 0 0;
+                width: auto;
+            }
+        }
+        h3{
+            font: 21px/28px $heading-font-family-sans;
+            font-weight: 500;
+            color: $clr-11;
+            margin: 0 0 2px;
+        }
+        .btn-primary{
+            font-size: 13px;
+            padding: 11px 33px;
+            display: inline-block;
+            vertical-align: top;
+            margin: 0 0 5px;
+            &:hover{ background: $clr-9; }
+        }
+        .time{
+            font-size: 14px;
+            display: block;
+            color: $clr-13;
+            margin: 0 0 23px;
+        }
+    }
+}

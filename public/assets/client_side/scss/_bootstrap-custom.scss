@@ -1,0 +1,73 @@
+// custom variables and override bootstrap variables
+
+//== Colors
+$black:											#000;
+$white:											#fff;
+$clr-1:											#111111;
+$clr-2:											#eaebef;
+$clr-3:											#333333;
+$clr-4:											#d7d7d7;
+$clr-5:											#444444;
+$clr-6:											#777777;
+$clr-7:											#33b86c;
+$clr-8:											#ffb300;
+$clr-9:											#29b6f6;
+$clr-10:										#c0c0c0;
+$clr-11:										#101010;
+$clr-12:										#ececec;
+$clr-13:										#ff3300;
+$clr-14:										#f6f6f6;
+$clr-15:										#666666;
+$clr-16:										#d4d4d4;
+$clr-17:										#222222;
+$clr-18:										#c6c6c6;
+$clr-19:										#252525;
+$clr-20:										#8a8a8a;
+$clr-21:										#e1e1e1;
+$clr-22:										#1e1e1e;
+$clr-23:										#f2f2f2;
+$clr-24:										#949494;
+$clr-25:										#dbdbdb;
+$clr-26:										#cdcdcd;
+$clr-27:										#dadada;
+$clr-28:										#202020;
+$clr-29:										#e4e4e4;
+$clr-30:										#686868;
+$clr-31:										#d70f64;
+$clr-32:										#c8c8c8;
+$clr-33:										#e3e3e3;
+$clr-34:										#d2d2d2;
+$clr-35:										#e5e5e5;
+$clr-36:										#d3d3d3;
+$clr-37:										#bdbdbd;
+$clr-38:										#dd4c39;
+$clr-39:										#49639e;
+$clr-40:										#f5f5f5;
+$clr-41:										#ff3b3b;
+$clr-42:										#c9c9c9;
+$clr-43:										#f4f4f4;
+
+
+//== Scaffolding
+$text-color:									$clr-1;
+$link-color:									$black;
+
+//== Typography
+$font-family-sans-serif:						'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+$heading-font-family-sans:						'Poppins', "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-base:								14px;
+$line-height-base:								1.714;
+$headings-font-family:							$heading-font-family-sans;
+$headings-font-weight:							700;
+$headings-color:								$black;
+
+
+
+//== Forms
+$input-bg:										$black;
+$input-color:									$black;
+//$input-border:								$clr11;
+$input-border-radius:							0;
+//$input-border-focus:							$clr3;
+$input-color-placeholder:						$black;
+$form-group-margin-bottom:						16px;
