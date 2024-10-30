@@ -144,10 +144,8 @@ class PartnerController extends Controller
                     elseif (in_array($network, ['FREE SN', 'ORANGE CI', 'MOOV CI', 'WAVE CI', 'MOOV BF', 'ORANGE BF'])) {
                         $response = $skeleton->requestToPayWeb($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, "cancel_url", "return_url");
                         $reference = $response["reference"];
-                        $status = $skeleton->getPaiementStatus($reference);
 
                         $new_payment_info->reference = $reference;
-                        $new_payment_info->status = $status;
                         $new_payment_info->save();
 
                         return redirect($response["payment_url"]);

@@ -18,6 +18,6 @@ class ClientController extends Controller
             ->take(10)
             ->get();
 
-        return view('client_site.pages.home', compact('categories', 'partners', 'topPartners'));
+        return view('new_client_site.pages.home', compact('categories', 'partners', 'topPartners'));
     }
 }

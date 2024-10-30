@@ -9,6 +9,7 @@ use App\Http\Controllers\BackOffice\ReclamationController;
 use App\Http\Controllers\BackOffice\ShippingController;
 use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,9 @@ Route::name('client.')->group(function () {
         Route::post('/reclamation/store', [ReclamationController::class, 'store'])->name('reclamation.store');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     });
+
+
+    Route::get('/storage/{filename}', [ImageController::class, 'showImage'])->name('image.show');
 });
 
 

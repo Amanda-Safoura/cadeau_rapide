@@ -9,10 +9,15 @@
             @method('PATCH')
             @csrf
             <div class="mb-3 custom-form-input">
-                <label for="nameEdit" class="form-label">Nom</label>
-                <input type="text" id="nameEdit" class="form-control" name="name"
-                    placeholder="Entrez son titre">
+                <label for="nameEdit" class="form-label">Nom <span class="text-danger">*</span></label>
+                <input type="text" id="nameEdit" class="form-control" name="name" placeholder="Entrez son titre">
                 <div class="alert alert-danger" error-input="name"></div>
+            </div>
+
+            <div class="mb-3 custom-form-input">
+                <label for="short_descriptionEdit" class="form-label">Description Courte</label>
+                <textarea class="form-control" name="short_description" id="short_descriptionEdit" rows="3"></textarea>
+                <div class="alert alert-danger d-none" error-input="name"></div>
             </div>
 
             <button type="submit" class="w-100 btn btn-primary btn-rounded mt-3">Créer</button>

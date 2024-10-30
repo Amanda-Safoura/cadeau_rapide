@@ -33,6 +33,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nom</th>
+                                                <th>Description Courte</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -108,6 +109,17 @@
                     data: 'name'
                 },
                 {
+                    data: 'short_description',
+                    render: function(data, type, full, meta) {
+                        return name = typeof(data) == 'string' ?
+                            (data.length > 40 ?
+                                data.slice(0, 40) + '...' :
+                                data
+                            ) :
+                            'N/A'
+                    }
+                },
+                {
                     data: null,
                     render: function(data, type, full, meta) {
                         return `
@@ -173,7 +185,7 @@
                     },
                     error: function(response) {
                         for (const [key, value] of Object.entries(response.responseJSON[
-                            'errors'])) {
+                                'errors'])) {
                             $(`div[error-input="${key}"]`).html(value.join('<br>')).removeClass(
                                 'd-none')
                         }
@@ -211,7 +223,7 @@
             $('#editPartnerCategoryForm div.alert').addClass('d-none')
 
             $("#editPartnerCategoryForm").find('input[name="name"]').val(rowData.name)
-            $("#editPartnerCategoryForm").find('textarea[name="description"]').val(rowData.description)
+            $("#editPartnerCategoryForm").find('textarea[name="short_description"]').val(rowData.short_description)
         })
 
         // Validation client du formulaire d'édition
@@ -250,7 +262,7 @@
                     },
                     error: function(response) {
                         for (const [key, value] of Object.entries(response.responseJSON[
-                            'errors'])) {
+                                'errors'])) {
                             $(`div[error-input="${key}"]`).html(value.join('<br>')).removeClass(
                                 'd-none')
                         }

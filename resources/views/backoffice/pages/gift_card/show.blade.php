@@ -87,8 +87,8 @@
             <div class="card-body">
                 <p><strong>Méthode de Paiement :</strong>
                     {{ $gift_card->paymentInfo->payment_network ? 'Mobile Money' : 'Carte Bancaire' }}</p>
-                <p><strong>Numéro de Transaction :</strong> {{ $gift_card->paymentInfo->reference }}</p>
                 @if ($gift_card->paymentInfo->payment_network)
+                    <p><strong>Numéro de Transaction :</strong> {{ $gift_card->paymentInfo->reference }}</p>
                     <p><strong>Réseau de Paiement:</strong> {{ $gift_card->paymentInfo->payment_network }}</p>
                     <p><strong>Numéro de Téléphone de Paiement:</strong> {{ $gift_card->paymentInfo->payment_phone }}</p>
                 @else

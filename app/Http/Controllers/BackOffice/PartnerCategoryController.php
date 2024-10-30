@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePartnerCategoryRequest;
+use App\Http\Requests\UpdatePartnerCategoryRequest;
 use App\Models\PartnerCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class PartnerCategoryController extends Controller
 {
@@ -34,19 +37,9 @@ class PartnerCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePartnerCategoryRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:100|unique:partner_categories,name',
-        ]);
-
-        if ($validator->fails())
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-
-
-        $newest = PartnerCategory::create(['name' => $validator->validated()['name']]);
+        $newest = PartnerCategory::create($request->validated());
         if ($newest) {
             return response()->json(['message' => 'Catégorie créé avec succès'], 200);
         } else {
@@ -73,19 +66,9 @@ class PartnerCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PartnerCategory $partner_category)
+    public function update(UpdatePartnerCategoryRequest $request, PartnerCategory $partner_category)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:100|unique:partner_categories,name',
-        ]);
-
-        if ($validator->fails())
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-
-
-        if ($partner_category->update(['name' => $validator->validated()['name']])) {
+        if ($partner_category->update($request->validated())) {
             return response()->json([
                 'message' => 'Catégorie modifié avec succès',
             ], 200);
