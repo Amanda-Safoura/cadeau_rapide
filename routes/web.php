@@ -11,6 +11,7 @@ use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
+use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Route;
 

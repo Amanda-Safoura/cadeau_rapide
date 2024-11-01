@@ -15,6 +15,7 @@
             <div class="card-body">
                 <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
                 <p><strong>Message Personnel :</strong> {{ $gift_card->personal_message }}</p>
+                <p><strong>Partenaire :</strong> {{ $gift_card->partner->name }}</p>
                 <p><strong>Catégorie :</strong> {{ $gift_card->partner->category->name }}</p>
             </div>
         </div>

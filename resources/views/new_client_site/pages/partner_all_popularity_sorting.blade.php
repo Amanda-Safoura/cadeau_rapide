@@ -99,7 +99,7 @@
                                         </a>
                                         <div class="rating">
                                         </div>
-                                        <div class="status-tag bg-color-blue">
+                                        <div class="status-tag bg-dark-orange">
                                             <a
                                                 href="{{ route('client.partner.category', ['name' => $partner->category->name]) }}">
                                                 <h3>{{ $partner->category->name }}</h3>

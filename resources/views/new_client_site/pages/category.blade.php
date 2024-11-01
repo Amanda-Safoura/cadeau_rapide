@@ -71,7 +71,7 @@
                                         <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 750, 'fit' => 'crop']) }}"
                                             alt="Images">
                                     </a>
-                                    <div class="status-tag bg-color-blue">
+                                    <div class="status-tag bg-dark-orange">
                                         <a
                                             href="{{ route('client.partner.category', ['name' => $partner->category->name]) }}">
                                             <h3>{{ $partner->category->name }}</h3>

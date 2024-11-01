@@ -98,8 +98,9 @@
                 </div>
 
                 <div class="search-form">
-                    <form>
-                        <input type="text" class="input-search" placeholder="Search here...">
+                    <form action="{{ route('client.partner.search') }}" method="get">
+                        @csrf
+                        <input name="search" type="text" class="input-search" placeholder="Mot-Clé . . .">
                         <button type="submit"><i class="flaticon-loupe"></i></button>
                     </form>
                 </div>

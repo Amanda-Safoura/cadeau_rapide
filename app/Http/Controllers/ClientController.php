@@ -12,8 +12,10 @@ class ClientController extends Controller
     public function home()
     {
         $categories = PartnerCategory::all();
-        $partners = Partner::with('category')->get();
-        $topPartners = Partner::withCount('giftCards')
+        $partners = Partner::where('suspended', false)
+            ->with('category')->get();
+        $topPartners = Partner::where('suspended', false)
+            ->withCount('giftCards')
             ->orderBy('gift_cards_count', 'desc')
             ->take(9)
             ->get();

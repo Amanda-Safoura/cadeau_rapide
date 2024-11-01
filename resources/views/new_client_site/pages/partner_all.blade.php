@@ -137,7 +137,7 @@
                                             </a>
                                             <div class="rating">
                                             </div>
-                                            <div class="status-tag bg-color-blue">
+                                            <div class="status-tag bg-dark-orange">
                                                 <a
                                                     href="{{ route('client.partner.category', ['name' => $oneLetterPartner->category->name]) }}">
                                                     <h3>{{ $oneLetterPartner->category->name }}</h3>

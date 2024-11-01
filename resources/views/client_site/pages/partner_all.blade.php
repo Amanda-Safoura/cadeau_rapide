@@ -12,7 +12,7 @@
                     <div class="col-xs-12 text-center">
                         <h2>Search Over 5000+ Coupons & Deals</h2>
                         <span class="txt">More than 3000 Stores in One Place</span>
-                        <form action="{{ route('client.partner.search') }}" method="POST" class="search-form md-round">
+                        <form action="{{ route('client.partner.search') }}" method="get" class="search-form md-round">
                             @csrf
                             <fieldset>
                                 <input name="search" type="search" class="form-control" placeholder="Mot-Clé . . .">

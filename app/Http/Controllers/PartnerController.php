@@ -17,7 +17,9 @@ class PartnerController extends Controller
     public function index()
     {
         $categories = PartnerCategory::all();
-        $partners = Partner::orderBy('name')->paginate(20);
+        $partners = Partner::where('suspended', false)
+            ->orderBy('name')
+            ->paginate(20);
         $groupedPartners = $partners->groupBy(function ($partner) {
             return strtoupper(substr($partner->name, 0, 1));
         });
@@ -28,7 +30,8 @@ class PartnerController extends Controller
     public function index_popularity_sorting()
     {
         $categories = PartnerCategory::all();
-        $partners = Partner::withCount('giftCards')
+        $partners = Partner::where('suspended', false)
+            ->withCount('giftCards')
             ->orderBy('gift_cards_count', 'desc')
             ->paginate(20);
         return view('new_client_site.pages.partner_all_popularity_sorting', compact('categories', 'partners'));
@@ -36,7 +39,9 @@ class PartnerController extends Controller
 
     public function resultByLetter($letter)
     {
-        $partners = Partner::where('name', 'like', "{$letter}%")->paginate(9);
+        $partners = Partner::where('suspended', false)
+            ->where('name', 'like', "{$letter}%")
+            ->paginate(9);
         $categories = PartnerCategory::all();
 
         return view('new_client_site.pages.partner_alphabetical_result', compact('partners', 'categories', 'letter'));
@@ -46,8 +51,11 @@ class PartnerController extends Controller
     {
         $category = PartnerCategory::where('name', $name)->firstOrFail();
 
-        if ($request->input('sortBy') !== 'popularity') $partners = Partner::where('category_id', $category->id)->paginate(9);
-        else $partners = Partner::withCount('giftCards')
+        if ($request->input('sortBy') !== 'popularity') $partners = Partner::where('suspended', false)
+            ->where('category_id', $category->id)
+            ->paginate(9);
+        else $partners = Partner::where('suspended', false)
+            ->withCount('giftCards')
             ->orderBy('gift_cards_count', 'desc')
             ->paginate(9);
 
@@ -64,6 +72,7 @@ class PartnerController extends Controller
             ->orWhereHas('category', function ($query) use ($keyword) {
                 $query->where('name', 'like', "%{$keyword}%");
             })
+            ->where('suspended', false)
             ->paginate(9);
         $categories = PartnerCategory::all();
 
@@ -72,7 +81,9 @@ class PartnerController extends Controller
 
     public function profile($partner_name)
     {
-        $partner = Partner::where('name', $partner_name)->firstOrFail();
+        $partner = Partner::where('suspended', false)
+            ->where('name', $partner_name)
+            ->firstOrFail();
         $categories = PartnerCategory::all();
 
         return view('new_client_site.pages.partner_show', compact('partner', 'categories'));
