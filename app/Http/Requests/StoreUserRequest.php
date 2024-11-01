@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StoreUserRequest extends FormRequest
 {
@@ -26,14 +27,6 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string',
-            'terms_conditions' => 'bail|required|boolean',
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        return $this->merge([
-            'terms_conditions' => (bool)$this->input('terms_conditions')
-        ]);
     }
 }

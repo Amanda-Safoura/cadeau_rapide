@@ -27,11 +27,11 @@ Default CSS
 :root {
   --fontFamily: "Poppins", sans-serif;
   --sub-fontFamily: "Ink Free";
-  --mainColor: #f14300;
-  --paragraphColor: #8c8c8c;
+  --mainColor: #e7b50a;
+  --paragraphColor: #6D696A;
   --whiteColor: #ffffff;
   --titleColor: #2a2a2a;
-  --optionalColor: #ffc0a7;
+  --optionalColor: #4674bd;
   --fontSize: 16px;
   --transition: .5s;
 }
@@ -2205,7 +2205,7 @@ Place List Area
 }
 .listing-right-form .form-group .form-control:focus {
   outline: none;
-  border-color: #ffc0a7;
+  border-color: #4674bd;
   box-shadow: none;
 }
 .listing-right-form .nice-select {
@@ -2756,7 +2756,7 @@ Counter Area
   right: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(#f14300, #ababab);
+  background-image: linear-gradient(#e7b50a, #ababab);
   opacity: 0.2;
 }
 
@@ -3657,7 +3657,7 @@ Listing Details Area
 }
 .listing-Booking-form .form-group .form-control:focus {
   outline: none;
-  border-color: #ffc0a7;
+  border-color: #4674bd;
   box-shadow: none;
 }
 .listing-Booking-form .form-group textarea.form-control {
@@ -6280,7 +6280,7 @@ Contact Area
 }
 .contact-form .form-group .form-control:focus {
   outline: none;
-  border-color: #ffc0a7;
+  border-color: #E2DADB;
   box-shadow: none;
 }
 .contact-form .form-group textarea.form-control {

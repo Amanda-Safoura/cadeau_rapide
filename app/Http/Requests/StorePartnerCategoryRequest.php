@@ -23,6 +23,7 @@ class StorePartnerCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100|unique:partner_categories,name',
+            'icon' => 'required|string|max:100',
             'short_description' => 'nullable|string|max:255|unique:partner_categories,short_description',
         ];
     }

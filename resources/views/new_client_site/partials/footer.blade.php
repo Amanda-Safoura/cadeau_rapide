@@ -130,7 +130,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-8">
                 <div class="copy-right-text">
-                    <p>©️ 2024 - Tous droits réservés - Réalisé par Special Touch</a>
+                    <p>©️ 2024 - Tous droits réservés - Réalisé par Special Touch
                     </p>
                 </div>
             </div>

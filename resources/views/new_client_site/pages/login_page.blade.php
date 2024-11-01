@@ -1,63 +1,147 @@
-@extends('new_client_site.layouts.main')
+<!DOCTYPE html>
+<html lang="fr">
 
-@section('title', 'Login')
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-@section('content')
-    <section class="banner banner3 bg-full overlay"
-        style="background-image: url({{ asset('assets/backoffice/img/photos/unsplash-1.jpg') }});">
-        <div class="holder">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <h1>Login</h1>
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/bootstrap.min.css') }}">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/fonts/flaticon.css') }}">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/boxicons.min.css') }}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/style.css') }}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/responsive.css') }}">
+    <!-- Theme Dark CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/theme-dark.css') }}">
+
+
+    <title>Cadeau Rapide | Se connecter</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+</head>
+
+<body>
+    <div class="user-area">
+        <div class="container-fluid m-0">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-7 col-xl-6  p-0">
+                    <div class="user-img">
+                        <img src="{{ asset('assets/new_client_side/img/login-img.jpg') }}" alt="Images">
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <div class="twocolumns pad-top-lg pad-bottom-lg">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <!-- Login holder of the page -->
-                    <div class="register-holder">
-                        <div class="txt-holder">
-                            <h3 class="heading2">Login Now</h3>
-                            <p>Fill the forum to confirm your registration</p>
-                            <form action="{{ route('client.login') }}" method="POST" class="register-form">
-                                @csrf
-                                <fieldset>
-                                    <input type="email" class="form-control" placeholder="Email Address *" name="email"
-                                        style="text-transform: lowercase;">
-                                    <input type="password" class="form-control" placeholder="Password *" name="password">
-                                    <div class="form-check">
-                                        <input type="checkbox" name="remember">Remember Me
-                                    </div>
-                                    @error('general')
-                                        <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                    @enderror
-                                    <button type="submit" class="btn-primary text-center text-uppercase">Login
-                                        Now</button>
-                                </fieldset>
-                            </form>
-                            <div class="btn-holder">
 
-                                <p> Vous n'avez pas de compte ? <a href="{{ route('client.register_page') }}"
-                                        class="clr">Cliquez ici</p>
-                                <a href="#" class="google-btn"><i class="fa fa-google-plus"></i> Sign in with
-                                    Google</a>
-                                <a href="#" class="fb-btn"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
-                            </div>
+                <div class="col-lg-5 col-xl-6">
+                    <div class="user-section text-center">
+                        <div class="user-content" style="margin-bottom: 0 !important">
+                            <a href="{{ route('client.home') }}"><img
+                                    src="{{ asset('assets/LOGO CADEAURAPIDE-512x512.png') }}"
+                                    alt="logo CADEAURAPIDE"></a>
                         </div>
-                        <div class="img-holder">
-                            <img src="{{ asset('assets/backoffice/img/photos/unsplash-2.jpg') }}" alt="login"
-                                class="img-responsive">
+                        <div class="tab user-tab">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12 col-md-12">
+                                    <ul class="tabs">
+                                        <li class="current">
+                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i> Login</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="tab_content current active">
+                                        <div class="tabs_item">
+                                            <div class="user-all-form">
+                                                <div class="contact-form">
+                                                    <form id="contactForm" action="{{ route('client.login') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-lg-12 ">
+                                                                <div class="form-group">
+                                                                    <i class="bx bx-user"></i>
+                                                                    <input type="text" name="email" id="email"
+                                                                        class="form-control" required=""
+                                                                        data-error="Please enter your Email"
+                                                                        placeholder="Email">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <i class="bx bx-lock-alt"></i>
+                                                                    <input class="form-control" type="password"
+                                                                        name="password" placeholder="Password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                @error('general')
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 text-center">
+                                                                <button type="submit"
+                                                                    class="default-btn user-all-btn disabled">
+                                                                    Login
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-sm-6 form-condition">
+                                                                <div class="agree-label">
+                                                                    <input type="checkbox" id="remember"
+                                                                        name="remember">
+                                                                    <label for="remember">
+                                                                        Remember Me
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-sm-6">
+                                                                <a class="forget" href="recover-password.html">Forgot my
+                                                                    password?</a>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <p class="account-desc">
+                                                                    Vous navez pas encore de compte?
+                                                                    <a href="{{ route('client.register') }}">Créez-en
+                                                                        un</a>
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                    <div class="social-option">
+                                                        <h3>Or Login With</h3>
+                                                        <ul>
+                                                            <li><a href="#">Facebook</a></li>
+                                                            <li><a href="#">Google</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+
+    <!-- Jquery Min JS -->
+    <script src="{{ asset('assets/new_client_side/js/jquery.min.js') }}"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="{{ asset('assets/new_client_side/js/bootstrap.bundle.min.js') }}"></script>
+</body>
+
+</html>

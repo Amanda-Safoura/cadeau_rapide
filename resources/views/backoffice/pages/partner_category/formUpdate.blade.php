@@ -15,6 +15,16 @@
             </div>
 
             <div class="mb-3 custom-form-input">
+                <label for="iconEdit" class="form-label">Icône <span class="text-danger">*</span></label>
+                <input type="text" id="iconEdit" class="form-control" name="icon"
+                    placeholder="Entrez l'icône de cette catégorie">
+                <p class="form-text text-muted">Vous disposez des icones de Boxicons et FontAwesome. Entrez quelque chose comme
+                    ceci : fa fa-user dans le champ.</p>
+        
+                <div class="alert alert-danger d-none" error-input="icon"></div>
+            </div>
+        
+            <div class="mb-3 custom-form-input">
                 <label for="short_descriptionEdit" class="form-label">Description Courte</label>
                 <textarea class="form-control" name="short_description" id="short_descriptionEdit" rows="3"></textarea>
                 <div class="alert alert-danger d-none" error-input="name"></div>

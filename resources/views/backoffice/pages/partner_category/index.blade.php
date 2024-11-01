@@ -32,6 +32,7 @@
                                         cellspacing="0" style="width:100%">
                                         <thead>
                                             <tr>
+                                                <th>Icone</th>
                                                 <th>Nom</th>
                                                 <th>Description Courte</th>
                                                 <th>Actions</th>
@@ -106,6 +107,12 @@
         let table = $('#editableTable').DataTable({
             ajax: FETCHDATAURL, // Endpoint pour récupérer les données
             columns: [{
+                    data: 'icon',
+                    render: function(data, type, full, meta) {
+                        return `<div class="text-center"><i class="${data}"></i></div>`
+                    }
+                },
+                {
                     data: 'name'
                 },
                 {
@@ -152,13 +159,23 @@
         // Validation client du formulaire d'ajout
         $("#addPartnerCategoryForm").validate({
             rules: {
+                icon: {
+                    required: true,
+                    maxlength: 100
+                },
                 name: {
-                    required: true
+                    required: true,
+                    maxlength: 100
                 }
             },
             messages: {
+                icon: {
+                    required: "L'icône de la catégorie est obligatoire.",
+                    maxlength: "L'icône de la catégorie ne peut pas dépasser les 100 caractères."
+                },
                 name: {
-                    required: "Le nom de la catégorie est obligatoire."
+                    required: "Le nom de la catégorie est obligatoire.",
+                    maxlength: "Le nom de la catégorie ne peut pas dépasser les 100 caractères."
                 }
             },
             // Ajouter dynamiquement une nouvelle ligne
@@ -222,6 +239,7 @@
             $('#editPartnerCategoryForm').trigger('reset')
             $('#editPartnerCategoryForm div.alert').addClass('d-none')
 
+            $("#editPartnerCategoryForm").find('input[name="icon"]').val(rowData.icon)
             $("#editPartnerCategoryForm").find('input[name="name"]').val(rowData.name)
             $("#editPartnerCategoryForm").find('textarea[name="short_description"]').val(rowData.short_description)
         })
@@ -229,13 +247,23 @@
         // Validation client du formulaire d'édition
         $("#editPartnerCategoryForm").validate({
             rules: {
+                icon: {
+                    required: true,
+                    maxlength: 100
+                },
                 name: {
-                    required: true
+                    required: true,
+                    maxlength: 100
                 }
             },
             messages: {
+                icon: {
+                    required: "L'icône de la catégorie est obligatoire.",
+                    maxlength: "L'icône de la catégorie ne peut pas dépasser les 100 caractères."
+                },
                 name: {
-                    required: "Le nom de la catégorie est obligatoire."
+                    required: "Le nom de la catégorie est obligatoire.",
+                    maxlength: "Le nom de la catégorie ne peut pas dépasser les 100 caractères."
                 }
             },
             // Ajouter dynamiquement une nouvelle ligne

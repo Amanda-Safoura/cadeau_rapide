@@ -112,13 +112,13 @@
 
             <div class="row category-bg">
                 @foreach ($categories as $category)
-                    <div class="col-lg-4 col-sm-6">
+                    <div class="col-lg-2 col-sm-3">
                         <div class="category-card">
                             <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
-                                <i class="flaticon-bake"></i>
+                                <i class="{{ $category->icon }}"></i>
                             </a>
 
-                            <a href="category.html">
+                            <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
                                 <h3>{{ $category->name }}</h3>
                             </a>
                             <p>{{ $category->short_description }}</p>
@@ -254,15 +254,13 @@
                 @foreach ($topPartners as $partner)
                     <div class="col-lg-4 col-md-6">
                         <div class="place-card">
-                            <a href="{{ route('client.partner.category', ['name' => $partner->category->name]) }}"
+                            <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}"
                                 class="place-images">
-                                <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_3), 'w' => 550, 'h' => 780, 'fit' => 'crop']) }}"
+                                <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 780, 'fit' => 'crop']) }}"
                                     alt="{{ $partner->name }}">
                             </a>
-                            <div class="rating">
-                            </div>
                             <div class="status-tag bg-dark-orange">
-                                <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
+                                <a href="{{ route('client.partner.category', ['name' => $partner->category->name]) }}">
                                     <h3>{{ $partner->category->name }}</h3>
                                 </a>
                             </div>
@@ -270,36 +268,34 @@
                                 <div class="content-profile">
                                     <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_1), 'w' => 35, 'h' => 35, 'fit' => 'crop']) }}"
                                         alt="Images">
-                                    <h3>{{ $partner->name }}</h3>
+                                    <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
+                                        <h3>{{ $partner->name }}</h3>
+                                    </a>
                                 </div>
                                 <span>
                                     <i class="flaticon-cursor"></i>
                                     {{ $partner->address ? $partner->address : 'Non spécifié' }}
                                 </span>
-                                <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
-                                    <h3>{{ $partner->short_description }} </h3>
-                                </a>
+                                @if ($partner->short_description)
+                                    <br>
+                                    <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
+                                        <h3>{{ $partner->short_description }} </h3>
+                                    </a>
+                                @endif
                                 <p>{{ substr($partner->description, 0, 120) }}</p>
+
                                 <div class="content-tag">
                                     <ul>
-                                        <li>
-                                            <a href="https://www.google.com/maps">
-                                                <i class="flaticon-place"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-details.html">
-                                                <i class="flaticon-like"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="shop.html">
-                                                <i class="flaticon-workflow"></i>
-                                            </a>
-                                        </li>
+                                        @php
+                                            $tags = explode(', ', $partner->tags);
+                                        @endphp
+                                        @for ($i = 0; $i < 3; $i++)
+                                            <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
+                                        @endfor
                                     </ul>
-                                    <h3 class="price"> <a href="#">À partir de: {{ $partner->min_amount }}
-                                            XOF</a></h3>
+                                    <h3 class="price"><a href="#">À
+                                            partir de: {{ number_format($partner->min_amount, 0, '', ' ') }}XOF</a>
+                                    </h3>
                                 </div>
                             </div>
                         </div>
@@ -316,7 +312,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5">
                     <div class="application-img">
-                        <img src="assets/img/mobile.png" alt="Images">
+                        <img src="{{ asset('assets/new_client_side/img/mobile.png') }}" alt="Images">
                     </div>
                 </div>
                 <div class="col-lg-7">

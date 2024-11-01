@@ -3,7 +3,19 @@
 @section('title', 'Formulaire de Commande')
 
 @section('additionnal_css')
+    <link rel="stylesheet" href="{{ asset('assets/client_side/plugins/bs-stepper/css/bs-stepper.css') }}">
     <style>
+        .bs-stepper .step-trigger {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bs-stepper .bs-stepper-circle {
+            margin-bottom: 0.5rem;
+            /* Espace entre le cercle et le label */
+        }
+
         /* Styles pour le modal personnalisé */
         .modal {
             display: none;
@@ -80,532 +92,545 @@
             cursor: pointer;
         }
 
-        .stepwizard-step p {
-            margin-top: 0px;
-            color: #666;
-        }
-
-        .stepwizard-row {
-            display: table-row;
-        }
-
-        .stepwizard {
-            display: table;
-            width: 100%;
-            position: relative;
-        }
-
-        .stepwizard-step button[disabled] {
-            /*opacity: 1 !important;
-                                    filter: alpha(opacity=100) !important;*/
-        }
-
-        .stepwizard .btn.disabled,
-        .stepwizard .btn[disabled],
-        .stepwizard fieldset[disabled] .btn {
-            opacity: 1 !important;
-            color: #bbb;
-        }
-
-        .stepwizard-row:before {
-            top: 14px;
-            bottom: 0;
-            position: absolute;
-            content: " ";
-            width: 100%;
-            height: 1px;
-            background-color: #ccc;
-            z-index: 0;
-        }
-
-        .stepwizard-step {
-            display: table-cell;
-            text-align: center;
-            position: relative;
-        }
-
-        .btn-circle {
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            padding: 6px 0;
-            font-size: 12px;
-            line-height: 1.428571429;
-            border-radius: 15px;
-        }
-
-        .form-control {
-            background-color: #f7f7f7
-        }
     </style>
 @endsection
 
 @section('content')
 
-    <section class="banner banner3 bg-full overlay"
-        style="background-image: url({{ asset('assets/backoffice/img/photos/unsplash-1.jpg') }});">
-        <div class="holder">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 text-center">
-                        <h1>Formulaire de Commande</h1>
-                    </div>
-                </div>
+    <!-- Inner Banner -->
+    <div class="inner-banner inner-bg3">
+        <div class="container">
+            <div class="inner-banner-title text-center">
+                <h3>Formulaire de commande</h3>
+                <p>{{ $partner->name }}</p>
+            </div>
+
+            <div class="banner-list">
             </div>
         </div>
-    </section>
+    </div>
+    <!-- Inner Banner End -->
 
-    <div class="container">
-        <div class="container pad-top-lg pad-bottom-lg">
+    <div class="contact-area">
+        <div class="container">
+            <div class="contact-max">
+                <div class="row justify-content-center">
+                    <div id="stepper" class="bs-stepper">
+                        <div class="bs-stepper-header d-flex justify-content-between" role="tablist">
+                            <div class="step" data-target="#step1">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">1</span>
+                                    <span class="bs-stepper-label">Chèque Cadeau</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step2">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Client</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step3">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">3</span>
+                                    <span class="bs-stepper-label">Bénéficiaire</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step4">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">4</span>
+                                    <span class="bs-stepper-label">Personnalisation</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step5">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">5</span>
+                                    <span class="bs-stepper-label">Livraison</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step6">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">6</span>
+                                    <span class="bs-stepper-label">Récapitulatif</span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#step7">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-circle">7</span>
+                                    <span class="bs-stepper-label">Paiement</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bs-stepper-content">
+                            <form id="giftCardForm" action="{{ route('client.order.store') }}" method="POST">
+                                @csrf
 
-            <div class="stepwizard">
-                <div class="stepwizard-row setup-panel" style="display: flex; justify-content:center">
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-1" type="button" class="btn btn-success btn-circle">1</a>
-                        <p><small>Chèque Cadeau</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                        <p><small>Client</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                        <p><small>Bénéficiaire</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-                        <p><small>Personnalisation</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-                        <p><small>Livraison</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-                        <p><small>Récapitulatif</small></p>
-                    </div>
-                    <div class="stepwizard-step col-xs-1">
-                        <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-                        <p><small>Paiement</small></p>
+                                <input type="hidden" name="partner_id" value="{{ $partner->id }}">
+                                <!-- Étape 1 : Informations du Chèque Cadeau -->
+                                <div class="content" id="step1">
+                                    <h2 class="text-center">Étape 1 : Informations du Chèque Cadeau</h2>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="amount">Montant du Chèque Cadeau</label>
+                                        <input id="amount" type="number" class="form-control" name="amount"
+                                            value="{{ old('amount') }}" placeholder="Entrez le montant" required>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('amount')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="personal_message">Message Personnel
+                                            (facultatif)</label>
+                                        <textarea id="personal_message" class="form-control" name="personal_message" value="{{ old('personal_message') }}"
+                                            placeholder="Votre message"></textarea>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('personal_message')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant</button>
+                                </div>
+
+                                <!-- Étape 2 : Détails du Client -->
+                                <div class="content" id="step2">
+                                    <h2 class="text-center">Étape 2 : Détails du Client</h2>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="client_name">Nom du Client</label>
+                                        <input id="client_name" type="text" name="client_name"
+                                            value="{{ old('client_name', auth()->user()->name) }}" class="form-control"
+                                            required>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('client_name')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="client_email">Email du Client</label>
+                                        <input id="client_email" type="email" name="client_email"
+                                            value="{{ old('client_email', auth()->user()->email) }}" class="form-control"
+                                            required>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('client_email')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="client_phone">Numéro de Téléphone</label>
+                                        <input id="client_phone" type="text" name="client_phone"
+                                            value="{{ old('client_phone') }}" class="form-control" required>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('client_phone')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-secondary me-3"
+                                        onclick="previousStep()">Précédent</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant</button>
+                                </div>
+
+                                <!-- Étape 3 : Définir le Bénéficiaire -->
+                                <div class="content" id="step3">
+                                    <h2 class="text-center">Étape 3 : Définir le Bénéficiaire</h2>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label">Êtes-vous le Bénéficiaire du Chèque Cadeau ?</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input id="is_client_beneficiary_1" type="radio" class="form-check-input"
+                                                name="is_client_beneficiary" @checked(old('is_client_beneficiary') === '1' || !old('is_client_beneficiary'))
+                                                onclick="toggleBeneficiary(false)" value="1">
+                                            <label for="is_client_beneficiary_1" class="form-check-label">Oui
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input id="is_client_beneficiary_0" type="radio" class="form-check-input"
+                                                name="is_client_beneficiary" @checked(old('is_client_beneficiary') === '0')
+                                                onclick="toggleBeneficiary(true)" value="0">
+                                            <label for="is_client_beneficiary_0" class="form-check-label">Non
+                                            </label>
+                                        </div>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('is_client_beneficiary')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div id="beneficiaryFields" style="display: none;">
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="beneficiary_name">Nom du Bénéficiaire</label>
+                                            <input id="beneficiary_name" type="text" name="beneficiary_name"
+                                                value="{{ old('beneficiary_name') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('beneficiary_name')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="beneficiary_email">Email du Bénéficiaire
+                                                (facultatif)</label>
+                                            <input id="beneficiary_email" type="email" name="beneficiary_email"
+                                                value="{{ old('beneficiary_email') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('beneficiary_email')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="beneficiary_phone">Numéro de Téléphone du
+                                                Bénéficiaire</label>
+                                            <input id="beneficiary_phone" type="text" name="beneficiary_phone"
+                                                value="{{ old('beneficiary_phone') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('beneficiary_phone')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-secondary me-3"
+                                        onclick="previousStep()">Précédent</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant</button>
+                                </div>
+
+                                <!-- Étape 4 : Personnalisation -->
+                                <div class="content" id="step4">
+                                    <h2 class="text-center">Étape 4 : Personnalisation du Chèque Cadeau</h2>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label">Souhaitez-vous une personnalisation ?</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input id="is_customized_1" type="radio" class="form-check-input"
+                                                name="is_customized" @checked(old('is_customized') === '1') value="1">
+                                            <label for="is_customized_1" class="form-check-label">
+                                                Oui
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input id="is_customized_0" type="radio" class="form-check-input"
+                                                name="is_customized" @checked(old('is_customized') === '0' || !old('is_customized')) value="0">
+                                            <label for="is_customized_0" class="form-check-label">
+                                                Non
+                                            </label>
+                                        </div>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('is_customized')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <input type="hidden" name="customization_fee"
+                                            value="{{ env('CUSTOMIZATION_FEE') }}">
+                                    </div>
+
+                                    <button type="button" class="btn btn-secondary me-3"
+                                        onclick="previousStep()">Précédent</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant</button>
+                                </div>
+
+                                <!-- Étape 5 : Choix de Livraison -->
+                                <div class="content" id="step5">
+                                    <h2 class="text-center">Étape 5 : Choix de Livraison</h2>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label">Souhaitez-vous que nous livrions le chèque cadeau au
+                                            bénéficiaire
+                                            ?</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input id="requires_delivery_1" type="radio" class="form-check-input"
+                                                name="requires_delivery" @checked(old('requires_delivery') === '1') value="1"
+                                                onclick="toggleDelivery(true)">
+                                            <label for="requires_delivery_1" class="form-check-label">
+                                                Oui
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input id="requires_delivery_0" type="radio" class="form-check-input"
+                                                name="requires_delivery" @checked(old('requires_delivery') === '0' || !old('requires_delivery')) value="0"
+                                                onclick="toggleDelivery(false)">
+                                            <label for="requires_delivery_0" class="form-check-label">Non
+                                            </label>
+                                        </div>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('requires_delivery')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div id="deliveryOptions" style="display: none;">
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="delivery_address">Adresse de Livraison</label>
+                                            <input id="delivery_address" type="text" name="delivery_address"
+                                                value="{{ old('delivery_address') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('delivery_address')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="delivery_date">Date de Livraison</label>
+                                            <input type="date" name="delivery_date" id="delivery_date"
+                                                value="{{ old('delivery_date') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('delivery_date')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <div><label class="form-label">Option de livraison</label></div>
+                                            <select class="form-control" name="shipping_id" id="shipping_id" required>
+                                                <option value="">Sélectionnez une option de livraison</option>
+                                                @foreach ($shippings as $shipping)
+                                                    <option value="{{ $shipping->id }}"
+                                                        shipping-price="{{ $shipping->price }}"
+                                                        @selected(old('shipping_id') == $shipping->id)>
+                                                        {{ $shipping->zone }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('shipping_id')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <button type="button" class="btn btn-secondary me-3"
+                                            onclick="previousStep()">Précédent</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="nextStep()">Suivant</button>
+                                    </div>
+                                </div>
+
+                                <div class="content" id="step6"></div>
+
+                                <!-- Étape 7 : Paiement -->
+                                <div class="content" id="step7">
+                                    <h2 class="text-center">Étape 7 : Paiement</h2>
+                                    <div>
+                                        Montant à Payer: <strong id="total_amount"></strong>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('total_amount')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Choix du Mode de Paiement -->
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label">Mode de Paiement</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="payment_method_mobile"
+                                                name="payment_method" @checked(old('payment_method') === 'mobile' || !old('payment_method')) value="mobile"
+                                                onclick="togglePaymentMode(this.value)">
+                                            <label for="payment_method_mobile" class="form-check-label">
+                                                Mobile
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" name="payment_method"
+                                                @checked(old('payment_method') === 'card') id="payment_method_card" value="card"
+                                                onclick="togglePaymentMode(this.value)">
+                                            <label for="payment_method_card" class="form-check-label">
+                                                Carte Bancaire
+                                            </label>
+                                        </div>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('payment_method')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div id="networkFields">
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <div><label class="form-label">Pays</label></div>
+                                            <select class="form-control" id="countrySelect" required>
+                                                <option value="">Sélectionnez un Pays</option>
+                                                <option value="BENIN">Bénin</option>
+                                                <option value="SENEGAL">Sénégal</option>
+                                                <option value="CI">Côte d'Ivoire</option>
+                                                <option value="TOGO">Togo</option>
+                                                <!-- Ajoutez d'autres pays selon vos besoins -->
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <div><label class="form-label">Réseau du Numéro Mobile</label></div>
+                                            <select class="form-control" name="payment_network" id="networkSelect"
+                                                required>
+                                                <option value="">Sélectionnez un Réseau</option>
+                                                <!-- Les options de réseau seront ajoutées ici par JavaScript -->
+                                            </select>
+
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('payment_network')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="payment_phone">Numéro de Téléphone</label>
+                                            <input type="text" id="payment_phone" name="payment_phone"
+                                                value="{{ old('payment_phone') }}" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('payment_phone')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 custom-form-input form-group" id="otpField"
+                                            style="display: none;">
+                                            <label class="form-label" for="payment_otp">Code OTP (si applicable)</label>
+                                            <input type="text" id="payment_otp" name="payment_otp"
+                                                value="{{ old('payment_otp') }}" class="form-control">
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('payment_otp')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Informations de Carte Bancaire (pour le paiement par carte) -->
+                                    <div id="cardPaymentFields" style="display: none;">
+
+                                        <select class="form-control" name="cardType" id="cardType" required>
+                                            <option value="">Sélectionnez le type de votre carte</option>
+                                            <option value="VISA" @selected('VISA' === old('cardType'))>VISA</option>
+                                            <option value="MASTERCARD" @selected('MASTERCARD' === old('cardType'))>MASTERCARD</option>
+                                        </select>
+
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('cardType')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="firstNameCard">Prénom</label>
+                                            <input type="text" name="firstNameCard"
+                                                value="{{ old('firstNameCard') }}" id="firstNameCard"
+                                                class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('firstNameCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="lastNameCard">Nom</label>
+                                            <input type="text" name="lastNameCard" value="{{ old('lastNameCard') }}"
+                                                id="lastNameCard" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('lastNameCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="emailCard">Email</label>
+                                            <input type="email" name="emailCard" value="{{ old('emailCard') }}"
+                                                id="emailCard" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('emailCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="countryCard">Pays</label>
+                                            <input type="text" name="countryCard" value="{{ old('countryCard') }}"
+                                                id="countryCard" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('countryCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="addressCard">Adresse</label>
+                                            <input type="text" name="addressCard" value="{{ old('addressCard') }}"
+                                                id="addressCard" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('addressCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <label class="form-label" for="districtCard">District</label>
+                                            <input type="text" name="districtCard" value="{{ old('districtCard') }}"
+                                                id="districtCard" class="form-control" required>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('districtCard')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 custom-form-input form-group">
+                                            <div><label class="form-label" for="currency">Devise</label></div>
+                                            <select name="currency" id="currency" class="form-control" required>
+                                                <option value="">Sélectionner une devise</option>
+                                                <option value="XOF" @selected('XOF' === old('currency'))>XOF</option>
+                                                <option value="USD" @selected('USD' === old('currency'))>USD</option>
+                                                <option value="EUR" @selected('EUR' === old('currency'))>EUR</option>
+                                            </select>
+                                            <div class="alert alert-danger d-none" role="alert">
+                                                @error('currency')
+                                                    <strong>{{ $message }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary me-3"
+                                        onclick="previousStep()">Précédent</button>
+                                    <button type="submit" class="btn btn-success">Payer</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <form id="giftCardForm" action="{{ route('client.order.store') }}" method="POST">
-                @csrf
-
-                <input type="hidden" name="partner_id" value="{{ $partner->id }}">
-                <!-- Étape 1 : Informations du Chèque Cadeau -->
-                <div class="step-content active" id="step-1">
-                    <h2 class="text-center">Étape 1 : Informations du Chèque Cadeau</h2>
-                    <div class="form-group">
-                        <label>Montant du Chèque Cadeau</label>
-                        <input type="number" class="form-control" name="amount" value="{{ old('amount') }}"
-                            placeholder="Entrez le montant" required>
-                        @error('amount')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Message Personnel (facultatif)</label>
-                        <textarea class="form-control" name="personal_message" value="{{ old('personal_message') }}"
-                            placeholder="Votre message"></textarea>
-                        @error('personal_message')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <button type="button" class="btn btn-primary nextBtn pull-right">Suivant</button>
-                </div>
-
-                <!-- Étape 2 : Détails du Client -->
-                <div class="step-content" id="step-2">
-                    <h2 class="text-center">Étape 2 : Détails du Client</h2>
-                    <div class="form-group">
-                        <label>Nom du Client</label>
-                        <input type="text" name="client_name" value="{{ old('client_name', auth()->user()->name) }}"
-                            class="form-control" required>
-                        @error('client_name')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Email du Client</label>
-                        <input type="email" name="client_email" value="{{ old('client_email', auth()->user()->email) }}"
-                            class="form-control" required>
-                        @error('client_email')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Numéro de Téléphone</label>
-                        <input type="text" name="client_phone" value="{{ old('client_phone') }}" class="form-control"
-                            required>
-                        @error('client_phone')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <button type="button" class="btn btn-primary nextBtn pull-right">Suivant</button>
-                </div>
-
-                <!-- Étape 3 : Définir le Bénéficiaire -->
-                <div class="step-content" id="step-3">
-                    <h2 class="text-center">Étape 3 : Définir le Bénéficiaire</h2>
-                    <div class="form-group">
-                        <label>Êtes-vous le Bénéficiaire du Chèque Cadeau ?</label><br>
-                        <label class="radio-inline">
-                            <input type="radio" name="is_client_beneficiary" @checked(old('is_client_beneficiary') === '1' || !old('is_client_beneficiary'))
-                                onclick="toggleBeneficiary(false)" value="1"> Oui
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="is_client_beneficiary" @checked(old('is_client_beneficiary') === '0')
-                                onclick="toggleBeneficiary(true)" value="0"> Non
-                        </label>
-
-                        @error('is_client_beneficiary')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="beneficiaryFields" style="display: none;">
-                        <div class="form-group">
-                            <label>Nom du Bénéficiaire</label>
-                            <input type="text" name="beneficiary_name" value="{{ old('beneficiary_name') }}"
-                                class="form-control">
-                            @error('beneficiary_name')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Email du Bénéficiaire (facultatif)</label>
-                            <input type="email" name="beneficiary_email" value="{{ old('beneficiary_email') }}"
-                                class="form-control">
-                            @error('beneficiary_email')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Numéro de Téléphone du Bénéficiaire</label>
-                            <input type="text" name="beneficiary_phone" value="{{ old('beneficiary_phone') }}"
-                                class="form-control">
-                            @error('beneficiary_phone')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn btn-primary nextBtn pull-right">Suivant</button>
-                </div>
-
-                <!-- Étape 4 : Personnalisation -->
-                <div class="step-content" id="step-4">
-                    <h2 class="text-center">Étape 4 : Personnalisation du Chèque Cadeau</h2>
-                    <div class="form-group">
-                        <label>Souhaitez-vous une personnalisation ?</label><br>
-                        <label class="radio-inline">
-                            <input type="radio" name="is_customized" @checked(old('is_customized') === '1') value="1"> Oui
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="is_customized" @checked(old('is_customized') === '0' || !old('is_customized')) value="0"> Non
-                        </label>
-
-                        @error('is_customized')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-
-                        <input type="hidden" name="customization_fee" value="{{ env('CUSTOMIZATION_FEE') }}">
-                    </div>
-
-                    <button type="button" class="btn btn-primary nextBtn pull-right">Suivant</button>
-                </div>
-
-                <!-- Étape 5 : Choix de Livraison -->
-                <div class="step-content" id="step-5">
-                    <h2 class="text-center">Étape 5 : Choix de Livraison</h2>
-                    <div class="form-group">
-                        <label>Souhaitez-vous que nous livrions le chèque cadeau au bénéficiaire ?</label><br>
-                        <label class="radio-inline">
-                            <input type="radio" name="requires_delivery" @checked(old('requires_delivery') === '1') value="1"
-                                onclick="toggleDelivery(true)">
-                            Oui
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="requires_delivery" @checked(old('requires_delivery') === '0' || !old('requires_delivery')) value="0"
-                                onclick="toggleDelivery(false)"> Non
-                        </label>
-
-                        @error('requires_delivery')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="deliveryOptions" style="display: none;">
-                        <div class="form-group">
-                            <label>Adresse de Livraison</label>
-                            <input type="text" name="delivery_address" value="{{ old('delivery_address') }}"
-                                class="form-control">
-                            @error('delivery_address')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Date de Livraison</label>
-                            <input type="date" name="delivery_date" value="{{ old('delivery_date') }}"
-                                class="form-control">
-                            @error('delivery_date')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Option de livraison</label>
-                            <select class="form-control" name="shipping_id" id="shipping_id" required>
-                                <option value="">Sélectionnez une option de livraison</option>
-                                @foreach ($shippings as $shipping)
-                                    <option value="{{ $shipping->id }}" shipping-price="{{ $shipping->price }}"
-                                        @selected(old('shipping_id') == $shipping->id)>
-                                        {{ $shipping->zone }}</option>
-                                @endforeach
-                            </select>
-
-                            @error('shipping_id')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                    </div>
-
-                    <button type="button" class="btn btn-primary nextBtn pull-right">Suivant</button>
-                </div>
-
-                <div class="step-content" id="step-6"></div>
-
-                <!-- Étape 7 : Paiement -->
-                <div class="step-content" id="step-7">
-                    <h2 class="text-center">Étape 7 : Paiement</h2>
-                    <div>
-                        Montant à Payer:<strong id="total_amount"></strong>
-
-                        @error('total_amount')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-
-                    <!-- Choix du Mode de Paiement -->
-                    <div class="form-group">
-                        <label>Mode de Paiement</label><br>
-                        <label class="radio-inline">
-                            <input type="radio" name="payment_method" @checked(old('payment_method') === 'mobile' || !old('payment_method')) value="mobile"
-                                onclick="togglePaymentMode(this.value)"> Mobile
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="payment_method" @checked(old('payment_method') === 'card')
-                                id="payment_method_card" value="card" onclick="togglePaymentMode(this.value)">
-                            Carte Bancaire
-                        </label>
-
-                        @error('payment_method')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-                    </div>
-                    <div id="networkFields">
-                        <div class="form-group">
-                            <label>Pays</label>
-                            <select class="form-control" id="countrySelect" required>
-                                <option value="">Sélectionnez un Pays</option>
-                                <option value="BENIN">Bénin</option>
-                                <option value="SENEGAL">Sénégal</option>
-                                <option value="CI">Côte d'Ivoire</option>
-                                <option value="TOGO">Togo</option>
-                                <!-- Ajoutez d'autres pays selon vos besoins -->
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Réseau du Numéro Mobile</label>
-                            <select class="form-control" name="payment_network" id="networkSelect" required>
-                                <option value="">Sélectionnez un Réseau</option>
-                                <!-- Les options de réseau seront ajoutées ici par JavaScript -->
-                            </select>
-
-                            @error('payment_network')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Numéro de Téléphone</label>
-                            <input type="text" name="payment_phone" value="{{ old('payment_phone') }}"
-                                class="form-control" required>
-                            @error('payment_phone')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group" id="otpField" style="display: none;">
-                            <label>Code OTP (si applicable)</label>
-                            <input type="text" name="payment_otp" value="{{ old('payment_otp') }}"
-                                class="form-control">
-                            @error('payment_otp')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!-- Informations de Carte Bancaire (pour le paiement par carte) -->
-                    <div id="cardPaymentFields" style="display: none;">
-
-                        <select class="form-control" name="cardType" id="cardType" required>
-                            <option value="">Sélectionnez le type de votre carte</option>
-                            <option value="VISA" @selected('VISA' === old('cardType'))>VISA</option>
-                            <option value="MASTERCARD" @selected('MASTERCARD' === old('cardType'))>MASTERCARD</option>
-                        </select>
-
-                        @error('cardType')
-                            <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                <strong>{{ $message }}</strong>
-                            </div>
-                        @enderror
-
-                        <div class="form-group">
-                            <label for="firstNameCard">Prénom</label>
-                            <input type="text" name="firstNameCard" value="{{ old('firstNameCard') }}"
-                                id="firstNameCard" class="form-control" required>
-                            @error('firstNameCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastNameCard">Nom</label>
-                            <input type="text" name="lastNameCard" value="{{ old('lastNameCard') }}"
-                                id="lastNameCard" class="form-control" required>
-                            @error('lastNameCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="emailCard">Email</label>
-                            <input type="email" name="emailCard" value="{{ old('emailCard') }}" id="emailCard"
-                                class="form-control" required>
-                            @error('emailCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="countryCard">Pays</label>
-                            <input type="text" name="countryCard" value="{{ old('countryCard') }}" id="countryCard"
-                                class="form-control" required>
-                            @error('countryCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="addressCard">Adresse</label>
-                            <input type="text" name="addressCard" value="{{ old('addressCard') }}" id="addressCard"
-                                class="form-control" required>
-                            @error('addressCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="districtCard">District</label>
-                            <input type="text" name="districtCard" value="{{ old('districtCard') }}"
-                                id="districtCard" class="form-control" required>
-                            @error('districtCard')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="currency">Devise</label>
-                            <select name="currency" id="currency" class="form-control" required>
-                                <option value="">Sélectionner une devise</option>
-                                <option value="XOF" @selected('XOF' === old('currency'))>XOF</option>
-                                <option value="USD" @selected('USD' === old('currency'))>USD</option>
-                                <option value="EUR" @selected('EUR' === old('currency'))>EUR</option>
-                            </select>
-                            @error('currency')
-                                <div class="h5 bg-danger" role="alert" style="padding: 10px;color: #df2828d6;">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary">Payer</button>
-                </div>
-
-            </form>
         </div>
 
         <!-- Modal pour afficher la réponse du serveur -->
         <div id="responseModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeResponseModal()">&times;</span>
-                <h4 class="modal-title">
+                <h4 class="modal-title text-center">
                     {{ session('message') }}
                 </h4>
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('additionnal_js')
 
     <!-- JQuery Validate Plugin -->
     <script src="{{ asset('assets/backoffice/js/plugin/jquery.validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/client_side/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 
     <script>
         const networksByCountry = {
@@ -666,9 +691,9 @@
             let deliveryDate = $('input[name="delivery_date"]').val() || "Non applicable"
 
             // Insertion des valeurs dans le récapitulatif
-            $('#step-6').html(`
+            $('#step6').html(`
                 <h2 class="text-center">Étape 6 : Récapitulatif de Commande</h2>
-                <ul class="list-group">
+                <ul class="list-group mb-3">
                     <li class="list-group-item"><strong>Montant du Chèque Cadeau : </strong>${amount}</li>
                     <li class="list-group-item"><strong>Message Personnel : </strong>${personalMessage || "Non fourni"}</li>
                     <li class="list-group-item"><strong>Nom du Client : </strong>${clientName}</li>
@@ -683,7 +708,8 @@
                     <li class="list-group-item"><strong>Date de Livraison : </strong>${deliveryDate}</li>
                     <li class="list-group-item"><strong>Frais de Livraison : </strong>${shipping}</li>
                 </ul>
-                <button type="button" class="btn btn-success nextBtn pull-right">Passer au Paiement</button>
+                <button type="button" class="btn btn-secondary me-3" onclick="previousStep()">Précédent</button>
+                <button type="button" class="btn btn-success" onclick="nextStep()">Passer au Paiement</button>
             `)
         }
 
@@ -703,30 +729,28 @@
         }
 
         // Ajoutez un événement pour changer les réseaux lorsque le pays change
-        document.getElementById('countrySelect').addEventListener('change', updateNetworks);
+        $('#countrySelect').on('change', function() {
+            const country = $(this).val()
 
-        // Fonction pour mettre à jour les réseaux en fonction du pays sélectionné
-        function updateNetworks() {
-            const countrySelect = document.getElementById('countrySelect');
-            const networkSelect = document.getElementById('networkSelect');
-            const selectedCountry = countrySelect.value;
+            const networkSelect = $('#networkSelect');
+            const optionList = $('#networkSelect').next().find('ul.list')
 
             // Effacer les réseaux précédents
-            networkSelect.innerHTML = '<option value="">Sélectionnez un Réseau</option>';
+            $(networkSelect).html('<option value="">Sélectionnez un Réseau</option>');
+            $(optionList).html(`<li data-value="" class="option">Sélectionnez un Réseau</option></li>`)
 
-            if (networksByCountry[selectedCountry]) {
-                networksByCountry[selectedCountry].forEach(network => {
-                    const option = document.createElement('option');
-                    option.value = network.value;
-                    option.textContent = network.label;
-                    networkSelect.appendChild(option);
+            if (networksByCountry[country]) {
+                networksByCountry[country].forEach(network => {
+                    $(networkSelect).append(`<option val="${network.value}">${network.label}</option>`);
+
+                    $(optionList).append(
+                        `<li data-value="${network.value}" class="option">${network.label}</li>`);
                 });
             }
 
             // Réinitialiser le champ OTP
             document.getElementById('otpField').style.display = 'none';
-        }
-
+        });
 
         // Ajouter l'événement pour changer l'affichage de l'OTP selon le réseau sélectionné
         document.querySelector('select[name="payment_network"]').addEventListener('change', function() {
@@ -758,12 +782,14 @@
 
             // Initialisation de la validation avec jQuery Validate
             $('#giftCardForm').validate({
-                errorClass: "text-danger", // Classe d'erreur pour les messages de validation
                 highlight: function(element) {
-                    $(element).closest('.form-group').addClass('has-error');
+                    $(element).closest('.custom-form-input').find('div.alert').removeClass('d-none')
                 },
                 unhighlight: function(element) {
-                    $(element).closest('.form-group').removeClass('has-error');
+                    $(element).closest('.custom-form-input').find('div.alert').addClass('d-none')
+                },
+                errorPlacement: function(error, element) {
+                    $(element).closest('.custom-form-input').find('div.alert').text(error.text())
                 },
                 rules: {
                     amount: {
@@ -937,52 +963,6 @@
                 }
             });
 
-            var navListItems = $('div.setup-panel div a'),
-                allWells = $('.step-content'),
-                allNextBtn = $('.nextBtn');
-
-            allWells.hide();
-
-            navListItems.click(function(e) {
-                e.preventDefault();
-                var $target = $($(this).attr('href')),
-                    $item = $(this);
-
-                if (!$item.hasClass('disabled')) {
-                    navListItems.removeClass('btn-success').addClass('btn-default');
-                    $item.addClass('btn-success');
-                    allWells.hide();
-                    $target.show();
-                    $target.find('input:eq(0)').focus();
-                }
-            });
-
-            allNextBtn.click(function() {
-                var curStep = $(this).closest(".step-content"),
-                    curStepBtn = curStep.attr("id"),
-                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next()
-                    .children("a"),
-                    curInputs = curStep.find("input[type='text'],input[type='url']"),
-                    isValid = true;
-
-
-                if (curStepBtn === 'step-5')
-                    generateSummary()
-
-
-                $(".form-group").removeClass("has-error");
-                for (var i = 0; i < curInputs.length; i++) {
-                    if (!curInputs[i].validity.valid) {
-                        isValid = false;
-                        $(curInputs[i]).closest(".form-group").addClass("has-error");
-                    }
-                }
-
-                if (isValid) nextStepWizard.removeAttr('disabled').trigger('click');
-            });
-
-            $('div.setup-panel div a.btn-success').trigger('click');
-
             // Affichage conditionnel des champs pour le bénéficiaire et la livraison
             window.toggleBeneficiary = function(show) {
                 $('#beneficiaryFields').toggle(show)
@@ -1014,6 +994,31 @@
             if (event.target === document.getElementById('responseModal')) {
                 closeResponseModal();
             }
+        }
+
+
+        let stepper = new Stepper(document.querySelector('#stepper'));
+
+        // Fonction pour passer à l'étape suivante si valide
+        function nextStep() {
+            let currentStep = stepper._currentIndex + 1;
+
+            if (currentStep === 5) generateSummary()
+            if (currentStep === 6) {
+                let totalAmount = parseInt($('#amount').val()) + parseInt($('#shipping_id option:selected').attr(
+                    'shipping-price')) + parseInt($('input[name="customization_fee"]').val())
+
+                $('#total_amount').text(totalAmount + '')
+            }
+
+            if ($('#giftCardForm').valid()) { // Vérifie la validation de toutes les étapes
+                stepper.next();
+            }
+        }
+
+        // Fonction pour revenir à l'étape précédente
+        function previousStep() {
+            stepper.previous();
         }
     </script>
 @endsection

@@ -29,18 +29,19 @@ Route::name('client.')->group(function () {
     Route::get('/', [ClientController::class, 'home'])->name('home');
 
     Route::get('/partners', [ClientPartnerController::class, 'index'])->name('partner.index');
+    Route::get('/partners/popularity_sorting', [ClientPartnerController::class, 'index_popularity_sorting'])->name('partner.popularity_sorting.index');
     Route::get('/partner/result/{letter}', [ClientPartnerController::class, 'resultByLetter'])->name('partner.letter');
     Route::get('/partner_category/{name}', [ClientPartnerController::class, 'category'])->name('partner.category');
-    Route::post('/partners/search/', [ClientPartnerController::class, 'search'])->name('partner.search');
+    Route::get('/partners/search/', [ClientPartnerController::class, 'search'])->name('partner.search');
     Route::get('/partner_profile/{partner_name}', [ClientPartnerController::class, 'profile'])->name('partner.show');
 
-    Route::view('/contact', 'client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
+    Route::view('/contact', 'new_client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');
 
-    Route::view('/register', 'client_site.pages.register', ['categories' => PartnerCategory::all()])->name('register_page');
+    Route::view('/register', 'new_client_site.pages.register', ['categories' => PartnerCategory::all()])->name('register_page');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-    Route::view('/login', 'client_site.pages.login_page', ['categories' => PartnerCategory::all()])->name('login_page');
+    Route::view('/login', 'new_client_site.pages.login_page', ['categories' => PartnerCategory::all()])->name('login_page');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     Route::middleware('auth')->group(function () {
@@ -81,4 +82,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::resource('/partners', BackOfficePartnerController::class);
     Route::post('/partners/suspense', [BackOfficePartnerController::class, 'suspense'])->name('partner.suspense');
     Route::get('/partners_all', [BackOfficePartnerController::class, 'fetch_resource'])->name('partner.fetch_all');
+
+    Route::view('/all_icon', 'backoffice.pages.all_icon')->name('all_icon');
 });

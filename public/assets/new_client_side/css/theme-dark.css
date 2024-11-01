@@ -521,4 +521,21 @@
 .theme-dark .user-section .user-all-form .contact-form .form-group .form-control {
   background-color: var(--cardColor) !important;
   color: var(--whiteColor);
-}/*# sourceMappingURL=theme-dark.css.map */
+}
+.theme-dark #giftCardForm .form-control, .theme-dark #giftCardForm .nice-select, .theme-dark #giftCardForm .option, .theme-dark #giftCardForm .option.selected.focus{
+  background-color: #0e0e0e;
+}
+.theme-dark #giftCardForm .form-control::placeholder {
+  color: #909090;
+}
+.theme-dark #giftCardForm .form-control::-moz-placeholder {
+  color: #909090;
+}
+.theme-dark #giftCardForm .form-control {
+  color: #fff;
+}
+.theme-dark #giftCardForm .list-group-item {
+  background-color: #0e0e0e;
+  color: #909090;
+}
+/*# sourceMappingURL=theme-dark.css.map */

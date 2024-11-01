@@ -35,6 +35,7 @@ class UpdatePartnerCategoryRequest extends FormRequest
                 'max:255',
                 Rule::unique('partner_categories', 'short_description')->ignore($this->route()->parameter('partner_category'))
             ],
+            'icon' => 'required|string|max:100',
         ];
     }
 }

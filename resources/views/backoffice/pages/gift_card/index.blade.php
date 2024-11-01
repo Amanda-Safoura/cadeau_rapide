@@ -11,9 +11,9 @@
 @section('content')
     <div class="container mt-4">
 
-        <div class="d-flex justify-content-start">
+        <div class="d-flex justify-content-end">
             <div class="dropdown me-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="filter-delivering"
+                <button class="btn btn-primary dropdown-toggle" type="button" id="filter-delivering"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Filtrer par type de livraison
                 </button>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="filter-customization"
+                <button class="btn btn-primary dropdown-toggle" type="button" id="filter-customization"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Filtrer par demande de personnalisation
                 </button>
@@ -56,6 +56,7 @@
                         <th>Somme totale payé</th>
                         <th>Customisé</th>
                         <th>À Livrer</th>
+                        <th>Date de soumission</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -91,6 +92,7 @@
                                             mail</span><i class="fas fa-times"></i></span>
                                 @endif
                             </td>
+                            <td>{{ date_format($gift_card->created_at, 'd F Y, H:i') }}</td>
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <a class="btn btn-primary btn-sm"

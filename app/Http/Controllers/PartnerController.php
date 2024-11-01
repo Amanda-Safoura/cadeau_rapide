@@ -17,16 +17,21 @@ class PartnerController extends Controller
     public function index()
     {
         $categories = PartnerCategory::all();
-        $topPartners = Partner::withCount('giftCards')
-            ->orderBy('gift_cards_count', 'desc')
-            ->take(10)
-            ->get();
-        $partners = Partner::orderBy('name')->paginate(30);
+        $partners = Partner::orderBy('name')->paginate(20);
         $groupedPartners = $partners->groupBy(function ($partner) {
             return strtoupper(substr($partner->name, 0, 1));
         });
 
-        return view('client_site.pages.partner_all', compact('categories', 'groupedPartners', 'topPartners', 'partners'));
+        return view('new_client_site.pages.partner_all', compact('categories', 'groupedPartners', 'partners'));
+    }
+
+    public function index_popularity_sorting()
+    {
+        $categories = PartnerCategory::all();
+        $partners = Partner::withCount('giftCards')
+            ->orderBy('gift_cards_count', 'desc')
+            ->paginate(20);
+        return view('new_client_site.pages.partner_all_popularity_sorting', compact('categories', 'partners'));
     }
 
     public function resultByLetter($letter)
@@ -34,16 +39,21 @@ class PartnerController extends Controller
         $partners = Partner::where('name', 'like', "{$letter}%")->paginate(9);
         $categories = PartnerCategory::all();
 
-        return view('client_site.pages.partner_alphabetical_result', compact('partners', 'categories', 'letter'));
+        return view('new_client_site.pages.partner_alphabetical_result', compact('partners', 'categories', 'letter'));
     }
 
-    public function category($name)
+    public function category(Request $request, $name)
     {
         $category = PartnerCategory::where('name', $name)->firstOrFail();
-        $partners = Partner::where('category_id', $category->id)->paginate(9);
+
+        if ($request->input('sortBy') !== 'popularity') $partners = Partner::where('category_id', $category->id)->paginate(9);
+        else $partners = Partner::withCount('giftCards')
+            ->orderBy('gift_cards_count', 'desc')
+            ->paginate(9);
+
         $categories = PartnerCategory::all();
 
-        return view('client_site.pages.category', compact('partners', 'categories', 'category'));
+        return view('new_client_site.pages.category', compact('partners', 'categories', 'category'));
     }
 
     public function search(Request $request)
@@ -57,7 +67,7 @@ class PartnerController extends Controller
             ->paginate(9);
         $categories = PartnerCategory::all();
 
-        return view('client_site.pages.partner_search', compact('partners', 'categories', 'keyword'));
+        return view('new_client_site.pages.partner_search', compact('partners', 'categories', 'keyword'));
     }
 
     public function profile($partner_name)
@@ -65,7 +75,7 @@ class PartnerController extends Controller
         $partner = Partner::where('name', $partner_name)->firstOrFail();
         $categories = PartnerCategory::all();
 
-        return view('client_site.pages.partner_show', compact('partner', 'categories'));
+        return view('new_client_site.pages.partner_show', compact('partner', 'categories'));
     }
 
     public function orderingPage($partner_name)
@@ -74,7 +84,7 @@ class PartnerController extends Controller
         $categories = PartnerCategory::all();
         $shippings = Shipping::all();
 
-        return view('client_site.pages.ordering_page', compact('partner', 'categories', 'shippings'));
+        return view('new_client_site.pages.ordering_page', compact('partner', 'categories', 'shippings'));
     }
 
     public function storeGiftCard(StoreOrderRequest $request)

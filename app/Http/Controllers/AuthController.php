@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         // Assuming you have a StoreUserRequest for validation
         if (User::create($request->validated())) {
-            return redirect()->route('client.login');
+            return redirect()->intended('client.login');
         }
     }
 
@@ -22,7 +22,7 @@ class AuthController extends Controller
     {
         if ($request->has(['email', 'password'])) {
             if (Auth::attempt($request->only(['email', 'password']), $request->has(['remember']))) {
-                return redirect()->route('client.home');
+                return redirect()->intended('client.home');
             }
         }
 
@@ -31,7 +31,7 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return view('client_site.pages.profile_page', [
+        return view('new_client_site.pages.profile_page', [
             'categories' => PartnerCategory::all(),
             'orders' => auth()->user()->giftCards
         ]);

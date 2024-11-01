@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/owl.theme.default.min.css') }}">
     <!-- Flaticon CSS -->
     <link rel="stylesheet" href="{{ asset('assets/new_client_side/fonts/flaticon.css') }}">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/font-awesome.css') }}">
     <!-- Boxicons CSS -->
     <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/boxicons.min.css') }}">
     <!-- Magnific-Popup CSS -->
@@ -38,10 +36,36 @@
     <!-- Theme Dark CSS -->
     <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/theme-dark.css') }}">
 
+    <!-- Fonts and icons -->
+    <script src="{{ asset('assets/backoffice/js/plugin/webfont/webfont.min.js') }}"></script>
+    <script>
+        WebFont.load({
+            custom: {
+                "families": ["Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
+                    "simple-line-icons"
+                ],
+                urls: ["{{ asset('assets/backoffice/css/fonts.min.css') }}"]
+            },
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <title>Cadeau Rapide | @yield('title', 'Home')</title>
 
+    <style>
+        /* Style personnalisé pour une chip grise */
+        .chip {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            color: #333;
+            background-color: #e0e0e0;
+            border-radius: 50px;
+        }
+    </style>
     @yield('additionnal_css')
 </head>
 

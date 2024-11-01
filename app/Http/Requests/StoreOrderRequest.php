@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Shipping;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class StoreOrderRequest extends FormRequest
 {

@@ -15,7 +15,7 @@ class ClientController extends Controller
         $partners = Partner::with('category')->get();
         $topPartners = Partner::withCount('giftCards')
             ->orderBy('gift_cards_count', 'desc')
-            ->take(10)
+            ->take(9)
             ->get();
 
         return view('new_client_site.pages.home', compact('categories', 'partners', 'topPartners'));

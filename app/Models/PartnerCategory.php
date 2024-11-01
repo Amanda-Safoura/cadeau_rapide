@@ -10,7 +10,7 @@ class PartnerCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'short_description'];
+    protected $fillable = ['icon', 'name', 'short_description'];
 
 
     /**

@@ -19,10 +19,7 @@
                 </a>
             </li>
 
-            <li @class([
-                'sidebar-item',
-                'active' => request()->routeIs(''),
-            ])>
+            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
                 <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
                     <i class="fas fa-chart-bar align-middle"></i> <span class="align-middle">Activités récentes</span>
                 </a>
@@ -155,6 +152,14 @@
                 </a>
             </li>
 
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.all_icon'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.all_icon') }}">
+                    <span class="align-middle">Icones disponibles</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

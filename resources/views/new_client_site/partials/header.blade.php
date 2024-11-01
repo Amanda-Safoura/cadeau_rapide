@@ -53,13 +53,25 @@
                             </div>
                         </div>
 
-                        <div class="side-item">
-                            <div class="user-btn">
-                                <a href="login-register.html">
-                                    <i class="flaticon-contact"></i>
-                                </a>
+                        @guest
+                            <div class="side-item">
+                                <div class="user-btn">
+                                    <a href="{{ route('client.login_page') }}">
+                                        <i class="far fa-user"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endguest
+                        @auth
+                            <div class="side-item">
+                                <div class="user-btn">
+                                    <form action="{{ route('client.logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" style="all:unset; cursor: pointer;"><i class="icon-logout"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </nav>
@@ -91,12 +103,12 @@
                                 @guest
 
                                     <a href="{{ route('client.login_page') }}">
-                                        <i class="flaticon-contact"></i>
+                                        <i class="far fa-user"></i>
                                     </a>
                                 @endguest
                                 @auth
                                     <a href="{{ route('client.profile_page') }}">
-                                        <i class="flaticon-contact"></i>
+                                        <i class="far fa-user"></i>
                                     </a>
                                 @endauth
                             </div>
@@ -107,8 +119,7 @@
                                 <div class="user-btn">
                                     <form action="{{ route('client.logout') }}" method="post">
                                         @csrf
-                                        <button type="submit"><a
-                                                href="https://www.flaticon.com/fr/icones-gratuites/se-deconnecter"></a></button>
+                                        <button type="submit"><i class="icon-logout"></i></button>
                                     </form>
                                 </div>
                             </div>
