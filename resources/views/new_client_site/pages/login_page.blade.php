@@ -181,10 +181,6 @@
     <script src="{{ asset('assets/new_client_side/js/jquery.nice-select.min.js') }}"></script>
     <!-- Ajaxchimp Min JS -->
     <script src="{{ asset('assets/new_client_side/js/jquery.ajaxchimp.min.js') }}"></script>
-    <!-- Form Validator Min JS -->
-    <script src="{{ asset('assets/new_client_side/js/form-validator.min.js') }}"></script>
-    <!-- Contact Form JS -->
-    <script src="{{ asset('assets/new_client_side/js/contact-form-script.js') }}"></script>
     <!-- Custom JS -->
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
 
