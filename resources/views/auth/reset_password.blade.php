@@ -33,13 +33,14 @@
     <link rel="stylesheet" href="{{ asset('assets/new_client_side/css/theme-dark.css') }}">
 
 
-    <title>Cadeau Rapide | S'inscrire</title>
+    <title>Cadeau Rapide | Enregistrer un nouveau mot de passe</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 
 <body>
+
     <!-- Pre Loader -->
     <div class="preloader">
         <div class="d-table">
@@ -63,107 +64,50 @@
                     <div class="user-section text-center">
                         <div class="user-content" style="margin-bottom: 0 !important">
                             <a href="{{ route('client.home') }}"><img
-                                    src="{{ asset('assets/LOGO CADEAURAPIDE-512x512.png') }}"
-                                    alt="logo CADEAURAPIDE"></a>
+                                    src="{{ asset('assets/LOGO CADEAURAPIDE-512x512.png') }}" alt="logo CADEAURAPIDE">
+                            </a>
                         </div>
                         <div class="tab user-tab">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12 col-md-12">
                                     <ul class="tabs">
                                         <li class="current">
-                                            <a href="javascript:void(0);"> <i class="flaticon-verify"></i> Register</a>
+                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i>
+                                                Réinitialisation du mot de passe</a>
                                         </li>
                                     </ul>
                                 </div>
+
                                 <div class="col-lg-12 col-md-12">
                                     <div class="tab_content current active">
                                         <div class="tabs_item">
                                             <div class="user-all-form">
                                                 <div class="contact-form">
-                                                    <form id="contactForm" action="{{ route('client.register') }}"
-                                                        method="POST">
+                                                    <!-- Formulaire de mot de passe -->
+                                                    <form method="POST" action="{{ route('password.email') }}">
                                                         @csrf
                                                         <div class="row justify-content-center">
-                                                            <div class="col-lg-12 ">
-                                                                <div class="form-group">
-                                                                    <i class='bx bx-user'></i>
-                                                                    <input type="text" name="name" id="name"
-                                                                        class="form-control"
-                                                                        data-error="Please enter your Username"
-                                                                        placeholder="Username">
-                                                                </div>
-                                                                @error('name')
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <div class="col-lg-12">
-                                                                <div class="form-group">
-                                                                    <i class='flaticon-email-2'></i>
-                                                                    <input type="text" name="email" id="email"
-                                                                        class="form-control" required
-                                                                        data-error="Please enter email"
-                                                                        placeholder="Email">
-                                                                </div>
-                                                                @error('email')
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-
                                                             <div class="col-12">
                                                                 <div class="form-group">
-                                                                    <i class='bx bx-lock-alt'></i>
-                                                                    <input class="form-control" type="password"
-                                                                        name="password" placeholder="Password">
+                                                                    <i class="bx bx-user"></i>
+                                                                    <input class="form-control" type="email"
+                                                                        name="email" placeholder="Adresse mail"
+                                                                        required>
                                                                 </div>
-                                                                @error('password')
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
                                                             </div>
-
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <i class='bx bx-lock-alt'></i>
-                                                                    <input class="form-control" type="password"
-                                                                        name="password_confirmation"
-                                                                        placeholder="Password">
+                                                            @error('email')
+                                                                <div class="alert alert-danger">
+                                                                    {{ $message }}
                                                                 </div>
-                                                                @error('password_confirmation')
-                                                                    <div class="alert alert-danger" role="alert">
-                                                                        {{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-
+                                                            @enderror
                                                             <div class="col-lg-12 col-md-12 text-center">
                                                                 <button type="submit"
-                                                                    class="default-btn  user-all-btn">
-                                                                    S'inscrire
+                                                                    class="default-btn user-all-btn disabled">
+                                                                    Envoyer le lien de réinitialisation
                                                                 </button>
-                                                            </div>
-
-                                                            <div class="col-12">
-                                                                <p class="account-desc">
-                                                                    Vous avez déjà un compte?
-                                                                    <a
-                                                                        href="{{ route('client.login_page') }}">Connectez</a>
-                                                                </p>
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <div class="social-option">
-                                                        <h3>Ou S'inscrire avec</h3>
-                                                        <ul>
-                                                            <li><a href="#">Facebook</a></li>
-                                                            <li><a href="#">Google</a></li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -175,6 +119,17 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Structure -->
+        <div id="statusModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4>Notification</h4>
+                <p>{{ session('status') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" class="modal-close btn">Fermer</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- Jquery Min JS -->
@@ -201,6 +156,21 @@
     <script src="{{ asset('assets/new_client_side/js/contact-form-script.js') }}"></script>
     <!-- Custom JS -->
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Vérifie si le message de session 'status' est présent
+            @if (session('status'))
+                // Affiche le modal en cas de message de statut
+                $('#statusModal').show();
+            @endif
+
+            // Ferme le modal lorsque le bouton de fermeture est cliqué
+            $('#closeModal').on('click', function() {
+                $('#statusModal').hide();
+            });
+        });
+    </script>
 
 </body>
 

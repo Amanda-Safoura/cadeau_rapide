@@ -90,6 +90,7 @@
                     {{ $gift_card->paymentInfo->payment_network ? 'Mobile Money' : 'Carte Bancaire' }}</p>
                 @if ($gift_card->paymentInfo->payment_network)
                     <p><strong>Numéro de Transaction :</strong> {{ $gift_card->paymentInfo->reference }}</p>
+                    <p><strong>Status:</strong> {{ $gift_card->paymentInfo->status }}</p>
                     <p><strong>Réseau de Paiement:</strong> {{ $gift_card->paymentInfo->payment_network }}</p>
                     <p><strong>Numéro de Téléphone de Paiement:</strong> {{ $gift_card->paymentInfo->payment_phone }}</p>
                 @else
@@ -112,20 +113,8 @@
                 <p><strong>Montant Total:</strong> {{ $gift_card->total_amount }} FCFA</p>
             </div>
         </div>
-
-        <!-- Bouton pour revenir en arrière ou télécharger le PDF -->
-        <div class="text-center mt-4">
-            <button class="btn btn-secondary" onclick="window.history.back()">Retour</button>
-            <button class="btn btn-primary" onclick="downloadPDF()">Télécharger en PDF</button>
-        </div>
-
     </div>
 @endsection
 
 @section('additionnal_js')
-    <script>
-        function downloadPDF() {
-            alert('Fonction de téléchargement en PDF en cours de développement.');
-        }
-    </script>
 @endsection

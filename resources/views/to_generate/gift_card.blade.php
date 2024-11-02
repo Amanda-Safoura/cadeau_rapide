@@ -153,7 +153,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate('Ton texte ou URL ici') !!}
+                    {!! QrCode::size(80)->generate('{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}') !!}
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>
@@ -162,7 +162,7 @@
                         <br>En tant que partenaire, veuillez vous assurer de la validité de ce chèque via
                         le code QR.
                         <br>
-                        Ce chèque ne sera plus valable une foisn la date d'expiration passée.
+                        Ce chèque ne sera plus valable une fois la date d'expiration passée.
                     </p>
                 </div>
 

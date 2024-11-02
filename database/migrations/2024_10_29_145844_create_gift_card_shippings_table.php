@@ -16,6 +16,8 @@ return new class extends Migration
             
             $table->bigInteger('gift_card_id')->unsigned();
             $table->foreign('gift_card_id')->references('id')->on('gift_cards')->onDelete('cascade');
+            $table->date('start_date')->nullable();
+            $table->integer('validity_duration')->unsigned()->nullable();
 
             $table->enum('status', ['awaiting processing','pending', 'delivered'])->default('awaiting processing');
 

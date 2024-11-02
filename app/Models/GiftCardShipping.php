@@ -11,5 +11,5 @@ class GiftCardShipping extends Model
 
     protected $fillable = ['gift_card_id'];
 
-    protected $guard = ['status'];
+    protected $guard = ['status', 'validity_duration', 'start_date'];
 }

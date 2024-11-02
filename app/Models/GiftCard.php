@@ -34,7 +34,7 @@ class GiftCard extends Model
     ];
 
     /**
-     * Get the partner that owns the GiftCard
+     * Récupérer le partenaire associé à la GiftCard
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -44,7 +44,7 @@ class GiftCard extends Model
     }
 
     /**
-     * Get the user that owns the GiftCard
+     * Récupérer le client/utilisateur ayant commandé la GiftCard
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -73,5 +73,16 @@ class GiftCard extends Model
     public function paymentInfo(): BelongsTo
     {
         return $this->belongsTo(PaymentInfo::class);
+    }
+
+
+    /**
+     * Récupérer les informations relatives à la livraison de la GiftCard
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function giftCardShipping(): HasOne
+    {
+        return $this->hasOne(GiftCardShipping::class);
     }
 }

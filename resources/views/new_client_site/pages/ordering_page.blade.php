@@ -3,7 +3,7 @@
 @section('title', 'Formulaire de Commande')
 
 @section('additionnal_css')
-    <link rel="stylesheet" href="{{ asset('assets/client_side/plugins/bs-stepper/css/bs-stepper.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/new_client_side/plugins/bs-stepper/css/bs-stepper.css') }}">
     <style>
         .bs-stepper .step-trigger {
             display: flex;
@@ -630,7 +630,7 @@
 
     <!-- JQuery Validate Plugin -->
     <script src="{{ asset('assets/backoffice/js/plugin/jquery.validate/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/client_side/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+    <script src="{{ asset('assets/new_client_side/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 
     <script>
         const networksByCountry = {

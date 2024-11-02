@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice\CustomerController;
 use App\Http\Controllers\BackOffice\GiftCardController;
@@ -26,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/password-reset', [PasswordResetController::class, 'showResetRequestForm'])->name('password.request');
+Route::post('/password-reset', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+Route::get('/password-reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password-reset/{token}', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+
 Route::name('client.')->group(function () {
     Route::get('/', [ClientController::class, 'home'])->name('home');
 
@@ -45,6 +51,11 @@ Route::name('client.')->group(function () {
     Route::view('/login', 'new_client_site.pages.login_page', ['categories' => PartnerCategory::all()])->name('login_page');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+    Route::get('/verify_email/{token}', [AuthController::class, 'verify_email'])->name('verify-email');
+    Route::get('/change-pasword/{origin_hashed}', [AuthController::class, 'change_password_page'])->name('change_password-page');
+    Route::post('/change-pasword', [AuthController::class, 'change_password'])->name('change_password');
+
+
     Route::middleware('auth')->group(function () {
         Route::get('/partner/{partner_name}', [ClientPartnerController::class, 'orderingPage'])->name('partner.ordering_page');
         Route::post('/gift_card/store', [ClientPartnerController::class, 'storeGiftCard'])->name('order.store');
@@ -55,6 +66,7 @@ Route::name('client.')->group(function () {
 
 
     Route::get('/storage/{filename}', [ImageController::class, 'showImage'])->name('image.show');
+    Route::get('/check_validity/{gift_card_id}', [GiftCardController::class, 'check'])->name('gift_card.check');
 });
 
 
@@ -64,6 +76,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::get('/gift_card', [GiftCardController::class, 'index'])->name('gift_card.index');
     Route::get('/gift_card/{id}', [GiftCardController::class, 'show'])->name('gift_card.show');
+    Route::get('/gift_card/send_through_mail/{id}', [GiftCardController::class, 'generateGiftCard'])->name('gift_card.generatePDF');
 
     Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
