@@ -48,6 +48,11 @@ return new class extends Migration
             $table->bigInteger('shipping_id')->unsigned();
             $table->foreign('shipping_id')->references('id')->on('shippings');
 
+            $table->boolean('sent')->nullable()->default(false);
+            $table->integer('validity_duration')->unsigned()->nullable();
+            $table->enum('shipping_status', ['awaiting processing','pending', 'delivered'])->default('awaiting processing');
+
+
             // Étape 6 : Récapitulatif
             $table->bigInteger('total_amount')->unsigned(); // Montant total
 

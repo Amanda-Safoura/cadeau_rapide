@@ -91,7 +91,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
     </style>
 @endsection
 
@@ -325,8 +324,7 @@
                                             @enderror
                                         </div>
 
-                                        <input type="hidden" name="customization_fee"
-                                            value="{{ env('CUSTOMIZATION_FEE') }}">
+                                        <input type="hidden" name="customization_fee" value="{{ $customization_fee }}">
                                     </div>
 
                                     <button type="button" class="btn btn-secondary me-3"
@@ -914,7 +912,7 @@
                     amount: {
                         required: "Veuillez entrer le montant du chèque cadeau.",
                         number: "Le montant doit être un nombre.",
-                        min: "Le montant doit être supérieur ou égal à 10 000."
+                        min: "Le montant doit être supérieur ou égal à {{ number_format($partner->min_amount, 0, '', ' ') }}."
                     },
                     client_name: "Veuillez entrer votre nom.",
                     client_email: {

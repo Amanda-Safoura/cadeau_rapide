@@ -276,12 +276,6 @@
                                     <i class="flaticon-cursor"></i>
                                     {{ $partner->address ? $partner->address : 'Non spécifié' }}
                                 </span>
-                                @if ($partner->short_description)
-                                    <br>
-                                    <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
-                                        <h3>{{ $partner->short_description }} </h3>
-                                    </a>
-                                @endif
                                 <p>{{ substr($partner->description, 0, 120) }}</p>
 
                                 <div class="content-tag">

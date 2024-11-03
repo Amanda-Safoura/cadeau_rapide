@@ -129,27 +129,31 @@
                         <h3 class="title">Gallery / Photos</h3>
                         <div class="gallery-slider-area owl-carousel owl-theme">
                             <div class="Gallery-item">
-                                <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_1), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
-                                    alt="Images">
+                                <a href="{{ Storage::disk('public')->url($partner->picture_1) }}"><img
+                                        src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_1), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
+                                        alt="Images"></a>
                             </div>
                             @if ($partner->picture_2)
                                 <div class="Gallery-item">
-                                    <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
-                                        alt="Images">
+                                    <a href="{{ Storage::disk('public')->url($partner->picture_2) }}"><img
+                                            src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
+                                            alt="Images"></a>
                                 </div>
                             @endif
 
                             @if ($partner->picture_3)
                                 <div class="Gallery-item">
-                                    <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_3), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
-                                        alt="Images">
+                                    <a href="{{ Storage::disk('public')->url($partner->picture_3) }}"><img
+                                            src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_3), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
+                                            alt="Images"></a>
                                 </div>
                             @endif
 
                             @if ($partner->picture_4)
                                 <div class="Gallery-item">
-                                    <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_4), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
-                                        alt="Images">
+                                    <a href="{{ Storage::disk('public')->url($partner->picture_4) }}"><img
+                                            src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_4), 'w' => 550, 'h' => 320, 'fit' => 'crop']) }}"
+                                            alt="Images"></a>
                                 </div>
                             @endif
 

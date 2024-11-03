@@ -153,10 +153,6 @@
                                                     <i class="flaticon-cursor"></i>
                                                     {{ $oneLetterPartner->adress ? $oneLetterPartner->adress : 'Non spécifiée' }}
                                                 </span>
-                                                <a
-                                                    href="{{ route('client.partner.show', ['partner_name' => $oneLetterPartner->name]) }}">
-                                                    <h3>{{ $oneLetterPartner->short_description }}</h3>
-                                                </a>
                                                 <p>{{ substr($oneLetterPartner->description, 0, 120) }}</p>
                                                 <div class="content-tag">
                                                     <ul>

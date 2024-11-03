@@ -53,21 +53,27 @@
                             </div>
                         </div>
 
-                        @guest
-                            <div class="side-item">
-                                <div class="user-btn">
+                        <div class="side-item">
+                            <div class="user-btn">
+                                @guest
                                     <a href="{{ route('client.login_page') }}">
                                         <i class="far fa-user"></i>
                                     </a>
-                                </div>
+                                @endguest
+                                @auth
+                                    <a href="{{ route('client.profile_page') }}">
+                                        <i class="far fa-user"></i>
+                                    </a>
+                                @endauth
                             </div>
-                        @endguest
+                        </div>
                         @auth
                             <div class="side-item">
                                 <div class="user-btn">
                                     <form action="{{ route('client.logout') }}" method="post">
                                         @csrf
-                                        <button type="submit" style="all:unset; cursor: pointer;"><i class="icon-logout"></i></button>
+                                        <button type="submit" style="all:unset; cursor: pointer;"><i
+                                                class="icon-logout"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -101,7 +107,6 @@
                         <div class="side-item">
                             <div class="user-btn">
                                 @guest
-
                                     <a href="{{ route('client.login_page') }}">
                                         <i class="far fa-user"></i>
                                     </a>
@@ -119,7 +124,8 @@
                                 <div class="user-btn">
                                     <form action="{{ route('client.logout') }}" method="post">
                                         @csrf
-                                        <button type="submit"><i class="icon-logout"></i></button>
+                                        <button type="submit" style="all:unset; cursor: pointer;"><i
+                                                class="icon-logout"></i></button>
                                     </form>
                                 </div>
                             </div>

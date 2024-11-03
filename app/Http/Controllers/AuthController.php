@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomHelpers;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Mail\VerifyEmail;
@@ -63,9 +64,15 @@ class AuthController extends Controller
 
     public function profile()
     {
+        $orders = auth()->user()->giftCards->load('paymentInfo');
+        foreach ($orders as $order) {
+            if (!in_array($order->paymentInfo->status, ['SUCCESSFUL', 'FAILED'])  && $order->paymentInfo->payment_network)
+                CustomHelpers::getPaymentStatus($order);
+        }
+
         return view('new_client_site.pages.profile_page', [
             'categories' => PartnerCategory::all(),
-            'orders' => auth()->user()->giftCards
+            'orders' => $orders
         ]);
     }
 

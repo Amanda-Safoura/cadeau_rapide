@@ -72,6 +72,15 @@
                 </a>
             </li>
 
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.gift_card.settings'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.gift_card.settings') }}">
+                    <i class="fas fa-cog align-middle"></i> <span class="align-middle">Paramètres des chèques cadeau</span>
+                </a>
+            </li>
+
 
             <li class="sidebar-header">
                 Clients
@@ -119,6 +128,16 @@
 
             <li class="sidebar-header">
                 Livraisons
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.shipping.to_deliver'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.shipping.to_deliver') }}">
+                    <i class="fas fa-truck"></i> <span class="align-middle">Chèques cadeaux à
+                        livrer</span>
+                </a>
             </li>
 
             <li @class([

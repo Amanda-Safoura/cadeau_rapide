@@ -67,6 +67,7 @@ Route::name('client.')->group(function () {
 
     Route::get('/storage/{filename}', [ImageController::class, 'showImage'])->name('image.show');
     Route::get('/check_validity/{gift_card_id}', [GiftCardController::class, 'check'])->name('gift_card.check');
+    Route::get('/gift_card/download/{id}', [GiftCardController::class, 'generateGiftCard'])->name('gift_card.generatePDF');
 });
 
 
@@ -74,9 +75,11 @@ Route::name('client.')->group(function () {
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::view('/', 'backoffice.layouts.main')->name('global_stats');
 
+    Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
+    Route::post('/gift_card/update_settings', [GiftCardController::class, 'update_settings'])->name('gift_card.update_settings');
+
     Route::get('/gift_card', [GiftCardController::class, 'index'])->name('gift_card.index');
     Route::get('/gift_card/{id}', [GiftCardController::class, 'show'])->name('gift_card.show');
-    Route::get('/gift_card/send_through_mail/{id}', [GiftCardController::class, 'generateGiftCard'])->name('gift_card.generatePDF');
 
     Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
@@ -89,6 +92,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::resource('/shippings', ShippingController::class);
     Route::get('/shippings_all', [ShippingController::class, 'fetch_resource'])->name('shipping.fetch_all');
+    Route::get('/shipping/to_deliver', [GiftCardController::class, 'to_deliver'])->name('shipping.to_deliver');
 
     Route::resource('/partner_categories', PartnerCategoryController::class);
     Route::get('/partner_categories_all', [PartnerCategoryController::class, 'fetch_resource'])->name('partner_category.fetch_all');

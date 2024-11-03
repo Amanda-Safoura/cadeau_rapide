@@ -8,8 +8,10 @@ use App\Models\GiftCard;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class GiftCardController extends Controller
 {
@@ -31,6 +33,49 @@ class GiftCardController extends Controller
         return view('backoffice.pages.gift_card.show', compact('gift_card'));
     }
 
+    public function to_deliver()
+    {
+        $datas = GiftCard::where('requires_delivery', true)->with('paymentInfo')->get();
+        return view('backoffice.pages.gift_card.to_deliver', compact('datas'));
+    }
+
+    // TODO: pas encore réellement codé
+    public function check(int $gift_card_id)
+    {
+        $gift_card = GiftCard::find($gift_card_id);
+        if (!$gift_card)
+            return view('new_client_site.pages.check_validity.gift_card_not_exist');
+
+        if (!$gift_card->isNotExpired)
+            return view('new_client_site.pages.check_validity.is_expired');
+
+        return view('new_client_site.pages.check_validity.is_valid');
+    }
+
+
+    public function generateGiftCard(int $id)
+    {
+        $gift_card = GiftCard::with('partner')->findOrFail($id);
+
+        if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
+
+            // Configuration de Dompdf
+            $options = new Options();
+            $options->set('defaultFont', 'Arial');
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isRemoteEnabled', true); // Permettre les ressources externes
+            $dompdf = new Dompdf($options);
+
+            // Génération du contenu HTML et du PDF
+            $html = view('to_generate.gift_card', compact('gift_card'))->render();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'landscape');
+            return $dompdf->stream("Chèque Cadeau N° $gift_card->id.pdf");
+        } else {
+            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
+        }
+    }
+
     public function generateAndSendGiftCard(int $id)
     {
         $gift_card = GiftCard::with('partner')->findOrFail($id);
@@ -47,7 +92,7 @@ class GiftCardController extends Controller
             // Génération du contenu HTML et du PDF
             $html = view('to_generate.gift_card', compact('gift_card'))->render();
             $dompdf->loadHtml($html);
-            $dompdf->setPaper('A5', 'landscape');
+            $dompdf->setPaper('A4', 'landscape');
             $dompdf->render();
 
             // Stocker le fichier PDF temporairement
@@ -66,10 +111,39 @@ class GiftCardController extends Controller
                     ]);
             });
 
+            $gift_card->sent = true;
+            $gift_card->shipping_status = 'delivered';
+            $gift_card->save();
+
             // Supprimer le fichier temporaire après l'envoi de l'email
             Storage::delete($tempPath);
         } else {
             return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
         }
+    }
+
+    public function settings()
+    {
+        $settings = DB::table('gift_card_settings')->first();
+        return view('backoffice.pages.gift_card.settings', compact('settings'));
+    }
+
+    public function update_settings(Request $request)
+    {
+        $request->validate([
+            'customization_fee' => 'required|numeric|min:0',
+            'validity_duration' => 'required|numeric|min:1',
+        ]);
+
+        $settings = DB::table('gift_card_settings')->first();
+
+        if ($settings) {
+            // Mettre à jour les réglages existants
+            DB::table('gift_card_settings')->update($request->only('customization_fee', 'validity_duration'));
+        } else {
+            // Insérer les nouveaux réglages
+            DB::table('gift_card_settings')->insert($request->only('customization_fee', 'validity_duration'));
+        }
+        return redirect()->route('dashboard.gift_card.settings');
     }
 }

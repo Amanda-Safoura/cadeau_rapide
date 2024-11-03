@@ -122,7 +122,13 @@
                         <h4 class="mb-3">Mes commandes</h4>
                         @foreach ($orders as $key => $order)
                             <div class="card mb-3 p-3">
-                                <h5><strong>Commande</strong> #{{ $key + 1 }}</h5>
+                                <div class="d-flex justify-content-around">
+                                    <h5><strong>Commande</strong> #{{ $key + 1 }}</h5>
+                                    @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
+                                        <a href="{{ route('client.gift_card.generatePDF', ['id' => $gift_card->id]) }}"
+                                            type="button" class="btn btn-success">Télécharger</a>
+                                    @endif
+                                </div>
                                 <p><strong>Montant Total</strong>: {{ $order->total_amount }}</p>
                                 <p><strong>Nom du Bénéficiaire</strong>:
                                     {{ $order->is_client_beneficiary ? 'Vous-même' : $order->beneficiary_name }}</p>
@@ -239,7 +245,7 @@
         function showSection(section) {
             if (section === 'orders') {
                 $('#profile-section').addClass('d-none')
-                $('#details-section').removeClass('d-none').html('')
+                $('#details-section').removeClass('d-none')
 
             } else if (section === 'profile') {
                 $('#profile-section').removeClass('d-none')

@@ -13,17 +13,16 @@
 
         <div class="d-flex justify-content-end">
             <div class="dropdown me-3">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="filter-delivering"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="filter-paid" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     Filtrer par type de livraison
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="filter-delivering">
-                    <li><a class="dropdown-item" href="#" onclick="updateDropdown('filter-delivering', 'À livrer')">À
-                            livrer</a></li>
-                    <li><a class="dropdown-item" href="#"
-                            onclick="updateDropdown('filter-delivering', 'À envoyer par mail')">À envoyer par mail</a></li>
-                    <li><a class="dropdown-item" href="#"
-                            onclick="updateDropdown('filter-delivering', 'Tous')">Tous</a>
+                <ul class="dropdown-menu" aria-labelledby="filter-paid">
+                    <li><a class="dropdown-item" href="#" onclick="updateDropdown('filter-paid', 'Payées')">Payées</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" onclick="updateDropdown('filter-paid', 'Non Payées')">Non
+                            Payées</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="updateDropdown('filter-paid', 'Tous')">Tous</a>
                     </li>
                 </ul>
             </div>
@@ -51,11 +50,12 @@
                     <tr>
                         <th>Client</th>
                         <th>Bénéficiaire</th>
-                        <th>Partenaire</th>
+                        <th>Adresse de livraison</th>
+                        <th>Frais de livraison</th>
+                        <th>Date de livraison</th>
                         <th>Montant</th>
-                        <th>Somme totale payé</th>
                         <th>Customisé</th>
-                        <th>À Livrer</th>
+                        <th>Payé</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
@@ -71,9 +71,10 @@
                                     {{ $gift_card->beneficiary_name }}
                                 @endif
                             </td>
-                            <td>{{ $gift_card->partner->name }} </td>
+                            <td>{{ $gift_card->delivery_adress }} </td>
+                            <td>{{ $gift_card->shipping->price }} </td>
+                            <td>{{ $gift_card->delivery_date->format('d F Y') }} </td>
                             <td>{{ $gift_card->amount }}</td>
-                            <td>{{ $gift_card->total_amount }}</td>
                             <td class=" text-center">
                                 @if ($gift_card->is_customized)
                                     <span class="bg-success text-white p-1"><span class="d-none">Personnalisés</span><i
@@ -85,11 +86,11 @@
                             </td>
                             <td class=" text-center">
                                 @if ($gift_card->requires_delivery)
-                                    <span class="bg-success text-white p-1"><span class="d-none">À livrer</span><i
+                                    <span class="bg-success text-white p-1"><span class="d-none">Payées</span><i
                                             class="fas fa-check"></i></span>
                                 @else
-                                    <span class="bg-danger text-white px-2 py-1"><span class="d-none">À envoyer par
-                                            mail</span><i class="fas fa-times"></i></span>
+                                    <span class="bg-danger text-white px-2 py-1"><span class="d-none">Non Payées</span><i
+                                            class="fas fa-times"></i></span>
                                 @endif
                             </td>
                             <td>{{ date_format($gift_card->created_at, 'd F Y, H:i') }}</td>
@@ -126,10 +127,10 @@
             let val = selection;
 
             // Identifie la colonne à filtrer selon le bouton
-            if (buttonId === 'filter-delivering') {
-                col = 6; // Colonne de livraison
+            if (buttonId === 'filter-paid') {
+                col = 7; // Colonne de renseignement sur le paiement
             } else if (buttonId === 'filter-customization') {
-                col = 5; // Colonne de personnalisation
+                col = 6; // Colonne de personnalisation
             }
 
             // Application du filtre avec DataTable

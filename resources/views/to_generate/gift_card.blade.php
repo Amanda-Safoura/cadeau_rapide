@@ -147,8 +147,18 @@
                     <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
                     <p><strong>Offert à :</strong> {{ $gift_card->beneficiary_name }}</p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
-                    <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity }} à compter du
-                        {{ $gift_card->start_date }}</p>
+                    <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} à
+                        compter du
+                        @if ($gift_card->requires_delivery)
+                            {{ $gift_card->delivery_date->format('d F Y') }}
+                        @else
+                            {{ $gift_card->created_at->format('d F Y') }}
+                        @endif
+                    </p>
+                    @if ($gift_card->personal_message)
+                        Voici ce quelques mots de votre donateur:
+                        <br>{{ $gift_card->personal_message }}
+                    @endif
                 </div>
 
                 <!-- Code QR -->
@@ -159,8 +169,6 @@
                 <div>
                     <p class="pb-5 ps-2">Utilisable uniquement chez le partenaire affilié. Non
                         remboursable.
-                        <br>En tant que partenaire, veuillez vous assurer de la validité de ce chèque via
-                        le code QR.
                         <br>
                         Ce chèque ne sera plus valable une fois la date d'expiration passée.
                     </p>
@@ -174,8 +182,6 @@
             <span>Numéro du chèque cadeau : #{{ $gift_card->id }}</span>
         </div>
     </div>
-
-    <script src="{{ asset('assets/new_client_side/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

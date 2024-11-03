@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,10 +29,27 @@ class GiftCard extends Model
         'delivery_address',
         'delivery_date',
         'shipping_id',
+        'shipping_status',
+        'sent',
+        'validity_duration',
         'total_amount',
         'partner_id',
         'payment_info_id'
     ];
+
+    // Accessor pour obtenir la date d'expiration
+    public function getExpirationDateAttribute()
+    {
+        $start_date = $this->requires_delivery ? $this->delivery_date : $this->created_at;
+
+        return Carbon::parse($start_date)->addMonths($this->validity_duration);
+    }
+
+    // Méthode pour vérifier si la date d'expiration n'est pas passée
+    public function isNotExpired()
+    {
+        return $this->expiration_date->isFuture(); // Retourne true si la date est dans le futur
+    }
 
     /**
      * Récupérer le partenaire associé à la GiftCard
@@ -73,16 +91,5 @@ class GiftCard extends Model
     public function paymentInfo(): BelongsTo
     {
         return $this->belongsTo(PaymentInfo::class);
-    }
-
-
-    /**
-     * Récupérer les informations relatives à la livraison de la GiftCard
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function giftCardShipping(): HasOne
-    {
-        return $this->hasOne(GiftCardShipping::class);
     }
 }

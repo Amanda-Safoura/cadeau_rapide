@@ -11,6 +11,7 @@ use App\Models\PaymentInfo;
 use App\Models\Shipping;
 use Feexpay\FeexpayPhp\FeexpayClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PartnerController extends Controller
 {
@@ -95,7 +96,10 @@ class PartnerController extends Controller
         $categories = PartnerCategory::all();
         $shippings = Shipping::all();
 
-        return view('new_client_site.pages.ordering_page', compact('partner', 'categories', 'shippings'));
+        $settings = DB::table('gift_card_settings')->first();
+        $customization_fee = $settings ? $settings->customization_fee : 0;
+
+        return view('new_client_site.pages.ordering_page', compact('partner', 'categories', 'shippings', 'customization_fee'));
     }
 
     public function storeGiftCard(StoreOrderRequest $request)
@@ -118,73 +122,72 @@ class PartnerController extends Controller
             'requires_delivery',
             'delivery_address',
             'delivery_date',
+            'validity_duration',
             'shipping_id',
             'partner_id',
             'total_amount',
         ))) {
 
-            if (GiftCardShipping::create(['gift_card_id' => $new_gift_card->id])) {
-                $infos_from_request = $request->only(
-                    'payment_phone',
-                    'payment_network',
-                    'payment_otp',
-                    'cardType',
-                    'firstNameCard,',
-                    'lastNameCard',
-                    'emailCard',
-                    'countryCard',
-                    'addressCard',
-                    'districtCard',
-                    'currency',
-                );
+            $infos_from_request = $request->only(
+                'payment_phone',
+                'payment_network',
+                'payment_otp',
+                'cardType',
+                'firstNameCard,',
+                'lastNameCard',
+                'emailCard',
+                'countryCard',
+                'addressCard',
+                'districtCard',
+                'currency',
+            );
 
-                if ($new_payment_info = PaymentInfo::create(array_merge($infos_from_request, ['gift_card_id' => $new_gift_card->id]))) {
-                    $new_gift_card->payment_info_id = $new_payment_info->id;
-                    $new_gift_card->save();
+            if ($new_payment_info = PaymentInfo::create(array_merge($infos_from_request, ['gift_card_id' => $new_gift_card->id]))) {
+                $new_gift_card->payment_info_id = $new_payment_info->id;
+                $new_gift_card->save();
 
-                    $partner = Partner::findOrFail($new_gift_card->partner_id);
-                    // Initialiser le SDK
-                    $skeleton = new FeexpayClass(env('FEEXPAY_SHOP_ID'), env('FEEXPAY_TOKEN_KEY_API'), route('client.partner.ordering_page', ['partner_name' => $partner->name]), "LIVE", "");
+                $partner = Partner::findOrFail($new_gift_card->partner_id);
+                // Initialiser le SDK
+                $skeleton = new FeexpayClass(env('FEEXPAY_SHOP_ID'), env('FEEXPAY_TOKEN_KEY_API'), route('client.partner.ordering_page', ['partner_name' => $partner->name]), "LIVE", "");
 
-                    // Déterminer le mode de paiement
-                    $network = $new_payment_info->payment_network;
-                    $amount = $new_gift_card->amount;
-                    $phone = $new_payment_info->payment_phone;
-                    $otp = $new_payment_info->payment_network === 'ORANGE SN' ? $new_payment_info->payment_otp : '';
+                // Déterminer le mode de paiement
+                $network = $new_payment_info->payment_network;
+                $amount = $new_gift_card->amount;
+                $phone = $new_payment_info->payment_phone;
+                $otp = $new_payment_info->payment_network === 'ORANGE SN' ? $new_payment_info->payment_otp : '';
 
-                    // Traitement du paiement mobile
-                    if (in_array($network, ['MTN', 'MOOV', 'MOOV TG', 'TOGOCOM TG', 'ORANGE SN', 'MTN CI'])) {
-                        $response = $skeleton->paiementLocal($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, '', '', $otp);
+                // Traitement du paiement mobile
+                if (in_array($network, ['MTN', 'MOOV', 'MOOV TG', 'TOGOCOM TG', 'ORANGE SN', 'MTN CI'])) {
+                    $response = $skeleton->paiementLocal($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, '', '', $otp);
 
-                        $new_payment_info->reference = $response;
-                        $new_payment_info->save();
+                    $new_payment_info->reference = $response;
+                    $new_payment_info->save();
 
-                        return redirect()->back()->with('message', 'Nous avons bien enregistré votre commande.');
+                    return redirect()->back()->with('message', 'Nous avons bien enregistré votre commande.');
+                }
+                // Traitement du paiement web
+                elseif (in_array($network, ['FREE SN', 'ORANGE CI', 'MOOV CI', 'WAVE CI', 'MOOV BF', 'ORANGE BF'])) {
+                    $response = $skeleton->requestToPayWeb($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, "cancel_url", "return_url");
+                    $reference = $response["reference"];
+
+                    $new_payment_info->reference = $reference;
+                    $new_payment_info->save();
+
+                    return redirect($response["payment_url"]);
+                }
+                // Traitement du paiement par carte bancaire
+                elseif ($request->has('card_number')) {
+                    $responseCard = $skeleton->paiementCard($amount, $phone, $new_payment_info->cardType, $new_payment_info->firstNameCard, $new_payment_info->lastNameCard,  $new_payment_info->emailCard, $new_payment_info->countryCard, $new_payment_info->addressCard, $new_payment_info->districtCard, $new_payment_info->currency, 'callback_info_url', '');
+                    $redirectUrl = $responseCard["url"];
+
+                    if (isset($redirectUrl)) {
+                        return redirect()->to($redirectUrl);
                     }
-                    // Traitement du paiement web
-                    elseif (in_array($network, ['FREE SN', 'ORANGE CI', 'MOOV CI', 'WAVE CI', 'MOOV BF', 'ORANGE BF'])) {
-                        $response = $skeleton->requestToPayWeb($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, "cancel_url", "return_url");
-                        $reference = $response["reference"];
-
-                        $new_payment_info->reference = $reference;
-                        $new_payment_info->save();
-
-                        return redirect($response["payment_url"]);
-                    }
-                    // Traitement du paiement par carte bancaire
-                    elseif ($request->has('card_number')) {
-                        $responseCard = $skeleton->paiementCard($amount, $phone, $new_payment_info->cardType, $new_payment_info->firstNameCard, $new_payment_info->lastNameCard,  $new_payment_info->emailCard, $new_payment_info->countryCard, $new_payment_info->addressCard, $new_payment_info->districtCard, $new_payment_info->currency, 'callback_info_url', '');
-                        $redirectUrl = $responseCard["url"];
-
-                        if (isset($redirectUrl)) {
-                            return redirect()->to($redirectUrl);
-                        }
-                        return redirect()->back()->with('message', 'Erreur lors du traitement du paiement par carte.');
-                    }
-                    // Si aucun mode de paiement valide n'est trouvé
-                    else {
-                        return redirect()->back()->with('message', 'Veuillez vérifier vos informations de paiement.');
-                    }
+                    return redirect()->back()->with('message', 'Erreur lors du traitement du paiement par carte.');
+                }
+                // Si aucun mode de paiement valide n'est trouvé
+                else {
+                    return redirect()->back()->with('message', 'Veuillez vérifier vos informations de paiement.');
                 }
             }
         }

@@ -649,7 +649,7 @@
                                                                                             <!--<![endif]-->
                                                                                             <p class="t31"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#EDEDED;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;">
-                                                                                                Max Magic. All rights
+                                                                                                Cadeau Rapide. All rights
                                                                                                 reserved</p>
                                                                                         </td>
                                                                                     </tr>
