@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug', 350);
 
             $table->bigInteger('category_id', false, true);
             $table->foreign('category_id')->references('id')->on('partner_categories')->onDelete('cascade');

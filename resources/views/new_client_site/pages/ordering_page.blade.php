@@ -162,6 +162,7 @@
                         <div class="bs-stepper-content">
                             <form id="giftCardForm" action="{{ route('client.order.store') }}" method="POST">
                                 @csrf
+                                @method('POST')
 
                                 <input type="hidden" name="partner_id" value="{{ $partner->id }}">
                                 <!-- Étape 1 : Informations du Chèque Cadeau -->
@@ -1003,8 +1004,13 @@
 
             if (currentStep === 5) generateSummary()
             if (currentStep === 6) {
-                let totalAmount = parseInt($('#amount').val()) + parseInt($('#shipping_id option:selected').attr(
-                    'shipping-price')) + parseInt($('input[name="customization_fee"]').val())
+                let totalAmount = parseInt($('#amount').val())
+                if ($('input[name="requires_delivery"]:checked').val() == "1") totalAmount += parseInt($(
+                    '#shipping_id option:selected').attr(
+                    'shipping-price'))
+
+                if ($('input[name="is_customized"]:checked').val() == "1") totalAmount += parseInt($(
+                    'input[name="customization_fee"]').val())
 
                 $('#total_amount').text(totalAmount + '')
             }

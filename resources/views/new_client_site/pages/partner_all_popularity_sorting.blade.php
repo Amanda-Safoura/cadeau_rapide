@@ -92,7 +92,7 @@
                             @foreach ($partners as $partner)
                                 <div class="col-lg-6 col-md-6">
                                     <div class="place-card active">
-                                        <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}"
+                                        <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}"
                                             class="place-images">
                                             <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 750, 'fit' => 'crop']) }}"
                                                 alt="Images">
@@ -116,7 +116,7 @@
                                                 {{ $partner->adress ? $partner->adress : 'Non spécifiée' }}
                                             </span>
                                             <a
-                                                href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
+                                                href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}">
                                                 <h3>{{ $partner->short_description }}</h3>
                                             </a>
                                             <p>{{ substr($partner->description, 0, 120) }}</p>

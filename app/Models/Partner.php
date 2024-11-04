@@ -14,6 +14,7 @@ class Partner extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'category_id',
         'short_description',
         'description',

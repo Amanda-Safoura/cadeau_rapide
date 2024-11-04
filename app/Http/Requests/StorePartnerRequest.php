@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\CustomHelpers;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StorePartnerRequest extends FormRequest
 {
@@ -51,6 +52,7 @@ class StorePartnerRequest extends FormRequest
         }
 
         return $this->merge([
+            'slug' => Str::slug($this->input('name')),
             'offers' => $offers
         ]);
     }

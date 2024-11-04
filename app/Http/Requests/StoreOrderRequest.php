@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use App\Models\Shipping;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -33,6 +32,7 @@ class StoreOrderRequest extends FormRequest
         return [
             'user_id' => ['required', 'numeric', 'exists:users,id'],
             'amount' => ['required', 'numeric', 'min:10000'],
+            'sold' => ['required', 'numeric'],
             'personal_message' => ['nullable', 'string', 'max:500'],
             'client_name' => ['required', 'string', 'max:255'],
             'client_email' => ['required', 'email', 'max:255'],
@@ -54,7 +54,7 @@ class StoreOrderRequest extends FormRequest
             // Delivery details validation only if delivery is required
             'delivery_address' => ['required_if:requires_delivery,true', 'nullable', 'string', 'max:500'],
             'delivery_date' => ['required_if:requires_delivery,true', 'nullable', 'date', 'after:today'],
-            'shipping_id' => ['required', 'numeric', 'exists:shippings,id'],
+            'shipping_id' => ['required_if:requires_delivery,true', 'nullable', 'numeric', 'exists:shippings,id'],
 
             'partner_id' => ['required', 'numeric', 'exists:partners,id'],
 
@@ -80,16 +80,19 @@ class StoreOrderRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $shipping = Shipping::findOrFail($this->input('shipping_id'));
+        $shipping_price = 0;
+        $shipping = Shipping::find($this->input('shipping_id'));
+        if ($shipping) $shipping_price = $shipping->price;
 
         $settings = DB::table('gift_card_settings')->first();
         $customization_fee = $settings ? $settings->customization_fee : 0;
         $validity_duration = $settings ? $settings->validity_duration : 1;
 
-        $total_amount = 0 + $shipping->price;
-        if ($this->input('is_customized') == '1') $total_amount += $customization_fee;
+        $total_amount = 0;
         if ($this->input('amount')) $total_amount += (int)($this->input('amount'));
-
+        if ($this->input('amount')) $sold = (int)($this->input('amount')) ?? 0;
+        if ($this->input('is_customized') == '1') $total_amount += $customization_fee;
+        if ($this->input('requires_delivery')) $total_amount += $shipping_price;
 
         $dial_code = '229';
         foreach ($this->networksByCountry as $code => $networks) {
@@ -104,6 +107,7 @@ class StoreOrderRequest extends FormRequest
             [
                 'validity_duration' => $validity_duration,
                 'total_amount' => $total_amount,
+                'sold' => $sold,
                 'customization_fee' => $customization_fee,
                 'payment_phone' => $dial_code . $this->input('payment_phone'),
                 'user_id' => auth()->user()->id

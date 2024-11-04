@@ -80,19 +80,19 @@ class PartnerController extends Controller
         return view('new_client_site.pages.partner_search', compact('partners', 'categories', 'keyword'));
     }
 
-    public function profile($partner_name)
+    public function profile($slug)
     {
         $partner = Partner::where('suspended', false)
-            ->where('name', $partner_name)
+            ->where('slug', $slug)
             ->firstOrFail();
         $categories = PartnerCategory::all();
 
         return view('new_client_site.pages.partner_show', compact('partner', 'categories'));
     }
 
-    public function orderingPage($partner_name)
+    public function orderingPage($slug)
     {
-        $partner = Partner::where('name', $partner_name)->firstOrFail();
+        $partner = Partner::where('slug', $slug)->firstOrFail();
         $categories = PartnerCategory::all();
         $shippings = Shipping::all();
 
@@ -148,7 +148,7 @@ class PartnerController extends Controller
 
                 $partner = Partner::findOrFail($new_gift_card->partner_id);
                 // Initialiser le SDK
-                $skeleton = new FeexpayClass(env('FEEXPAY_SHOP_ID'), env('FEEXPAY_TOKEN_KEY_API'), route('client.partner.ordering_page', ['partner_name' => $partner->name]), "LIVE", "");
+                $skeleton = new FeexpayClass(env('FEEXPAY_SHOP_ID'), env('FEEXPAY_TOKEN_KEY_API'), route('client.partner.ordering_page', ['slug' => $partner->slug]), "LIVE", "");
 
                 // Déterminer le mode de paiement
                 $network = $new_payment_info->payment_network;

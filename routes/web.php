@@ -12,7 +12,6 @@ use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
-use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +39,7 @@ Route::name('client.')->group(function () {
     Route::get('/partner/result/{letter}', [ClientPartnerController::class, 'resultByLetter'])->name('partner.letter');
     Route::get('/partner_category/{name}', [ClientPartnerController::class, 'category'])->name('partner.category');
     Route::get('/partners/search/', [ClientPartnerController::class, 'search'])->name('partner.search');
-    Route::get('/partner_profile/{partner_name}', [ClientPartnerController::class, 'profile'])->name('partner.show');
+    Route::get('/partner_profile/{slug}', [ClientPartnerController::class, 'profile'])->name('partner.show');
 
     Route::view('/contact', 'new_client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');
@@ -57,7 +56,7 @@ Route::name('client.')->group(function () {
 
 
     Route::middleware('auth')->group(function () {
-        Route::get('/partner/{partner_name}', [ClientPartnerController::class, 'orderingPage'])->name('partner.ordering_page');
+        Route::get('/partner/{slug}', [ClientPartnerController::class, 'orderingPage'])->name('partner.ordering_page');
         Route::post('/gift_card/store', [ClientPartnerController::class, 'storeGiftCard'])->name('order.store');
         Route::get('/profile', [AuthController::class, 'profile'])->name('profile_page');
         Route::post('/reclamation/store', [ReclamationController::class, 'store'])->name('reclamation.store');

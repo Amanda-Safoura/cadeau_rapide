@@ -45,7 +45,7 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
 
             // Étape 2 : Détails du Client
-            $table->bigInteger('shipping_id')->unsigned();
+            $table->bigInteger('shipping_id')->unsigned()->nullable();
             $table->foreign('shipping_id')->references('id')->on('shippings');
 
             $table->boolean('sent')->nullable()->default(false);
@@ -55,6 +55,7 @@ return new class extends Migration
 
             // Étape 6 : Récapitulatif
             $table->bigInteger('total_amount')->unsigned(); // Montant total
+            $table->bigInteger('sold')->unsigned(); // Solde restant
 
             // Étape 7 : Paiement
             $table->bigInteger('payment_info_id', false, true)->nullable()->unique(); // Numéro de transaction

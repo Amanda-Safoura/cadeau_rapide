@@ -29,7 +29,7 @@ class PartnerController extends Controller
             $partner = $partner->toArray();
             $partner['picture_1'] = Storage::disk('public')->url($partner['picture_1']);
 
-            $partner['page_link'] = route('client.partner.show', ['partner_name' => $partner['name']]);
+            $partner['page_link'] = route('client.partner.show', ['slug' => $partner['slug']]);
             $datas[] = $partner;
         }
         return response()->json(['data' => $datas]);

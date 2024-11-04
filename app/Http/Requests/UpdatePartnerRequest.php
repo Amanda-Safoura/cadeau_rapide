@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\CustomHelpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class UpdatePartnerRequest extends FormRequest
 {
@@ -59,7 +60,8 @@ class UpdatePartnerRequest extends FormRequest
         }
 
         return $this->merge([
-            'offers' => $offers
+            'slug' => Str::slug($this->input('name')),
+            'offers' => $offers,
         ]);
     }
 }

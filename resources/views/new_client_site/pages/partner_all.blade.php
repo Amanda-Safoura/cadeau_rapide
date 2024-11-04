@@ -130,7 +130,7 @@
                                 @foreach ($letterPartners as $oneLetterPartner)
                                     <div class="col-lg-6 col-md-6">
                                         <div class="place-card active">
-                                            <a href="{{ route('client.partner.show', ['partner_name' => $oneLetterPartner->name]) }}"
+                                            <a href="{{ route('client.partner.show', ['slug' => $oneLetterPartner->slug]) }}"
                                                 class="place-images">
                                                 <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $oneLetterPartner->picture_2), 'w' => 550, 'h' => 750, 'fit' => 'crop']) }}"
                                                     alt="Images">

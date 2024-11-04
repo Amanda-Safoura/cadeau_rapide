@@ -254,7 +254,7 @@
                 @foreach ($topPartners as $partner)
                     <div class="col-lg-4 col-md-6">
                         <div class="place-card">
-                            <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}"
+                            <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}"
                                 class="place-images">
                                 <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_2), 'w' => 550, 'h' => 780, 'fit' => 'crop']) }}"
                                     alt="{{ $partner->name }}">
@@ -268,7 +268,7 @@
                                 <div class="content-profile">
                                     <img src="{{ route('client.image.show', ['filename' => str_replace('Partners/', '', $partner->picture_1), 'w' => 35, 'h' => 35, 'fit' => 'crop']) }}"
                                         alt="Images">
-                                    <a href="{{ route('client.partner.show', ['partner_name' => $partner->name]) }}">
+                                    <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}">
                                         <h3>{{ $partner->name }}</h3>
                                     </a>
                                 </div>

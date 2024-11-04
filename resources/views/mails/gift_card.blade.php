@@ -46,7 +46,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Date de début de validité</th>
-                        <td>{{ $gift_card->giftCardShipping->start_date->format('d/m/Y') }}</td>
+                        <td>{{ $gift_card->created_at->format('d/m/Y') }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Durée de validité</th>

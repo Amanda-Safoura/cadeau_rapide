@@ -33,9 +33,21 @@ class GiftCard extends Model
         'sent',
         'validity_duration',
         'total_amount',
+        'sold',
         'partner_id',
         'payment_info_id'
     ];
+
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'delivery_date' => 'datetime',
+    ];
+
 
     // Accessor pour obtenir la date d'expiration
     public function getExpirationDateAttribute()

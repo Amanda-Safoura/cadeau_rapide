@@ -160,7 +160,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <a href="{{ route('client.partner.ordering_page', ['partner_name' => $partner->name]) }}"
+                        <a href="{{ route('client.partner.ordering_page', ['slug' => $partner->slug]) }}"
                             class="default-btn border-radius">
                             Commander un chèque cadeau
                         </a>
