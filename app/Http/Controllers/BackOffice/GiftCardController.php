@@ -39,6 +39,20 @@ class GiftCardController extends Controller
         return view('backoffice.pages.gift_card.to_deliver', compact('datas'));
     }
 
+    public function change_delivery_status(Request $request)
+    {
+        $request->validate([
+            'orderId' => 'required|numeric|exists:gift_cards,id',
+            'newStatus' => 'required|in:awaiting processing,pending,delivered',
+        ]);
+
+        $gift_card = GiftCard::findOrFail($request->input('orderId'));
+        $gift_card->shipping_status = $request->input('newStatus');
+        $gift_card->save();
+
+        return response()->json();
+    }
+
     // TODO: pas encore réellement codé
     public function check(int $gift_card_id)
     {

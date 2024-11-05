@@ -77,7 +77,8 @@
                 'active' => request()->routeIs('dashboard.gift_card.settings'),
             ])>
                 <a class="sidebar-link" href="{{ route('dashboard.gift_card.settings') }}">
-                    <i class="fas fa-cog align-middle"></i> <span class="align-middle">Paramètres des chèques cadeau</span>
+                    <i class="fas fa-cog align-middle"></i> <span class="align-middle">Paramètres des chèques
+                        cadeau</span>
                 </a>
             </li>
 
@@ -103,6 +104,30 @@
                     <i class="fas fa-headset align-middle"></i> <span class="align-middle">Support client</span>
                 </a>
             </li>
+
+
+            <li class="sidebar-header">
+                Finances
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.cash_entries'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.cash_entries') }}">
+                    <i class="fas fa-user align-middle"></i> <span class="align-middle">Revenus</span>
+                </a>
+            </li>
+            
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.finance.card_payment_to_validate'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.finance.card_payment_to_validate') }}">
+                    <i class="far fa-credit-card"></i> <span class="align-middle">Valider les paiements par Carte Bancaire</span>
+                </a>
+            </li>
+
 
 
             <li class="sidebar-header">

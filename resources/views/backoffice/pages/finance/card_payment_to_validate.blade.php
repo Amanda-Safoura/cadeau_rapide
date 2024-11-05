@@ -13,32 +13,17 @@
 
         <div class="d-flex justify-content-end">
             <div class="custom-dropdown me-3">
-                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-delivering">
-                    Filtrer par type de livraison
+                <button class="custom-dropdown-toggle btn-primary" id="filter-paid" type="button">
+                    Filtrer par statut de livraison
                 </button>
                 <ul class="custom-dropdown-menu">
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'À livrer')">À
-                            livrer</a></li>
+                            onclick="updateDropdown('filter-paid', 'Approuvés')">Approuvés</a></li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'À envoyer par mail')">À envoyer par mail</a></li>
+                            onclick="updateDropdown('filter-paid', 'Rejettés')">Rejettés</a></li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'Tous')">Tous</a>
+                            onclick="updateDropdown('filter-paid', 'Tous')">Tous</a>
                     </li>
-                </ul>
-            </div>
-
-            <div class="custom-dropdown">
-                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
-                    Filtrer par demande de personnalisation
-                </button>
-                <ul class="custom-dropdown-menu">
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Personnalisés')">Personnalisés</a></li>
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Standards')">Standards</a></li>
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Tous')">Tous</a></li>
                 </ul>
             </div>
         </div>
@@ -53,8 +38,7 @@
                         <th>Partenaire</th>
                         <th>Montant</th>
                         <th>Somme totale payé</th>
-                        <th>Customisé</th>
-                        <th>À Livrer</th>
+                        <th>Payé</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
@@ -73,24 +57,15 @@
                             <td>{{ $gift_card->partner->name }} </td>
                             <td>{{ $gift_card->amount }}</td>
                             <td>{{ $gift_card->total_amount }}</td>
-                            <td class=" text-center">
-                                @if ($gift_card->is_customized)
-                                    <span class="bg-success text-white p-1"><span class="d-none">Personnalisés</span><i
-                                            class="fas fa-check"></i></span>
-                                @else
-                                    <span class="bg-danger text-white px-2 py-1"><span class="d-none">Standards</span><i
-                                            class="fas fa-times"></i></span>
-                                @endif
-                            </td>
-                            <td class=" text-center">
-                                @if ($gift_card->requires_delivery)
+                            <td>
+                                @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
                                     <span class="bg-success text-white p-1">
-                                        <span class="d-none">À livrer</span>
+                                        <span class="d-none">Approuvés</span>
                                         <i class="fas fa-check"></i>
                                     </span>
-                                @else
+                                @elseif ($gift_card->paymentInfo->status === 'FAILED')
                                     <span class="bg-danger text-white px-2 py-1">
-                                        <span class="d-none">À envoyer par mail</span>
+                                        <span class="d-none">Rejettés</span>
                                         <i class="fas fa-times"></i>
                                     </span>
                                 @endif
@@ -103,6 +78,21 @@
                                         title="Voir plus">
                                         <i class="far fa-file-alt"></i>
                                     </a>
+                                    <button @class([
+                                        'btn btn-success text-white p-1 change_payment_status' => true,
+                                        'disabled' => $gift_card->paymentInfo->status === 'SUCCESSFUL',
+                                    ]) type="button" data-id="{{ $gift_card->id }}"
+                                        title="Valider le paiement">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+
+                                    <button @class([
+                                        'btn btn-danger text-white px-2 py-1 change_payment_status' => true,
+                                        'disabled' => $gift_card->paymentInfo->status === 'FAILED',
+                                    ]) type="button" data-id="{{ $gift_card->id }}"
+                                        title="Rejeter le paiement">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -129,10 +119,8 @@
             let val = selection;
 
             // Identifie la colonne à filtrer selon le bouton
-            if (buttonId === 'filter-delivering') {
-                col = 6; // Colonne de livraison
-            } else if (buttonId === 'filter-customization') {
-                col = 5; // Colonne de personnalisation
+            if (buttonId === 'filter-paid') {
+                col = 5; // Colonne de status de paiement
             }
 
             // Application du filtre avec DataTable
@@ -140,8 +128,39 @@
                 table.column(col).search('').draw(); // Affiche toutes les valeurs
             } else {
                 // Met en place le filtre correspondant
-                table.column(col).search(val, true, false).draw();
+                table.column(col).search(val).draw(); // Supprime les caractères ^ et $ pour un filtrage flexible
             }
         }
+
+
+        $('.change_payment_status').on('click', function() {
+            let newStatus = null;
+            let self = $(this); // Garde une référence au bouton déclencheur
+
+            if (self.hasClass('btn-success')) newStatus = "SUCCESSFUL";
+            if (self.hasClass('btn-danger')) newStatus = "FAILED";
+
+            $.ajax({
+                type: "get",
+                url: "{{ route('dashboard.finance.change_payment_status') }}",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    gift_card_id: self.attr('data-id'),
+                    newStatus
+                },
+                success: function(response) {
+                    // Désactiver le bouton actuel et réactiver le bouton opposé
+                    self.addClass('disabled').siblings('button.change_payment_status').removeClass(
+                        'disabled');
+
+                    // Mettre à jour la ligne dans DataTable
+                    let rowData = table.row(self.closest('tr')).data();
+                    rowData[5] = newStatus === "SUCCESSFUL" ?
+                        '<span class="bg-success text-white p-1"><span class="d-none">Approuvés</span><i class="fas fa-check"></i></span>' :
+                        '<span class="bg-danger text-white p-1"><span class="d-none">Rejettés</span><i class="fas fa-times"></i></span>'; // Met à jour la colonne de statut
+                    table.row(self.closest('tr')).data(rowData).draw(); // Redessiner le tableau
+                }
+            });
+        });
     </script>
 @endsection

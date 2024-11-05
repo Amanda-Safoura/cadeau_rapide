@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice\CustomerController;
+use App\Http\Controllers\BackOffice\FinanceController;
 use App\Http\Controllers\BackOffice\GiftCardController;
 use App\Http\Controllers\BackOffice\PartnerCategoryController;
 use App\Http\Controllers\BackOffice\PartnerController as BackOfficePartnerController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
+use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +79,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
     Route::post('/gift_card/update_settings', [GiftCardController::class, 'update_settings'])->name('gift_card.update_settings');
 
+    Route::get('/gift_card/change_delivery_status', [GiftCardController::class, 'change_delivery_status'])->name('gift_card.change_delivery_status');
+
     Route::get('/gift_card', [GiftCardController::class, 'index'])->name('gift_card.index');
     Route::get('/gift_card/{id}', [GiftCardController::class, 'show'])->name('gift_card.show');
 
@@ -99,6 +103,12 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::resource('/partners', BackOfficePartnerController::class);
     Route::post('/partners/suspense', [BackOfficePartnerController::class, 'suspense'])->name('partner.suspense');
     Route::get('/partners_all', [BackOfficePartnerController::class, 'fetch_resource'])->name('partner.fetch_all');
+
+    Route::get('/cash_entries', [FinanceController::class, 'cash_entries'])->name('cash_entries');
+
+    Route::get('/finance/card_payment_to_validate', [FinanceController::class, 'card_payment_to_validate'])->name('finance.card_payment_to_validate');
+    Route::get('/finance/change_payment_status', [FinanceController::class, 'change_payment_status'])->name('finance.change_payment_status');
+
 
     Route::view('/all_icon', 'backoffice.pages.all_icon')->name('all_icon');
 });

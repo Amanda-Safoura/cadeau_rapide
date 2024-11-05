@@ -51,6 +51,8 @@ return new class extends Migration
             $table->boolean('sent')->nullable()->default(false);
             $table->integer('validity_duration')->unsigned()->nullable();
             $table->enum('shipping_status', ['awaiting processing','pending', 'delivered'])->default('awaiting processing');
+            $table->string('shipping_zone')->default('N/A');
+            $table->integer('shipping_price')->default(0);
 
 
             // Étape 6 : Récapitulatif

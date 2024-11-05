@@ -30,6 +30,8 @@ class GiftCard extends Model
         'delivery_date',
         'shipping_id',
         'shipping_status',
+        'shipping_zone',
+        'shipping_price',
         'sent',
         'validity_duration',
         'total_amount',

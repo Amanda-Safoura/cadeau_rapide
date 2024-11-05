@@ -122,10 +122,10 @@
                         <h4 class="mb-3">Mes commandes</h4>
                         @foreach ($orders as $key => $order)
                             <div class="card mb-3 p-3">
-                                <div class="d-flex justify-content-around">
+                                <div class="d-flex justify-content-between">
                                     <h5><strong>Commande</strong> #{{ $key + 1 }}</h5>
-                                    @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
-                                        <a href="{{ route('client.gift_card.generatePDF', ['id' => $gift_card->id]) }}"
+                                    @if (!$order->requires_delivery)
+                                        <a href="{{ route('client.gift_card.generatePDF', ['id' => $order->id]) }}"
                                             type="button" class="btn btn-success">Télécharger</a>
                                     @endif
                                 </div>
@@ -133,25 +133,38 @@
                                 <p><strong>Nom du Bénéficiaire</strong>:
                                     {{ $order->is_client_beneficiary ? 'Vous-même' : $order->beneficiary_name }}</p>
                                 <p>Date : {{ date_format($order->created_at, 'd F Y') }}</p>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 33%"
-                                        aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                {{-- 
+                                @if ($order->requires_delivery)
+                                    @php
+                                        $progressClass = 'progress-bar';
+                                        $progressWidth = 'width: 0%';
+                                        $progressAria = 'aria-valuenow="0"';
+
+                                        if ($order->shipping_status === 'awaiting processing') {
+                                            $progressClass .= ' bg-primary';
+                                            $progressWidth = 'width: 1%';
+                                            $progressAria = 'aria-valuenow="1"';
+                                        } elseif ($order->shipping_status === 'pending') {
+                                            $progressClass .= ' bg-warning';
+                                            $progressWidth = 'width: 33%';
+                                            $progressAria = 'aria-valuenow="33"';
+                                        } elseif ($order->shipping_status === 'delivered') {
+                                            $progressClass .= ' bg-success';
+                                            $progressWidth = 'width: 100%';
+                                            $progressAria = 'aria-valuenow="100"';
+                                        }
+                                    @endphp
+
                                     <div class="progress mb-2" style="height: 8px;">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="{{ $progressClass }}" role="progressbar" style="{{ $progressWidth }}"
+                                            {{ $progressAria }}></div>
                                     </div>
+
                                     <div class="d-flex justify-content-between progress-step">
                                         <span>En attente de traitement</span>
                                         <span>Validée</span>
                                         <span>Livrée</span>
                                     </div>
-                                 --}}
-                                <div class="d-flex justify-content-between progress-step">
-                                    <span>En attente de traitement</span>
-                                    <span>Validée</span>
-                                    <span>Livrée</span>
-                                </div>
+                                @endif
                                 <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal"
                                     data-bs-target="#detailsModal" order_id="{{ $order->id }}">Voir les
                                     détails</button>

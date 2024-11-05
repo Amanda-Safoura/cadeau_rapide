@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\GiftCard;
-use App\Models\GiftCardShipping;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
 use App\Models\PaymentInfo;
@@ -124,8 +123,11 @@ class PartnerController extends Controller
             'delivery_date',
             'validity_duration',
             'shipping_id',
+            'shipping_zone',
+            'shipping_price',
             'partner_id',
             'total_amount',
+            'sold',
         ))) {
 
             $infos_from_request = $request->only(

@@ -73,8 +73,25 @@
                 <p><strong>Livraison au Bénéficiaire :</strong> {{ $gift_card->requires_delivery ? 'Oui' : 'Non' }}</p>
                 @if ($gift_card->requires_delivery)
                     <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
-                    <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping->zone }}</p>
+                    <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
                     <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date }}</p>
+                    @php
+                        $shipping_status = '';
+                        switch ($gift_card->shipping_status) {
+                            case 'awaiting processing':
+                                $shipping_status = 'En attente de traitement';
+                                break;
+
+                            case 'pending':
+                                $shipping_status = 'En cours';
+                                break;
+
+                            case 'delivered':
+                                $shipping_status = 'Livré';
+                                break;
+                        }
+                    @endphp
+                    <p><strong>Statut de Livraison :</strong> {{ $shipping_status }}</p>
                 @endif
             </div>
         </div>

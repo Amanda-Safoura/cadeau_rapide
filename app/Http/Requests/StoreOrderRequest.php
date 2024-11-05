@@ -55,6 +55,8 @@ class StoreOrderRequest extends FormRequest
             'delivery_address' => ['required_if:requires_delivery,true', 'nullable', 'string', 'max:500'],
             'delivery_date' => ['required_if:requires_delivery,true', 'nullable', 'date', 'after:today'],
             'shipping_id' => ['required_if:requires_delivery,true', 'nullable', 'numeric', 'exists:shippings,id'],
+            'shipping_zone' => ['required_if:requires_delivery,true', 'nullable', 'string'],
+            'shipping_price' => ['required_if:requires_delivery,true', 'nullable', 'numeric'],
 
             'partner_id' => ['required', 'numeric', 'exists:partners,id'],
 
@@ -105,6 +107,8 @@ class StoreOrderRequest extends FormRequest
 
         return $this->merge(
             [
+                'shipping_zone' => $shipping->zone ?? 'N/A',
+                'shipping_price' => $shipping_price ?? 0,
                 'validity_duration' => $validity_duration,
                 'total_amount' => $total_amount,
                 'sold' => $sold,

@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Durée de validité</th>
-                        <td>{{ $gift_card->giftCardShipping->validity_duration }}</td>
+                        <td>{{ $gift_card->validity_duration }}</td>
                     </tr>
                 </tbody>
             </table>

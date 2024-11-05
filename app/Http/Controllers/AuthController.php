@@ -67,7 +67,7 @@ class AuthController extends Controller
         $orders = auth()->user()->giftCards->load('paymentInfo');
         foreach ($orders as $order) {
             if (!in_array($order->paymentInfo->status, ['SUCCESSFUL', 'FAILED'])  && $order->paymentInfo->payment_network)
-                CustomHelpers::getPaymentStatus($order);
+                CustomHelpers::getPaymentStatus($order->paymentInfo);
         }
 
         return view('new_client_site.pages.profile_page', [
