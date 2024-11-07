@@ -22,14 +22,8 @@ class IsPartner
         $partner_id = $request->cookie('partner_id');
 
         // Vérifie si le partenaire existe dans la base de données
-        if ($partner_id && Partner::whereKey($partner_id)->exists()) {
-            // Redirige vers le tableau de bord si le partenaire est déjà authentifié
-            if ($request->routeIs(['partner.auth.login', 'partner.auth.login_page'])) {
-                return redirect()->route('partner.panel.global_stats');
-            }
-
+        if ($partner_id && Partner::whereKey($partner_id)->exists())
             return $next($request); // Continuer la requête pour les autres routes
-        }
 
         // Redirige vers la page de connexion si aucun partenaire n'est identifié
         return redirect()->route('partner.auth.login');

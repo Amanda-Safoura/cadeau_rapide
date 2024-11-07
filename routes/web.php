@@ -82,62 +82,65 @@ Route::name('client.')->group(function () {
 
 
 
-Route::prefix('dashboard')->middleware('admin')->name('dashboard.')->group(function () {
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
 
     //Connexion
     Route::name('auth.')->group(function () {
         Route::get('/login', [AdminController::class, 'login'])->name('login_page');
         Route::post('/login', [AdminController::class, 'do_login'])->name('login');
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
     });
 
 
-    Route::view('/', 'backoffice.layouts.main')->name('global_stats');
+    Route::middleware('admin')->group(function () {
+        Route::view('/', 'backoffice.pages.home')->name('global_stats');
 
-    Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
-    Route::post('/gift_card/update_settings', [GiftCardController::class, 'update_settings'])->name('gift_card.update_settings');
+        Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
+        Route::post('/gift_card/update_settings', [GiftCardController::class, 'update_settings'])->name('gift_card.update_settings');
 
-    Route::get('/gift_card/change_delivery_status', [GiftCardController::class, 'change_delivery_status'])->name('gift_card.change_delivery_status');
+        Route::get('/gift_card/change_delivery_status', [GiftCardController::class, 'change_delivery_status'])->name('gift_card.change_delivery_status');
 
-    Route::get('/gift_card', [GiftCardController::class, 'index'])->name('gift_card.index');
-    Route::get('/gift_card/{id}', [GiftCardController::class, 'show'])->name('gift_card.show');
+        Route::get('/gift_card', [GiftCardController::class, 'index'])->name('gift_card.index');
+        Route::get('/gift_card/{id}', [GiftCardController::class, 'show'])->name('gift_card.show');
 
-    Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+        Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
 
-    Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamation.index');
-    Route::post('reclamations/change_read_status', [ReclamationController::class, 'changeReadStatus'])->name('reclamations.change-read-status');
+        Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamation.index');
+        Route::post('reclamations/change_read_status', [ReclamationController::class, 'changeReadStatus'])->name('reclamations.change-read-status');
 
-    Route::get('/user_messages', [UserMessageController::class, 'index'])->name('user_message.index');
-    Route::post('user_message/change_read_status', [UserMessageController::class, 'changeReadStatus'])->name('user_messages.change-read-status');
+        Route::get('/user_messages', [UserMessageController::class, 'index'])->name('user_message.index');
+        Route::post('user_message/change_read_status', [UserMessageController::class, 'changeReadStatus'])->name('user_messages.change-read-status');
 
-    Route::resource('/shippings', ShippingController::class);
-    Route::get('/shippings_all', [ShippingController::class, 'fetch_resource'])->name('shipping.fetch_all');
-    Route::get('/shipping/to_deliver', [GiftCardController::class, 'to_deliver'])->name('shipping.to_deliver');
+        Route::resource('/shippings', ShippingController::class);
+        Route::get('/shippings_all', [ShippingController::class, 'fetch_resource'])->name('shipping.fetch_all');
+        Route::get('/shipping/to_deliver', [GiftCardController::class, 'to_deliver'])->name('shipping.to_deliver');
 
-    Route::resource('/partner_categories', PartnerCategoryController::class);
-    Route::get('/partner_categories_all', [PartnerCategoryController::class, 'fetch_resource'])->name('partner_category.fetch_all');
+        Route::resource('/partner_categories', PartnerCategoryController::class);
+        Route::get('/partner_categories_all', [PartnerCategoryController::class, 'fetch_resource'])->name('partner_category.fetch_all');
 
-    Route::resource('/partners', BackOfficePartnerController::class);
-    Route::post('/partners/suspense', [BackOfficePartnerController::class, 'suspense'])->name('partner.suspense');
-    Route::get('/partners_all', [BackOfficePartnerController::class, 'fetch_resource'])->name('partner.fetch_all');
+        Route::resource('/partners', BackOfficePartnerController::class);
+        Route::post('/partners/suspense', [BackOfficePartnerController::class, 'suspense'])->name('partner.suspense');
+        Route::get('/partners_all', [BackOfficePartnerController::class, 'fetch_resource'])->name('partner.fetch_all');
 
-    Route::get('/cash_entries', [FinanceController::class, 'cash_entries'])->name('cash_entries');
+        Route::get('/cash_entries', [FinanceController::class, 'cash_entries'])->name('cash_entries');
 
-    Route::get('/finance/card_payment_to_validate', [FinanceController::class, 'card_payment_to_validate'])->name('finance.card_payment_to_validate');
-    Route::get('/finance/change_payment_status', [FinanceController::class, 'change_payment_status'])->name('finance.change_payment_status');
+        Route::get('/finance/card_payment_to_validate', [FinanceController::class, 'card_payment_to_validate'])->name('finance.card_payment_to_validate');
+        Route::get('/finance/change_payment_status', [FinanceController::class, 'change_payment_status'])->name('finance.change_payment_status');
 
 
-    Route::view('/all_icon', 'backoffice.pages.all_icon')->name('all_icon');
+        Route::view('/all_icon', 'backoffice.pages.all_icon')->name('all_icon');
+    });
 });
 
 
 
-Route::prefix('partner/panel')->middleware('partner')->name('partner.')->group(function () {
+Route::prefix('partner-panel')->name('partner.')->group(function () {
 
-    Route::name('panel.')->group(function () {
+    Route::name('panel.')->middleware('partner')->group(function () {
 
-        Route::view('/home', 'partner_backoffice.layouts.main')->name('global_stats');
+        Route::view('/', 'partner_backoffice.pages.home')->name('global_stats');
 
         Route::get('/gift_card', [HomeController::class, 'gift_card_index'])->name('gift_card');
         Route::get('/gift_card/{id}', [HomeController::class, 'gift_card_show'])->name('gift_card.show');
@@ -156,6 +159,7 @@ Route::prefix('partner/panel')->middleware('partner')->name('partner.')->group(f
     Route::name('auth.')->group(function () {
         Route::get('/login', [AuthPartnerController::class, 'login'])->name('login_page');
         Route::post('/login', [AuthPartnerController::class, 'do_login'])->name('login');
+        Route::post('/logout', [AuthPartnerController::class, 'logout'])->name('logout');
     });
 });
 

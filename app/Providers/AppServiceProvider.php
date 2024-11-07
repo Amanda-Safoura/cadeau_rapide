@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
 use App\Models\Partner;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -28,6 +29,13 @@ class AppServiceProvider extends ServiceProvider
 
             $partner = Partner::find(request()->cookie('partner_id'));
             $view->with('partner', $partner);
+        });
+
+
+        View::composer('backoffice.pages.*', function ($view) {
+
+            $admin = Admin::find(request()->cookie('admin_id'));
+            $view->with('admin', $admin);
         });
     }
 }

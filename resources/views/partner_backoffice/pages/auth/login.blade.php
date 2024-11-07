@@ -55,7 +55,8 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-7 col-xl-6  p-0">
                     <div class="user-img">
-                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-login-register.jpg') }}" alt="Images">
+                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-login-register.jpg') }}"
+                            alt="Images">
                     </div>
                 </div>
 
@@ -66,6 +67,7 @@
                                     src="{{ asset('assets/LOGO CADEAURAPIDE-512x512.png') }}"
                                     alt="logo CADEAURAPIDE"></a>
                         </div>
+                        <h1 class="py-4 border-top border-bottom mt-5">Section Partenaire</h1>
                         <div class="tab user-tab">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12 col-md-12">
@@ -81,7 +83,7 @@
                                         <div class="tabs_item">
                                             <div class="user-all-form">
                                                 <div class="contact-form">
-                                                    <form id="contactForm" action="{{ route('dashboard.auth.login') }}"
+                                                    <form id="contactForm" action="{{ route('partner.auth.login') }}"
                                                         method="POST">
                                                         @csrf
                                                         <div class="row justify-content-center">

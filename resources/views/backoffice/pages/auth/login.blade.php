@@ -66,7 +66,7 @@
                                     src="{{ asset('assets/LOGO CADEAURAPIDE-512x512.png') }}"
                                     alt="logo CADEAURAPIDE"></a>
                         </div>
-                        <h1 class="py-4 border-top border-bottom mt-5">Section Administration</h1>
+                        <h1 class="py-4 border-top border-bottom mt-5">Section Administrateur</h1>
                         <div class="tab user-tab">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12 col-md-12">

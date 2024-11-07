@@ -12,14 +12,20 @@
     <meta name="keywords" content="cadeau rapide, chèque, chèque cadeau, bénin, dashboard">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{ asset('assets/backoffice/img/icons/icon-48x48.png') }}" />
 
     <title>@yield('title') | Cadeau Rapide Dashboard</title>
 
     <link rel="stylesheet" href="{{ asset('assets/backoffice/css/bootstrap.min.css') }}">
     <link href="{{ asset('assets/backoffice/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" type="image/x-icon">
     <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}">
+
 
     <style>
         /* Styles pour le dropdown personnalisé */

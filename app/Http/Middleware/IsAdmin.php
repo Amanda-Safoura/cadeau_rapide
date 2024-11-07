@@ -22,14 +22,8 @@ class IsAdmin
         $admin_id = $request->cookie('admin_id');
 
         // Vérifie si le administrateur existe dans la base de données
-        if ($admin_id && Admin::whereKey($admin_id)->exists()) {
-            // Redirige vers le tableau de bord si le administrateur est déjà authentifié
-            if ($request->routeIs(['dashboard.auth.login', 'dashboard.auth.login_page'])) {
-                return redirect()->route('dashboard.global_stats');
-            }
-
+        if ($admin_id && Admin::whereKey($admin_id)->exists())
             return $next($request); // Continuer la requête pour les autres routes
-        }
 
         // Redirige vers la page de connexion si aucun administrateur n'est identifié
         return redirect()->route('dashboard.auth.login');

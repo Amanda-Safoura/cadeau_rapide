@@ -1,0 +1,761 @@
+:root {
+    --darkColor: #1d1d1d;
+    --bgColor: #252525;
+    --cardColor: #0e0e0e;
+}
+
+.switch-box {
+    position: fixed;
+    bottom: 15px;
+    right: 120px;
+    z-index: 9999;
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        border: 1.5px solid var(--mainColor);
+        transition: 0.4s;
+        &::before {
+            position: absolute;
+            content: "";
+            height: 25px;
+            width: 25px;
+            left: 0px;
+            bottom: 4px;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            transition: 0.4s;
+            box-shadow: 0 0px 15px #2020203d;
+            background: white url('../img/night.png');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &.round {
+            border-radius: 34px;
+            &::before {
+                border-radius: 50%;
+            }
+        }
+    }
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+    input:checked + .slider {
+        background-color: transparent;
+        border: 1.5px solid var(--cardColor);
+    }
+      
+    input:focus + .slider {
+        box-shadow: 0 0 1px var(--cardColor);
+    }
+      
+    input:checked + .slider:before {
+        transform: translateX(24px);
+        background: white url('../img/sunny.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.theme-dark {
+    --titleColor: var(--whiteColor);
+    --paragraphColor: var(--whiteColor);
+    .default-btn {
+        &:hover {
+            color: var(--cardColor) !important;
+        }
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--whiteColor); 
+    }
+    h3 {
+        color: var(--whiteColor); 
+        a {
+            color: var(--whiteColor); 
+            transition: 0.7s;
+        }
+    }
+    p {
+        color: var(--whiteColor); 
+    }
+    body {
+        background: var(--darkColor);
+        color: var(--whiteColor); 
+    }
+    .navbar-light {
+        .navbar-brand {
+            .logo-one {
+                display: none;
+            }
+            .logo-two {
+                display: inline-block;
+            }
+        }
+    }
+    .main-nav {
+        nav {
+            .navbar-nav  {
+                .nav-item {
+                    a {
+                        color: var(--whiteColor); 
+                        i {
+                            color: var(--whiteColor); 
+                        }
+                        &:hover {
+                            color: var(--mainColor);
+                        }
+                    }
+                    .dropdown-menu {
+                        background-color: var(--bgColor) !important;
+                        li {
+                            a {
+                                color: var(--whiteColor) !important;
+                                &.active {
+                                    color: var(--mainColor) !important;
+                                }
+                                &:hover {
+                                    color: var(--mainColor) !important;
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+    }
+    .nav-two {
+        background-color: var(--bgColor);
+    }
+    .sticky-nav {
+        .main-nav {
+           background-color: var(--bgColor);
+        }
+        .nav-two {
+            background-color: var(--bgColor);
+        }
+    }
+    .search-overlay {
+        .search-form {
+            form {
+                .input-search {
+                    background-color: var(--bgColor);
+                }
+            }
+        }
+    }
+    .slider-item {
+        &::before {
+            opacity: 0.7;
+        }
+    }
+    .banner-form {
+        background-color: var(--cardColor);
+        .form-group {
+            .form-control {
+                background-color: var(--cardColor);
+                color: var(--whiteColor);
+            }
+        }
+        .nice-select {
+            background-color: var(--darkColor);
+            color: var(--whiteColor);
+        }
+        .list {
+            background-color: var(--bgColor);
+            color: var(--whiteColor);
+            .option {
+                color: var(--whiteColor);
+            }
+        }
+        .option {
+            &:hover {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.focus {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.selected {
+                &.focus {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+            }
+        }
+    }
+    .banner-list {
+        background-color: var(--bgColor);
+    }
+    .category-bg, .category-box-area {
+        background-color: var(--cardColor);
+    }
+    .category-box {
+        background-color: var(--cardColor);
+    }
+    .category-box-card {
+        a {
+            i {
+                &::after {
+                    background-color: var(--bgColor);
+                }
+            }
+        }
+    }
+    .place-list-item {
+        .content {
+            background-color: var(--cardColor);
+        }
+    }
+    .process-bg, .process-into, .counter-bg, .choose-width {
+        background-color: var(--bgColor);
+    }
+    .choose-card {
+        i {
+            &::after {
+                background-color: var(--cardColor);
+            }
+        }
+    }
+    .process-bg2 {
+        background-image: none;
+        background-color: var(--bgColor);
+    }
+    .process-card {
+        .icon-bg {
+            background-color: #3d3d3d;
+        }
+        i {
+            &::after {
+                background-color: var(--bgColor);
+            }
+        }
+    }
+    .price-card {
+        background-color: var(--bgColor);
+    }
+    .place-card { 
+        &:hover {
+            .content-bg {
+                .content-profile {
+                    h3 {
+                        color: var(--cardColor);
+                    }
+                }
+                span {
+                    color: var(--cardColor);
+                }
+                h3 {
+                    color: var(--cardColor);
+                }
+                p {
+                    color: var(--cardColor);
+                }
+            }
+        }
+        &.active {
+            .content-bg {
+                .content-profile {
+                    h3 {
+                        color: var(--cardColor);
+                    }
+                }
+                span {
+                    color: var(--cardColor);
+                }
+                h3 {
+                    color: var(--cardColor);
+                }
+                p {
+                    color: var(--cardColor);
+                }
+            }
+        }
+    }
+    .application-area, .application-area-two {
+        background-color: var(--bgColor);
+    }
+    .application-btn {
+        .application-play-btn {
+            background-color: var(--cardColor);
+        }
+    }
+    .testimonial-area-two, .testimonial-area-three  {
+        background-image: none;
+        background-color: var(--bgColor);
+    }
+    .testimonial-item-bg, .testimonial-item {
+        background-color: var(--cardColor);
+    }
+    .client-bg {
+        &::before {
+            background-image: none;
+            background-color: var(--bgColor);
+        }
+    }
+    .listing-section-right {
+        background-color: var(--bgColor);
+        box-shadow: none;
+        .listing-right-form  {
+            .form-group {
+                .form-control {
+                    background-color: var(--cardColor);
+                    color: var(--whiteColor);
+                }
+            }
+            .nice-select {
+                background-color: var(--darkColor);
+                color: var(--whiteColor);
+            }
+            .list {
+                background-color: var(--bgColor);
+                color: var(--whiteColor);
+                .option {
+                    color: var(--whiteColor);
+                }
+            }
+            .option {
+                &:hover {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+                &.focus {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+                &.selected {
+                    &.focus {
+                        color: var(--whiteColor);
+                        background-color: var(--mainColor);
+                    }
+                }
+            }
+        }
+        
+    }
+    .listing-right-form {
+        .form-group {
+            .form-control {
+                background-color: var(--cardColor);
+                color: var(--whiteColor);
+            }
+        }
+        .nice-select {
+            background-color: var(--darkColor);
+            color: var(--whiteColor);
+        }
+        .list {
+            background-color: var(--bgColor);
+            color: var(--whiteColor);
+            .option {
+                color: var(--whiteColor);
+            }
+        }
+        .option {
+            &:hover {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.focus {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.selected {
+                &.focus {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+            }
+        }
+    }
+    .listing-category, .listing-widget {
+        background-color: var(--bgColor);
+        box-shadow: none;
+    }
+    .listing-features, .progressbar-bg, .listing-contact-title {
+        background-color: var(--cardColor);
+    }
+    .listing-widget-review {
+        &::before {
+            background-color: var(--cardColor);
+        }
+    }
+    .listing-comment {
+        ul {
+            li {
+                .content {
+                    background-color: var(--cardColor);
+                }
+            }
+        }
+    }
+    .listing-widget-contact {
+        background-color: var(--bgColor);
+    }
+
+    .faq-area {
+        background-color: var(--bgColor);
+    }
+    .faq-contact {
+        .contact-form {
+            background-color: var(--bgColor) !important;
+        }
+    }
+
+    .product-card {
+        &:hover {
+            .product-content { 
+                ul {
+                    li {
+                        del {
+                            color: var(--cardColor);
+                        }
+                    }
+                }
+                a {
+                    h3 {
+                        color: var(--cardColor);
+                    }
+                }
+            }
+            .default-btn {
+                &.product-btn {
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+
+    .cart-wraps-area {
+        .cart-table {
+            table {
+                thead {
+                    tr {
+                        th {
+                            color: var(--whiteColor);
+                            background-color: #1d1d1d;
+                        }
+                    }
+                }
+                tbody {
+                    tr {
+                        td {
+                            background-color: #1d1d1d;
+                            &.product-quantity {
+                                .input-counter {
+                                    input {
+                                        background-color: var(--bgColor);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .cart-calc {
+            background-color: var(--bgColor);
+            .form-group {
+                .form-control {
+                    background-color: var(--cardColor);
+                    color: var(--whiteColor);
+                }
+            }
+            .nice-select {
+                background-color: var(--darkColor);
+                color: var(--whiteColor);
+            }
+            .list {
+                background-color: var(--bgColor);
+                color: var(--whiteColor);
+                .option {
+                    color: var(--whiteColor);
+                }
+            }
+            .option {
+                &:hover {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+                &.focus {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+                &.selected {
+                    &.focus {
+                        color: var(--whiteColor);
+                        background-color: var(--mainColor);
+                    }
+                }
+            }
+        }
+        .cart-totals {
+            background-color: var(--bgColor);
+        }
+    }
+    .checkout-area {
+        .checkout-user {
+            background-color: var(--bgColor);
+        }
+    }
+    .billing-details {
+        background-color: var(--bgColor);
+        .form-group {
+            .form-control, .form-message {
+                background-color: var(--cardColor);
+                color: var(--whiteColor);
+            }
+        }
+        .nice-select {
+            background-color: var(--darkColor);
+            color: var(--whiteColor);
+        }
+        .list {
+            background-color: var(--bgColor);
+            color: var(--whiteColor);
+            .option {
+                color: var(--whiteColor);
+            }
+        }
+        .option {
+            &:hover {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.focus {
+                color: var(--whiteColor);
+                background-color: var(--mainColor);
+            }
+            &.selected {
+                &.focus {
+                    color: var(--whiteColor);
+                    background-color: var(--mainColor);
+                }
+            }
+        }
+    }
+    .order-details {
+        .order-table {
+            background-color: var(--bgColor);
+            table {
+                tbody {
+                    tr {
+                        td {
+                            background-color: var(--bgColor);
+                        }
+                    }
+                }
+                thead {
+                    tr {
+                        th {
+                            background-color: var(--bgColor);
+                        }
+                    }
+                }
+                
+            }
+        }
+        .payment-box {
+            background-color: var(--bgColor);
+            .payment-method {
+                p [type="radio"]:not(:checked) + label {
+                    color: var(--whiteColor);
+                }
+            }
+            .order-btn {
+                color: var(--cardColor);
+            }
+        }
+    }
+    .shop-desc {
+        .input-count-area {
+            .input-counter {
+                input {
+                    background-color: var(--bgColor);
+                }
+            }
+        }
+        .shop-share {
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color: var(--cardColor);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .shop-detls-tab {
+        .tab_content {
+            .tabs_item {
+                .shop-detls-tab-content {
+                    .additional-information {
+                        li {
+                            span {
+                                color: var(--whiteColor);
+                            }
+                        }
+                    }
+                    .shop-review-form {
+                        .review-title {
+                            .btn-right {
+                                color: var(--cardColor);
+                            }
+                        }
+                        .review-form {
+                            .contact-wrap-form {
+                                .contact-form {
+                                    background-color: var(--bgColor);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .gallery-slider-area {
+        .owl-nav {
+            .owl-prev {
+                &:hover {
+                    color: var(--cardColor) !important;
+                }
+            }
+            .owl-next {
+                &:hover {
+                    color: var(--cardColor) !important;
+                }
+            }
+        }
+    }
+    .listing-widget-side {
+        background-color: var(--bgColor);
+        box-shadow: none;
+    }
+    .listing-Booking-form {
+        .form-group {
+            .form-control {
+                background-color: var(--cardColor);
+                color: var(--whiteColor);
+            }
+        }
+        .form-input-counter {
+            input {
+                background-color: var(--cardColor);
+            }
+        }
+    }
+    .listing-widget-list {
+        li {
+            color: var(--whiteColor);
+        }
+    }
+    .team-area {
+        background-color: var(--bgColor);
+    }
+    .team-card {
+        background-color: var(--cardColor);
+        box-shadow: none;
+    }
+    .blog-article {
+        .article-comment-area, .article-content, .blockquote, .article-post, .comments-wrap, .comments-form {
+            background-color: var(--bgColor);
+            box-shadow: none;
+        }
+        .article-post { 
+            .article-post-share {
+                &.active {
+                    background-color: var(--cardColor);
+                }
+            }
+        }
+    }
+    .blog-widget {
+        background-color: var(--bgColor);
+        box-shadow: none;
+        .search-widget {
+            .search-form {
+                .form-control {
+                    background-color: var(--cardColor);
+                    color: var(--whiteColor);
+                }
+            }
+        }
+    }
+    .blog-widget-profile {
+        background-color: var(--bgColor);
+        box-shadow: none;
+        .images {
+            background-color: var(--cardColor);
+        }
+    }
+    .newsletter-form {
+        .form-control {
+            background-color: var(--cardColor);
+            color: #FFFFFF;
+            &::placeholder {
+                color: #FFFFFF;
+            }
+        }
+    }
+    .footer-widget {
+        .footer-form {
+            .form-group {
+                .form-control {
+                    background-color: var(--cardColor);
+                }
+            }
+        }
+    }
+    .contact-card {
+        background-color: var(--darkColor);
+    }
+    .contact-form {
+        background-color: var(--bgColor);
+        .form-group {
+            .form-control {
+                background-color: var(--cardColor);
+                color: var(--whiteColor);
+            }
+        }
+    }
+    .error-area {
+        .error-content {
+            background: #696561;
+        }
+    }
+    .coming-soon-area {
+        .coming-soon-content {
+            background: #696561;
+        }
+    }
+    .user-section {
+        .user-all-form {
+            .contact-form {
+                background-color: var(--darkColor);
+                .form-group {
+                    .form-control {
+                        background-color: var(--cardColor) !important;
+                        color: var(--whiteColor);
+                    }
+                }
+            }
+        }
+    }
+}
