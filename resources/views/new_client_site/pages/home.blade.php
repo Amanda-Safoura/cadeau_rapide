@@ -1,7 +1,7 @@
     <!-- Category Area End -->
     @extends('new_client_site.layouts.main')
 
-    @section('title', 'Home')
+    @section('title', 'Accueil')
 
     @section('content')
         <!-- Slider Area -->

@@ -15,7 +15,7 @@
                 <h3>À Propos</h3>
                 <ul>
                     <li>
-                        <a href="{{ route('client.home') }}">Home</a>
+                        <a href="{{ route('client.home') }}">Accueil</a>
                     </li>
                     <li>
                         <i class='bx bx-chevron-right'></i>
