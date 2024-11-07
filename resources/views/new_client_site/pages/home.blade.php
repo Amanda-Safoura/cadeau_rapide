@@ -26,7 +26,8 @@
         <div class="banner-form-area banner-form-mt">
             <div class="container">
                 <div class="banner-form banner-form-pl border-radius">
-                    <form>
+                    <form action="{{route('client.partner.search')}}" method="get">
+                        @csrf
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-4">
                                 <div class="form-group">
@@ -39,9 +40,9 @@
                             <div class="col-lg-4 col-md-2">
                                 <div class="form-group">
                                     <i class='flaticon-category'></i>
-                                    <select class="form-control">
+                                    <select class="form-control" name="category">
                                         @foreach ($categories as $category)
-                                            <option value="$category->id">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -49,7 +50,7 @@
 
                             <div class="col-lg-2 col-sm-6  ">
                                 <button type="submit" class="default-btn border-radius">
-                                    Search
+                                    Chercher
                                     <i class="flaticon-loupe"></i>
                                 </button>
                             </div>
@@ -69,7 +70,7 @@
 
                 <div class="row category-bg">
                     @foreach ($categories as $category)
-                        <div class="col-lg-2 col-sm-4">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 text-center">
                             <div class="category-box-card">
                                 <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
                                     <i class="{{ $category->icon }}"></i>
@@ -141,6 +142,9 @@
             <div class="container">
                 <div class="video-content">
                     <h2>Pourquoi et Pour qui CadeauRapide.com ?</h2>
+                    <a href="javascript:void(0);" class="play-btn">
+                        <i class='bx bx-play'></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -260,7 +264,8 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-5">
                         <div class="application-img">
-                            <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-cadeau-rapide.jpg') }}" alt="Images">
+                            <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-cadeau-rapide.jpg') }}"
+                                alt="Images">
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -286,10 +291,10 @@
         <!-- Application Area End -->
 
         <!-- Testimonial Area -->
-        <section class="testimonial-area pb-70">
+        <section class="testimonial-area pb-70 mt-custom">
             <div class="container-fluid">
                 <div class="section-title text-center">
-                    <span>Temoignages</span>
+                    <span>Témoignages</span>
                     <h2>Ce que pensent nos clients</h2>
                 </div>
 

@@ -53,11 +53,11 @@
     </script>
 
 
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon/favicon-32x32.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon/favicon-16x16.png') }}">
-<link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" type="image/x-icon">
-<link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicon/favicon.ico') }}" type="image/x-icon">
+    <link rel="manifest" href="{{ asset('assets/favicon/site.webmanifest') }}">
 
 
     <title>Cadeau Rapide | @yield('title', 'Home')</title>
@@ -71,6 +71,18 @@
             color: #333;
             background-color: #e0e0e0;
             border-radius: 50px;
+        }
+
+        /* Pour les petits écrans (mobile et tablettes jusqu'à 767px) */
+        .mt-custom {
+            margin-top: 20px;
+        }
+
+        /* Pour les écrans medium et plus larges (≥768px) */
+        @media (min-width: 768px) {
+            .mt-custom {
+                margin-top: 240px;
+            }
         }
     </style>
     @yield('additionnal_css')

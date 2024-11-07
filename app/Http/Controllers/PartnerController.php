@@ -67,17 +67,29 @@ class PartnerController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('search');
-        $partners = Partner::where('name', 'like', "%{$keyword}%")
-            ->orWhere('tags', 'like', "%{$keyword}%")
-            ->orWhereHas('category', function ($query) use ($keyword) {
-                $query->where('name', 'like', "%{$keyword}%");
-            })
-            ->where('suspended', false)
+        $categoryId = $request->input('category'); // Récupère l'ID de la catégorie s'il est fourni
+
+        $partners = Partner::where(function ($query) use ($keyword, $categoryId) {
+            // Filtrer par mot-clé
+            $query->where('name', 'like', "%{$keyword}%")
+                ->orWhere('tags', 'like', "%{$keyword}%")
+                ->orWhereHas('category', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+
+            // Filtrer par catégorie si un ID de catégorie est fourni
+            if ($categoryId) {
+                $query->where('category_id', $categoryId);
+            }
+        })
+            ->where('suspended', false) // Toujours filtrer pour exclure les partenaires suspendus
             ->paginate(9);
+
         $categories = PartnerCategory::all();
 
-        return view('new_client_site.pages.partner_search', compact('partners', 'categories', 'keyword'));
+        return view('new_client_site.pages.partner_search', compact('partners', 'categories', 'keyword', 'categoryId'));
     }
+
 
     public function profile($slug)
     {

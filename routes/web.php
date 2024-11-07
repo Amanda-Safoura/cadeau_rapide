@@ -17,7 +17,6 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
 use App\Http\Controllers\PartnerDashBoard\HomeController;
 use App\Models\Admin;
-use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -163,11 +162,12 @@ Route::prefix('partner-panel')->name('partner.')->group(function () {
     });
 });
 
+/* 
 Route::get('/setup', function () {
     return redirect()->route('client.gift_card.generatePDF', ['id' => 1]);
 });
 
-/* Route::get('/setup', function () {
+Route::get('/setup', function () {
     dd(Admin::create([
         'name' => 'Admin',
         'email' => 'admin@cadeaurapide.com',

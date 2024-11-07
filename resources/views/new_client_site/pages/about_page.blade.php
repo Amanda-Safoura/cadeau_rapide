@@ -95,7 +95,7 @@
         <div class="container">
             <div class="video-content">
                 <h2>Pourquoi et Pour qui CadeauRapide.com ?</h2>
-                <a href="https://www.youtube.com/watch?v=07d2dXHYb94&t=6s" class="play-btn">
+                <a href="javascript:void(0);" class="play-btn">
                     <i class='bx bx-play'></i>
                 </a>
             </div>

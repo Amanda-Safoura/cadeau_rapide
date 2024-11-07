@@ -107,7 +107,7 @@
 
             <div class="row category-bg">
                 @foreach ($categories as $category)
-                    <div class="col-lg-2 col-sm-4">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 text-center">
                         <div class="category-box-card">
                             <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
                                 <i class="{{ $category->icon }}"></i>

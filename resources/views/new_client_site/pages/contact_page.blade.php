@@ -155,8 +155,11 @@
                             <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <i class='bx bx-user'></i>
-                                    <input type="text" name="name" id="name" value="{{auth()->user()->name}}" class="form-control" required
-                                        data-error="Please enter your name" placeholder="Your Name*">
+                                    <input type="text" name="name" id="name" 
+                                    @auth
+                                         value="{{ auth()->user()->name }}"
+                                    @endauth class="form-control" required
+                                        data-error="Saissisez votre nom" placeholder="Votre nom*">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -164,8 +167,11 @@
                             <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <i class='bx bx-user'></i>
-                                    <input type="email" name="email" id="email" value="{{auth()->user()->email}}" class="form-control" required
-                                        data-error="Please enter your email" placeholder="E-mail*">
+                                    <input type="email" name="email" id="email" 
+                                    @auth
+                                         value="{{ auth()->user()->email }}"
+                                    @endauth class="form-control" required
+                                        data-error="Saissisez votre email" placeholder="E-mail*">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -173,8 +179,8 @@
                             <div class="col-lg-12 col-sm-12">
                                 <div class="form-group">
                                     <i class='bx bx-file'></i>
-                                    <input type="text" name="msg_subject" id="subject" class="form-control" required
-                                        data-error="Please enter your subject" placeholder="Your Subject">
+                                    <input type="text" name="subject" id="subject" class="form-control" required
+                                        data-error="L'objet de ce message" placeholder="L'objet">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -183,14 +189,14 @@
                                 <div class="form-group">
                                     <i class='bx bx-envelope'></i>
                                     <textarea name="message" class="form-control" id="message" cols="30" rows="8" required
-                                        data-error="Write your message" placeholder="Your Message*"></textarea>
+                                        data-error="Écrivez ici votre message" placeholder="Votre message*"></textarea>
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
 
                             <div class="col-lg-12 col-md-12">
                                 <button type="submit" class="default-btn border-radius">
-                                    Send Message
+                                    Envoyer le Message
                                 </button>
                                 <div id="msgSubmit" class="h3 text-center hidden"></div>
                                 <div class="clearfix"></div>
