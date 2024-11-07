@@ -97,7 +97,7 @@
 @section('content')
 
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg3">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
                 <h3>Formulaire de commande</h3>

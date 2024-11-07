@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
 
 class Partner extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
@@ -20,6 +21,7 @@ class Partner extends Model
         'description',
         'phone_number',
         'email',
+        'password',
         'adress',
         'offers',
         'tags',
@@ -31,6 +33,27 @@ class Partner extends Model
         'picture_4',
     ];
 
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'first_login' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    
     /**
      * Get all of the gift_card for the Partner
      *

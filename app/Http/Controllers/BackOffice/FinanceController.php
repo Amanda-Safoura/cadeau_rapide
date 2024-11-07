@@ -68,7 +68,9 @@ class FinanceController extends Controller
 
     public function card_payment_to_validate()
     {
-        $datas = GiftCard::where('requires_delivery', true)->with('paymentInfo')->get();
+        $datas = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->whereNull('payment_network');
+        })->with('paymentInfo')->get();
         return view('backoffice.pages.finance.card_payment_to_validate', compact('datas'));
     }
 

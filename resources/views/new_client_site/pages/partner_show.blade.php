@@ -8,7 +8,7 @@
 @section('content')
 
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg4">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
                 <h3>{{ $partner->name }}</h3>
@@ -237,7 +237,7 @@
                     </div>
                     <div class="listing-widget-side">
                         <h3 class="title">Ordre de prix</h3>
-                        <h3 class="price-title">Prix : <span>{{ $partner->min_amount }}</span></h3>
+                        <h3 class="price-title">Prix (À Partir de) : <span>{{ $partner->min_amount }} XOF</span></h3>
                     </div>
                 </div>
             </div>

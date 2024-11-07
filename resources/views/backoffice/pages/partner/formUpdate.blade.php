@@ -107,13 +107,6 @@
             </div>
 
             <div class="mb-3 custom-form-input">
-                <label for="emailEdit" class="form-label">Email <span class="text-danger">*</span></label>
-                <input type="text" id="emailEdit" class="form-control" name="email"
-                    placeholder="Entrez son adresse mail">
-                <div class="alert alert-danger" error-input="email"></div>
-            </div>
-
-            <div class="mb-3 custom-form-input">
                 <label for="adressEdit" class="form-label">Adresse physique</label>
                 <input type="text" id="adressEdit" class="form-control" name="adress"
                     placeholder="Entrez son adresse">

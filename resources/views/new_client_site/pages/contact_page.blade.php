@@ -95,7 +95,7 @@
                 <h3>Contact Us</h3>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="{{ route('client.home') }}">Home</a>
                     </li>
                     <li>
                         <i class='bx bx-chevron-right'></i>
@@ -155,7 +155,7 @@
                             <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <i class='bx bx-user'></i>
-                                    <input type="text" name="name" id="name" class="form-control" required
+                                    <input type="text" name="name" id="name" value="{{auth()->user()->name}}" class="form-control" required
                                         data-error="Please enter your name" placeholder="Your Name*">
                                     <div class="help-block with-errors"></div>
                                 </div>
@@ -164,7 +164,7 @@
                             <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <i class='bx bx-user'></i>
-                                    <input type="email" name="email" id="email" class="form-control" required
+                                    <input type="email" name="email" id="email" value="{{auth()->user()->email}}" class="form-control" required
                                         data-error="Please enter your email" placeholder="E-mail*">
                                     <div class="help-block with-errors"></div>
                                 </div>

@@ -55,7 +55,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-7 col-xl-6  p-0">
                     <div class="user-img">
-                        <img src="{{ asset('assets/new_client_side/img/login-img.jpg') }}" alt="Images">
+                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-login-register.jpg') }}" alt="Images">
                     </div>
                 </div>
 
@@ -146,8 +146,8 @@
                                                     <div class="social-option">
                                                         <h3>Or Login With</h3>
                                                         <ul>
-                                                            <li><a href="#">Facebook</a></li>
-                                                            <li><a href="#">Google</a></li>
+                                                            <li><a href="javascript:void(0);">Facebook</a></li>
+                                                            <li><a href="javascript:void(0);">Google</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

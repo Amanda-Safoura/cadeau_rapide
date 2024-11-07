@@ -31,7 +31,8 @@
             </div>
 
             <div class="mb-3 custom-form-input">
-                <label for="picture_2Create" class="form-label">Photo Service/Offre 1</label>
+                <label for="picture_2Create" class="form-label">Photo Service/Offre 1 <span
+                        class="text-danger">*</span></label>
                 <input id="picture_2Create" name="picture_2" type="file" class="file" data-show-preview="false"
                     data-msg-placeholder="Sélectionner l'image...">
 
@@ -201,6 +202,9 @@
                     },
                     picture_1: {
                         required: true
+                    },
+                    picture_2: {
+                        required: true
                     }
                 },
                 messages: {
@@ -232,7 +236,10 @@
                         required: 'Le pourcentage de commision est obligatoire.',
                     },
                     picture_1: {
-                        required: 'Veuillez importer comme image logo du partenaire.'
+                        required: 'Veuillez importer une image comme logo du partenaire.'
+                    },
+                    picture_2: {
+                        required: 'Veuillez importer une image comme logo du partenaire.'
                     }
                 },
                 // Ajouter dynamiquement une nouvelle ligne

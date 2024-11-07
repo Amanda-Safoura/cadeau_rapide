@@ -16,8 +16,8 @@ class CustomerController extends Controller
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $datas = $user->giftCards;
+        $customer = User::findOrFail($id);
+        $datas = $customer->giftCards;
         return view('backoffice.pages.customer.show', compact('customer', 'datas'));
     }
 }

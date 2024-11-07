@@ -6,17 +6,17 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="newsletter-title">
                         <i class="flaticon-email"></i>
-                        <h2>Don't Miss Our Update</h2>
+                        <h2>Ne manquez pas nos actualités ! </h2>
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-7">
                     <div class="newsletter-area">
                         <form class="newsletter-form" data-toggle="validator" method="POST">
-                            <input type="email" class="form-control" placeholder="Your Email*" name="EMAIL" required
-                                autocomplete="off">
+                            <input type="email" class="form-control" placeholder="Votre Email*" name="EMAIL"
+                                required autocomplete="off">
                             <button class="default-btn border-radius" type="submit">
-                                SUBSCRIBE NOW
+                                S’abonner
                             </button>
                             <div id="validator-newsletter" class="form-result"></div>
                         </form>
@@ -35,20 +35,17 @@
                             <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
                         </a>
                         <p>
-                            Downtown Financial Services, Inc.
-                            200 Wood Avenue South, Ninth Floor
-                            Iselin, NJ 65432200 Wood Avenue South goinip
-                        </p>
-                        <p>
-                            Downtown Financial Services, Inc.
-                            200 Wood Avenue South
+                            Cadeau Rapide est votre solution de chèques cadeaux personnalisés, vous permettant d'offrir
+                            des expériences uniques et mémorables à vos proches. <br><br> Facile à utiliser et rapide, notre
+                            plateforme vous aide à créer des chèques cadeaux sur mesure pour toutes les occasions.
+                            Rejoignez notre communauté et faites plaisir à ceux que vous aimez !
                         </p>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-widget pl-5">
-                        <h3>CONTACT INFO</h3>
+                        <h3>CONTACT</h3>
                         <ul class="footer-contact-list">
                             <li>
                                 <span class="icon icon-location"></span>
@@ -65,7 +62,8 @@
                                 <a href="tel:2151234567"> 215 - 123 - 4567</a>
                             </li>
                             <li>
-                                <span>Email :</span> <a href="mailto:info@downtown.com"> info@downtown.com</a>
+                                <span>Email :</span> <a href="mailto:{{ env('CONTACT_MAIL_ADDRESS') }}">
+                                    {{ env('CONTACT_MAIL_ADDRESS') }}</a>
                             </li>
                         </ul>
 
@@ -98,9 +96,9 @@
                         <h3 class="text-uppercase">Support</h3>
 
                         <ul class="footer-contact-list">
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Politique de confidentialité</a></li>
-                            <li><a href="#">Conditions Générales</a></li>
+                            <li><a href="javascript:void(0);">FAQ</a></li>
+                            <li><a href="javascript:void(0);">Politique de confidentialité</a></li>
+                            <li><a href="javascript:void(0);">Conditions Générales</a></li>
                             <li><a href="{{ route('client.contact') }}">Assistance Client</a></li>
                         </ul>
                     </div>
@@ -111,10 +109,10 @@
                         <h3 class="text-uppercase">Partenaires</h3>
 
                         <ul class="footer-contact-list">
-                            <li><a href="#">Devenir Partenaire</a></li>
+                            <li><a href="{{ route('client.contact') }}">Devenir Partenaire</a></li>
                             <li><a href="{{ route('client.partner.index') }}">Tous les partenaires </a></li>
-                            <li><a href="#">Avantages Partenaire</a></li>
-                            <li><a href="#">Connexion Partenaire</a></li>
+                            <li><a href="javascript:void(0);">Avantages Partenaire</a></li>
+                            <li><a href="{{ route('partner.auth.login_page') }}">Connexion Partenaire</a></li>
                         </ul>
                     </div>
                 </div>
@@ -139,7 +137,7 @@
                 <div class="copy-right-list">
                     <ul>
                         <li><a href="{{ route('client.home') }}">Accueil</a></li>
-                        <li><a href="#">A propos</a></li>
+                        <li><a href="{{ route('client.about') }}">A propos</a></li>
                         <li><a href="{{ route('client.contact') }}">Contact</a></li>
                     </ul>
                 </div>

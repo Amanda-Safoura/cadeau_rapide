@@ -20,6 +20,7 @@ class UserMessageController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'email' => 'required|email',
+            'subject' => 'nullable|string|max:255',
             'message' => 'required|string',
         ]);
 
@@ -30,7 +31,7 @@ class UserMessageController extends Controller
         }
 
         UserMessage::create($validator->validated());
-        return redirect()->back()->with('message', "Nous vous répondrons le plus rapidement possible votre message.");
+        return redirect()->back()->with('message', "Nous répondrons le plus rapidement possible à votre message.");
     }
 
     public function changeReadStatus(Request $request)

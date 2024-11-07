@@ -7,6 +7,7 @@ use App\Http\Requests\StorePartnerRequest;
 use App\Http\Requests\UpdatePartnerRequest;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
+use App\Notifications\LoginCredentialsNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +50,7 @@ class PartnerController extends Controller
      */
     public function store(StorePartnerRequest $request)
     {
-        $validated_inputs = $request->validated();
+        $validated_inputs = $request->validationData();
         $validated_inputs['offers'] = $request->input('offers');
 
         $validated_inputs['picture_1'] = '';
@@ -78,9 +79,10 @@ class PartnerController extends Controller
             $validated_inputs['picture_1'] = $picture_1_file->store('Partners') ?? '';
         }
 
+        $password = $validated_inputs['password'];
         $newest = Partner::create($validated_inputs);
         if ($newest) {
-
+            $newest->notify(new LoginCredentialsNotification($validated_inputs['email'], $password, 'partner'));
             return response()->json(['message' => 'Partenaire créé avec succès'], 200);
         } else {
             foreach ([$validated_inputs['picture_4'] ?? '', $validated_inputs['picture_3'] ?? '', $validated_inputs['picture_2'] ?? '', $validated_inputs['picture_1'] ?? ''] as $file_path) {

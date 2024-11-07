@@ -4,13 +4,11 @@
 
 @section('content')
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg3">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
-                <h3>Ridgi Fitness Club</h3>
-                <p>News pariatur. Excepteur sint occaecat iat nulla pariatur.Excepteur </p>
+                <h3>Nos Partenaires</h3>
             </div>
-
             <div class="banner-list">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-6 col-md-7">
@@ -22,7 +20,6 @@
                     </div>
 
                     <div class="col-lg-6 col-md-5">
-                        {{-- <p>Results for: <a href="#">Listings</a></p> --}}
                     </div>
                 </div>
             </div>
@@ -119,7 +116,7 @@
                                                 href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}">
                                                 <h3>{{ $partner->short_description }}</h3>
                                             </a>
-                                            <p>{{ substr($partner->description, 0, 120) }}</p>
+                                            <p>{{ substr($partner->description, 0, 90) }}</p>
                                             <div class="content-tag">
                                                 <ul>
                                                     @php
@@ -129,7 +126,7 @@
                                                         <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
                                                     @endfor
                                                 </ul>
-                                                <h3 class="price"><a href="#">À
+                                                <h3 class="price"><a href="javascript:void(0);">À
                                                         partir de:
                                                         {{ number_format($partner->min_amount, 0, '', ' ') }}XOF</a>
                                                 </h3>

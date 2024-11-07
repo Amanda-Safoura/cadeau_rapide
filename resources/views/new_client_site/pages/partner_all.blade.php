@@ -7,11 +7,10 @@
 
 
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg3">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
-                <h3>Ridgi Fitness Club</h3>
-                <p>News pariatur. Excepteur sint occaecat iat nulla pariatur.Excepteur </p>
+                <h3>Nos Partenaires</h3>
             </div>
 
             <div class="banner-list">
@@ -25,7 +24,6 @@
                     </div>
 
                     <div class="col-lg-6 col-md-5">
-                        {{-- <p>Results for: <a href="#">Listings</a></p> --}}
                     </div>
                 </div>
             </div>
@@ -163,7 +161,7 @@
                                                             <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
                                                         @endfor
                                                     </ul>
-                                                    <h3 class="price"><a href="#">À
+                                                    <h3 class="price"><a href="javascript:void(0);">À
                                                             partir de:
                                                             {{ number_format($oneLetterPartner->min_amount, 0, '', ' ') }}XOF</a>
                                                     </h3>

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Partner;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,5 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+
+        View::composer('partner_backoffice.pages.*', function ($view) {
+
+            $partner = Partner::find(request()->cookie('partner_id'));
+            $view->with('partner', $partner);
+        });
     }
 }

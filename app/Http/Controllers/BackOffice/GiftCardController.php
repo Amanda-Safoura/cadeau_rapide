@@ -9,6 +9,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -53,42 +54,44 @@ class GiftCardController extends Controller
         return response()->json();
     }
 
-    // TODO: pas encore réellement codé
+
     public function check(int $gift_card_id)
     {
         $gift_card = GiftCard::find($gift_card_id);
-        if (!$gift_card)
-            return view('new_client_site.pages.check_validity.gift_card_not_exist');
+        if ($gift_card && $gift_card->isNotExpired() && $gift_card->paymentInfo->status === "SUCCESSFUL")
+            return view('new_client_site.pages.check_validity.is_valid', ['gift_card' => $gift_card]);
 
-        if (!$gift_card->isNotExpired)
-            return view('new_client_site.pages.check_validity.is_expired');
-
-        return view('new_client_site.pages.check_validity.is_valid');
+        return view('new_client_site.pages.check_validity.is_invalid');
     }
 
 
     public function generateGiftCard(int $id)
     {
-        $gift_card = GiftCard::with('partner')->findOrFail($id);
+        $gift_card = GiftCard::with('paymentInfo')->findOrFail($id);
 
-        if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
+        // Configuration de Dompdf
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
 
-            // Configuration de Dompdf
-            $options = new Options();
-            $options->set('defaultFont', 'Arial');
-            $options->set('isHtml5ParserEnabled', true);
-            $options->set('isRemoteEnabled', true); // Permettre les ressources externes
-            $dompdf = new Dompdf($options);
+        // Génération du contenu HTML et du PDF
+        $html = view('to_generate.gift_card', compact('gift_card'))->render();
+        Log::info('HTML généré : ' . $html);
 
-            // Génération du contenu HTML et du PDF
-            $html = view('to_generate.gift_card', compact('gift_card'))->render();
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'landscape');
-            return $dompdf->stream("Chèque Cadeau N° $gift_card->id.pdf");
-        } else {
-            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
-        }
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // Enregistrer le fichier PDF
+        $output = $dompdf->output();
+        $filename = "Chèque_Cadeau_$gift_card->id.pdf";
+        file_put_contents(storage_path("app/public/$filename"), $output);
+
+        return response()->download(storage_path("app/public/$filename"));
     }
+
 
     public function generateAndSendGiftCard(int $id)
     {
@@ -117,7 +120,9 @@ class GiftCardController extends Controller
 
             // Envoyer l'email avec le PDF en pièce jointe
             Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($gift_card, $tempPath) {
-                $message->to('destinataire@example.com') // Remplacez par l'adresse email du destinataire
+                $message->to($gift_card->is_client_beneficiary
+                    ? $gift_card->client_email
+                    : $gift_card->beneficiary_email) // Remplacez par l'adresse email du destinataire
                     ->subject("Votre chèque cadeau")
                     ->attach(Storage::path($tempPath), [
                         'as' => "Chèque Cadeau N° {$gift_card->id}.pdf",

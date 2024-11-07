@@ -221,7 +221,6 @@
             $('#editPartnerForm').find('input[name="min_amount"]').val(rowData.min_amount)
             $('#editPartnerForm').find('input[name="commission_percent"]').val(rowData.commission_percent)
             $('#editPartnerForm').find('input[name="phone_number"]').val(rowData.phone_number)
-            $('#editPartnerForm').find('input[name="email"]').val(rowData.email)
             $('#editPartnerForm').find('input[name="adress"]').val(rowData.adress)
 
         })
@@ -244,10 +243,6 @@
                 },
                 phone_number: {
                     required: true,
-                },
-                email: {
-                    required: true,
-                    email: true
                 },
                 min_amount: {
                     required: true,
@@ -273,10 +268,6 @@
                 },
                 phone_number: {
                     required: 'Le numéro de téléphone est obligatoire.',
-                },
-                email: {
-                    required: 'L\'adresse mail du partenaire est obligatoire.',
-                    email: 'Veuillez saisir une adresse mail valide.'
                 },
                 min_amount: {
                     required: 'Le montant minimal des coupons est obligatoire.',

@@ -41,7 +41,6 @@ class UpdatePartnerRequest extends FormRequest
             'offers' => 'required|string',
             'description' => 'required|string',
             'phone_number' => 'required|string',
-            'email' => ['nullable', Rule::unique('partners', 'email')->ignore($this->route()->parameter('partner'))],
             'adress' => 'nullable|string',
             'tags' => 'nullable|string|max:255',
             'min_amount' => 'required|numeric',

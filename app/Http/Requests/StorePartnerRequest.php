@@ -27,7 +27,7 @@ class StorePartnerRequest extends FormRequest
             'name' => 'required|string|min:4|max:255|unique:partners,name',
             'category_id' => ['required', 'exists:partner_categories,id'],
             'picture_1' => 'bail|required|file|image',
-            'picture_2' => 'nullable|file|image',
+            'picture_2' => 'bail|required|file|image',
             'picture_3' => 'nullable|file|image',
             'picture_4' => 'nullable|file|image',
             'description' => 'required|string',
@@ -53,7 +53,8 @@ class StorePartnerRequest extends FormRequest
 
         return $this->merge([
             'slug' => Str::slug($this->input('name')),
-            'offers' => $offers
+            'offers' => $offers,
+            'password' => Str::random(12)
         ]);
     }
 }

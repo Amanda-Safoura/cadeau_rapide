@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg3">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
                 <h3>{{ $category->name }}</h3>
@@ -28,7 +28,6 @@
                     </div>
 
                     <div class="col-lg-6 col-md-5">
-                        {{-- <p>Results for: <a href="#">Listings</a></p> --}}
                     </div>
                 </div>
             </div>
@@ -88,7 +87,7 @@
                                                 <i class="flaticon-cursor"></i>
                                                 {{ $partner->adress ? $partner->adress : 'Non spécifiée' }}
                                             </span>
-                                            <p>{{ substr($partner->description, 0, 120) }}</p>
+                                            <p>{{ substr($partner->description, 0, 90) }}</p>
                                             <div class="content-tag">
                                                 <ul>
                                                     @php
@@ -112,7 +111,7 @@
 
                     <!-- pagination of the page -->
                     <div class="col-lg-12 text-center">
-                        {{-- <a href="#" class="default-btn border-radius">
+                        {{-- <a href="javascript:void(0);" class="default-btn border-radius">
                             Load More
                             <i class='bx bx-plus'></i>
                         </a> --}}
@@ -124,32 +123,32 @@
         </div>
     </div>
     <!-- Listing Widget Section End -->
-    <!--  Category Area -->
+
+    <!-- Category Area -->
     <section class="category-area pt-100 pb-70">
         <div class="container">
             <div class="section-title text-center">
-                <span>The Categories</span>
-                <h2>Use Quick Search By Category</h2>
+                <h2>Explorez nos catégories pour un choix rapide et facile !</h2>
             </div>
 
             <div class="row category-bg">
-                @foreach ($categories as $partner_category)
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="category-card">
-                            <a href="{{ route('client.partner.category', ['name' => $partner_category->name]) }}">
-                                <i class="{{ $partner_category->icon }}"></i>
+                @foreach ($categories as $category)
+                    <div class="col-lg-2 col-sm-4">
+                        <div class="category-box-card">
+                            <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
+                                <i class="{{ $category->icon }}"></i>
                             </a>
-                            <a href="{{ route('client.partner.category', ['name' => $partner_category->name]) }}">
-                                <h3>{{ $partner_category->name }}</h3>
-                            </a>
-                            <p>{{ $partner_category->short_description }}</p>
+                            <h3><a
+                                    href="{{ route('client.partner.category', ['name' => $category->name]) }}">{{ $category->name }}</a>
+                            </h3>
                         </div>
                     </div>
                 @endforeach
+
             </div>
         </div>
     </section>
-    <!--  Category Area End -->
+    <!-- Category Area End -->
 @endsection
 
 @section('additionnal_js')

@@ -65,7 +65,7 @@
 @section('content')
 
     <!-- Inner Banner -->
-    <div class="inner-banner inner-bg3">
+    <div class="inner-banner inner-bg1">
         <div class="container">
             <div class="inner-banner-title text-center">
                 <h3>Espace Utilisateur</h3>
@@ -194,7 +194,7 @@
                                     <textarea class="form-control" id="claimMessage" name="message" rows="4"
                                         placeholder="Décrivez le problème rencontré"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Envoyer Réclamation</button>
+                                <button type="submit" class="btn btn-primary mt-2">Envoyer Réclamation</button>
                             </form>
                         </div>
                     </div>
@@ -288,10 +288,23 @@
             $('#beneficiaryEmail').text(order.is_client_beneficiary ? order.client_email : order.beneficiary_email)
             $('#beneficiaryPhone').text(order.is_client_beneficiary ? order.client_phone : order.beneficiary_phone)
             $('#isCustomized').text(order.is_customized ? 'Oui' : 'Non')
-            $('#customizationFee').text(order.customization_fee)
+            $('#customizationFee').text(order.customization_fee + ' XOF')
             $('#requiresDelivery').text(order.requires_delivery ? 'Oui' : 'Non')
             $('#deliveryAddress').text(order.delivery_address)
-            $('#deliveryDate').text(order.delivery_date)
+
+            let delivery_date = new Date(order.delivery_date)
+
+            // Options de formatage
+            let options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
+
+            // Formatter la date
+            let formattedDate = new Intl.DateTimeFormat('en-GB', options).format(delivery_date);
+
+            $('#deliveryDate').text(formattedDate)
             $('#totalAmount').text(order.total_amount + ' XOF')
         })
 

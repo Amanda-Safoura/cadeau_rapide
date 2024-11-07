@@ -68,7 +68,7 @@
                                 <i class="fas fa-truck"></i>
                             </div>
                             <div>
-                                <div class="label">Total Livraison</div>
+                                <div class="label">Total Frais de Livraison</div>
                                 <div class="amount">{{ $total_delivery_revenue }}</div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <i class="fas fa-paint-brush"></i>
                             </div>
                             <div>
-                                <div class="label">Total Personnalisation</div>
+                                <div class="label">Total Frais de Personnalisation</div>
                                 <div class="amount">{{ $total_customization_revenue }}</div>
                             </div>
                         </div>
@@ -104,8 +104,8 @@
                         <thead>
                             <tr>
                                 <th>Partenaire</th>
-                                <th>Revenu Livraison</th>
-                                <th>Revenu Personnalisation</th>
+                                <th>Revenu Frais Livraison</th>
+                                <th>Revenu Frais Personnalisation</th>
                                 <th>Valeurs des Cartes Cadeaux</th>
                                 <th>Commission</th>
                             </tr>

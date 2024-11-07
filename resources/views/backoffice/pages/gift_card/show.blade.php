@@ -14,6 +14,14 @@
             </div>
             <div class="card-body">
                 <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
+                <p><strong>Solde :</strong>
+                    @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
+                        {{ $gift_card->sold }} XOF
+                    @else
+                        N/A
+                    @endif
+                </p>
+
                 <p><strong>Message Personnel :</strong> {{ $gift_card->personal_message }}</p>
                 <p><strong>Partenaire :</strong> {{ $gift_card->partner->name }}</p>
                 <p><strong>Catégorie :</strong> {{ $gift_card->partner->category->name }}</p>
@@ -74,7 +82,7 @@
                 @if ($gift_card->requires_delivery)
                     <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
                     <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
-                    <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date }}</p>
+                    <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
                     @php
                         $shipping_status = '';
                         switch ($gift_card->shipping_status) {

@@ -10,29 +10,41 @@
     <div class="main-nav">
         <div class="container-fluid">
             <nav class="container-max navbar navbar-expand-md navbar-light ">
-                <a class="navbar-brand" href="index.html">
-                    <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
+                <a class="navbar-brand" href="{{ route('client.home') }}">
+                    <img src="{{ asset('assets/LOGO CADEAURAPIDE_80*320.png') }}" alt="Logo">
                 </a>
 
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a href="{{ route('client.home') }}" class="nav-link active">
+                            <a href="{{ route('client.home') }}" @class([
+                                'nav-link' => true,
+                                'active' => request()->routeIs('client.home'),
+                            ])>
                                 Accueil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('client.partner.index') }}" class="nav-link">
+                            <a href="{{ route('client.partner.index') }}" @class([
+                                'nav-link' => true,
+                                'active' => request()->routeIs('client.partner.index'),
+                            ])>
                                 Partenaires
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('client.about') }}" @class([
+                                'nav-link' => true,
+                                'active' => request()->routeIs('client.about'),
+                            ])>
                                 À Propos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('client.contact') }}" class="nav-link">
+                            <a href="{{ route('client.contact') }}" @class([
+                                'nav-link' => true,
+                                'active' => request()->routeIs('client.contact'),
+                            ])>
                                 Contact
                             </a>
                         </li>

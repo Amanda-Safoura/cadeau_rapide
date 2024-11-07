@@ -425,7 +425,7 @@
                                                                                             <!--<![endif]-->
                                                                                             <h1 class="t4"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:52px;font-weight:700;font-style:normal;font-size:48px;text-decoration:none;text-transform:none;direction:ltr;color:#000000;text-align:left;mso-line-height-rule:exactly;mso-text-raise:1px;">
-                                                                                                Verify your email</h1>
+                                                                                                Vérifier votre adresse mail</h1>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -454,11 +454,10 @@
                                                                                             <!--<![endif]-->
                                                                                             <p class="t8"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:28px;font-weight:400;font-style:normal;font-size:18px;text-decoration:none;text-transform:none;direction:ltr;color:#9095A2;text-align:left;mso-line-height-rule:exactly;mso-text-raise:3px;">
-                                                                                                You're receiving
-                                                                                                this e-mail because your
-                                                                                                email has been used to
-                                                                                                register on Cadeau
-                                                                                                Rapide Platform.</p>
+                                                                                                Vous recevez ce mail
+                                                                                                suite à une inscription
+                                                                                                sur le site Cadeau
+                                                                                                Rapide.</p>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -487,11 +486,13 @@
                                                                                             <!--<![endif]-->
                                                                                             <p class="t12"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:28px;font-weight:400;font-style:normal;font-size:18px;text-decoration:none;text-transform:none;direction:ltr;color:#9095A2;text-align:left;mso-line-height-rule:exactly;mso-text-raise:3px;">
-                                                                                                Please tap the button
-                                                                                                below to verify your
-                                                                                                identity and create a
-                                                                                                password for your
-                                                                                                account.</p>
+                                                                                                Veuillez cliquer sur le
+                                                                                                bouton juste en dessous
+                                                                                                pour valider votre
+                                                                                                adresse mail. Vous
+                                                                                                pourrez par la suite
+                                                                                                vous connecter.
+                                                                                            </p>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -521,8 +522,7 @@
                                                                                             <a class="t16"
                                                                                                 href="{{ route('client.verify-email', ['token' => $token]) }}"
                                                                                                 style="display:block;margin:0;Margin:0;font-family:Montserrat,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:48px;font-weight:800;font-style:normal;font-size:13px;text-decoration:none;text-transform:uppercase;letter-spacing:0.5px;direction:ltr;color:#FFFFFF;text-align:center;mso-line-height-rule:exactly;mso-text-raise:11px;"
-                                                                                                target="_blank">Verify
-                                                                                                email</a>
+                                                                                                target="_blank">Vérifier</a>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
@@ -615,11 +615,10 @@
                                                                                             <!--<![endif]-->
                                                                                             <p class="t27"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#EDEDED;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;">
-                                                                                                If you don't know the
-                                                                                                reason why you receive
-                                                                                                this mail, you can
-                                                                                                ignore
-                                                                                                and delete it.
+                                                                                                Si vous ne savez pas
+                                                                                                pourquoi vous avez reçu
+                                                                                                ce mail, vous pouvez le
+                                                                                                supprimer.
                                                                                             </p>
                                                                                         </td>
                                                                                     </tr>
@@ -649,7 +648,8 @@
                                                                                             <!--<![endif]-->
                                                                                             <p class="t31"
                                                                                                 style="margin:0;Margin:0;font-family:Fira Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:14px;text-decoration:none;text-transform:none;direction:ltr;color:#EDEDED;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;">
-                                                                                                Cadeau Rapide. All rights
+                                                                                                Cadeau Rapide. All
+                                                                                                rights
                                                                                                 reserved</p>
                                                                                         </td>
                                                                                     </tr>

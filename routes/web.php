@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\PartnerController as AuthPartnerController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice\CustomerController;
@@ -13,8 +15,11 @@ use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
+use App\Http\Controllers\PartnerDashBoard\HomeController;
+use App\Models\Admin;
 use App\Models\GiftCard;
 use App\Models\PartnerCategory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +47,10 @@ Route::name('client.')->group(function () {
     Route::get('/partner_category/{name}', [ClientPartnerController::class, 'category'])->name('partner.category');
     Route::get('/partners/search/', [ClientPartnerController::class, 'search'])->name('partner.search');
     Route::get('/partner_profile/{slug}', [ClientPartnerController::class, 'profile'])->name('partner.show');
+
+
+    Route::view('/about', 'new_client_site.pages.about_page', ['categories' => PartnerCategory::all()])->name('about');
+
 
     Route::view('/contact', 'new_client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');
@@ -73,7 +82,16 @@ Route::name('client.')->group(function () {
 
 
 
-Route::prefix('dashboard')->name('dashboard.')->group(function () {
+Route::prefix('dashboard')->middleware('admin')->name('dashboard.')->group(function () {
+
+
+    //Connexion
+    Route::name('auth.')->group(function () {
+        Route::get('/login', [AdminController::class, 'login'])->name('login_page');
+        Route::post('/login', [AdminController::class, 'do_login'])->name('login');
+    });
+
+
     Route::view('/', 'backoffice.layouts.main')->name('global_stats');
 
     Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
@@ -112,3 +130,44 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::view('/all_icon', 'backoffice.pages.all_icon')->name('all_icon');
 });
+
+
+
+Route::prefix('partner/panel')->middleware('partner')->name('partner.')->group(function () {
+
+    Route::name('panel.')->group(function () {
+
+        Route::view('/home', 'partner_backoffice.layouts.main')->name('global_stats');
+
+        Route::get('/gift_card', [HomeController::class, 'gift_card_index'])->name('gift_card');
+        Route::get('/gift_card/{id}', [HomeController::class, 'gift_card_show'])->name('gift_card.show');
+        Route::get('/gift_card/debit/{id}', [HomeController::class, 'gift_card_debit'])->name('gift_card.debit');
+        Route::post('/gift_card/debit/{id}', [HomeController::class, 'gift_card_do_debit'])->name('gift_card.do_debit');
+
+        Route::get('/cash_entries', [HomeController::class, 'cash_entries'])->name('cash_entries');
+
+        Route::get('/profile', [HomeController::class, 'profile_edit'])->name('profile');
+        Route::post('/profile', [HomeController::class, 'profile_update'])->name('profile.update');
+
+        // Route::post('/partners/suspense', [HomeController::class, 'suspense'])->name('partner.suspense');
+    });
+
+    //Connexion
+    Route::name('auth.')->group(function () {
+        Route::get('/login', [AuthPartnerController::class, 'login'])->name('login_page');
+        Route::post('/login', [AuthPartnerController::class, 'do_login'])->name('login');
+    });
+});
+
+Route::get('/setup', function () {
+    return redirect()->route('client.gift_card.generatePDF', ['id' => 1]);
+});
+
+/* Route::get('/setup', function () {
+    dd(Admin::create([
+        'name' => 'Admin',
+        'email' => 'admin@cadeaurapide.com',
+        'password' => Hash::make('admin'),
+    ]));
+});
+ */

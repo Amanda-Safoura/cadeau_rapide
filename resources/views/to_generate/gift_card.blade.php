@@ -17,8 +17,8 @@
 
         .gift-card {
             background-color: #ffffff;
-            width: 900px;
-            height: 400px;
+            width: 180mm;
+            height: 90mm;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -147,7 +147,7 @@
                     <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
                     <p><strong>Offert à :</strong> {{ $gift_card->beneficiary_name }}</p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
-                    <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} à
+                    <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} mois à
                         compter du
                         @if ($gift_card->requires_delivery)
                             {{ $gift_card->delivery_date->format('d F Y') }}
@@ -156,14 +156,14 @@
                         @endif
                     </p>
                     @if ($gift_card->personal_message)
-                        Voici ce quelques mots de votre donateur:
+                        Voici quelques mots de votre donateur:
                         <br>{{ $gift_card->personal_message }}
                     @endif
                 </div>
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate('{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}') !!}
+                    {!! QrCode::size(80)->generate("{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}") !!}
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>

@@ -115,7 +115,7 @@
                 'active' => request()->routeIs('dashboard.cash_entries'),
             ])>
                 <a class="sidebar-link" href="{{ route('dashboard.cash_entries') }}">
-                    <i class="fas fa-user align-middle"></i> <span class="align-middle">Revenus</span>
+                    <i class="fas fa-wallet"></i> <span class="align-middle">Revenus</span>
                 </a>
             </li>
             
@@ -187,13 +187,7 @@
 
 
             <li class="sidebar-header">
-                Paramètres
-            </li>
-
-            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
-                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
-                    <i class="fas fa-cog align-middle"></i> <span class="align-middle">Paramètres généraux</span>
-                </a>
+                Autres
             </li>
 
             <li @class([

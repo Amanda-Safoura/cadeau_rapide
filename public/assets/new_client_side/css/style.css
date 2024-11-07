@@ -864,7 +864,7 @@ Home Banner Area
 }
 
 .item-bg1 {
-  background-image: url(../img/home-one/home1.jpg);
+  background-image: url(../img/img_cadeau_rapide/bg-slide.jpg);
 }
 
 .item-bg2 {
@@ -1403,7 +1403,7 @@ Inner Banner
 }
 
 .inner-bg1 {
-  background-image: url(../img/inner-banner/inner-banner1.jpg);
+  background-image: url(../img/img_cadeau_rapide/bread-all-pages.jpg);
 }
 
 .inner-bg2 {
@@ -2578,7 +2578,7 @@ City Area End
 Video Area 
 ====================================*/
 .video-area-bg {
-  background-image: url(../img/video-area-bg.jpg);
+  background-image: url(../img/img_cadeau_rapide/bg-video.jpg);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

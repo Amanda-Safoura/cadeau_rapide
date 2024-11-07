@@ -34,7 +34,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">Numéro du Chèque</th>
-                        <td>{{ $gift_card->id }}</td>
+                        <td>#{{ $gift_card->id }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Expéditeur</th>
@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Durée de validité</th>
-                        <td>{{ $gift_card->validity_duration }}</td>
+                        <td>{{ $gift_card->validity_duration ? 0 }} mois</td>
                     </tr>
                 </tbody>
             </table>

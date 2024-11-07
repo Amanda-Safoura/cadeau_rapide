@@ -20,7 +20,10 @@ class AuthController extends Controller
 {
     public function register(StoreUserRequest $request)
     {
-        $newest = User::create($request->validated());
+        $validated_inputs = $request->validated();
+        $validated_inputs['password'] = Hash::make($validated_inputs['password']);
+
+        $newest = User::create($validated_inputs);
         if ($newest) {
             $receiver_email = $newest->email;
             Mail::to($receiver_email)->send(new VerifyEmail($receiver_email));
