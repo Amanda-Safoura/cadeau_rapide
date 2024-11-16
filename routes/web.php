@@ -9,6 +9,7 @@ use App\Http\Controllers\BackOffice\FinanceController;
 use App\Http\Controllers\BackOffice\GiftCardController;
 use App\Http\Controllers\BackOffice\PartnerCategoryController;
 use App\Http\Controllers\BackOffice\PartnerController as BackOfficePartnerController;
+use App\Http\Controllers\BackOffice\PartnerMessageController;
 use App\Http\Controllers\BackOffice\ReclamationController;
 use App\Http\Controllers\BackOffice\ShippingController;
 use App\Http\Controllers\BackOffice\UserMessageController;
@@ -76,7 +77,7 @@ Route::name('client.')->group(function () {
 
 
     Route::get('/storage/{filename}', [ImageController::class, 'showImage'])->name('image.show');
-    
+
     Route::get('/check_validity/{gift_card_id}', [GiftCardController::class, 'check'])->name('gift_card.check');
     Route::post('/gift_card/mark_as_used/{id}', [HomeController::class, 'gift_card_mark_as_used'])->name('gift_card.do_mark_as_used');
 
@@ -116,6 +117,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/user_messages', [UserMessageController::class, 'index'])->name('user_message.index');
         Route::post('user_message/change_read_status', [UserMessageController::class, 'changeReadStatus'])->name('user_messages.change-read-status');
 
+        Route::get('/partner_messages', [PartnerMessageController::class, 'index'])->name('partner_message.index');
+        Route::post('partner_message/change_read_status', [PartnerMessageController::class, 'changeReadStatus'])->name('partner_messages.change-read-status');
+
         Route::resource('/shippings', ShippingController::class);
         Route::get('/shippings_all', [ShippingController::class, 'fetch_resource'])->name('shipping.fetch_all');
         Route::get('/shipping/to_deliver', [GiftCardController::class, 'to_deliver'])->name('shipping.to_deliver');
@@ -154,6 +158,10 @@ Route::prefix('partner-panel')->name('partner.')->group(function () {
         Route::post('/profile', [HomeController::class, 'profile_update'])->name('profile.update');
 
         // Route::post('/partners/suspense', [HomeController::class, 'suspense'])->name('partner.suspense');
+
+
+        Route::get('/messages', [HomeController::class, 'message_index'])->name('message.index');
+        Route::post('/message/store', [HomeController::class, 'message_store'])->name('message.store');
     });
 
     //Connexion

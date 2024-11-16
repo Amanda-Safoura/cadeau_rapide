@@ -8,9 +8,11 @@ use App\Http\Requests\UpdatePartnerProfileRequest;
 use App\Models\GiftCard;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
+use App\Models\PartnerMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -54,6 +56,7 @@ class HomeController extends Controller
 
         return redirect()->back()->with(['message' => 'Identifiants incorrects']);
     }
+
 
 
     public function cash_entries(Request $request)
@@ -204,5 +207,32 @@ class HomeController extends Controller
         $partner->save();
 
         return response()->json();
+    }
+
+
+    public function message_index(Request $request)
+    {
+        $datas = PartnerMessage::where('partner_id', $request->cookie('partner_id'))->get();
+        return view('partner_backoffice.pages.contact_admin', compact('datas'));
+    }
+
+    public function message_store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'subject' => 'nullable|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('partner.panel.message.index')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        PartnerMessage::create(array_merge(
+            $validator->validated(),
+            ['partner_id' => $request->cookie('partner_id')]
+        ));
+        return redirect()->back()->with('message', "Votre message a bien été transféré aux admins.");
     }
 }

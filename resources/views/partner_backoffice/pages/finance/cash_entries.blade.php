@@ -107,6 +107,7 @@
                     <tr>
                         <th>Montant (XOF)</th>
                         <th>Commission (XOF)</th>
+                        <th>Revenu (XOF)</th>
                         <th>Date d'émission</th>
                     </tr>
                 </thead>
@@ -115,6 +116,7 @@
                         <tr>
                             <td>{{ number_format($data['amount'], '0', '', ' ') }}</td>
                             <td>{{ number_format($data['commission'], '0', '', ' ') }}</td>
+                            <td>{{ number_format($data['amount'] - $data['commission'], '0', '', ' ') }}</td>
                             <td>{{ $data['delivery_date'] }}</td>
                         </tr>
                     @empty

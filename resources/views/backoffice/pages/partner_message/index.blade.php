@@ -1,6 +1,6 @@
 @extends('backoffice.layouts.main')
 @section('title')
-    Réclamations
+    Messages Partenaire
 @endsection
 
 
@@ -10,8 +10,8 @@
             <table class="display table table-striped table-bordered bg-white" cellspacing="0" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Client</th>
-                        <th>Commande</th>
+                        <th>Nom</th>
+                        <th>Objet</th>
                         <th>Date d'envoi</th>
                         <th>Actions</th>
                     </tr>
@@ -19,15 +19,13 @@
                 <tbody>
                     @foreach ($datas as $item)
                         <tr>
-                            <td>{{ $item->user->name }}</td>
-                            <td><a href="{{ route('dashboard.gift_card.show', ['id' => $item->gift_card_id]) }}">Commande n°
-                                    {{ $item->gift_card_id }}</a>
-                            </td>
+                            <td>{{ $item->partner->name }}</td>
+                            <td>{{ $item->subject ?? 'N/A' }}</td>
                             <td>{{ date_format($item->created_at, 'd F Y, H:i') }}</td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <button class="more-btn btn btn-sm btn-info me-2" title="Voir plus" data-bs-toggle="modal"
-                                        data-bs-target="#reclamationModal_{{ $item->id }}">
+                                        data-bs-target="#partner_messageModal_{{ $item->id }}">
                                         <i class="far fa-file-alt"></i>
                                     </button>
                                     @if ($item->read)
@@ -45,18 +43,20 @@
                             </td>
                         </tr>
                         <!-- Modale -->
-                        <div class="modal fade" id="reclamationModal_{{ $item->id }}" tabindex="-1"
-                            aria-labelledby="reclamationModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="partner_messageModal_{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="partner_messageModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="reclamationModalLabel">Réclamation</h5>
+                                        <h5 class="modal-title" id="partner_messageModalLabel">Objet: {{ $item->subject }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Fermer"></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>{{ $item->message }} </p>
-                                        <small class="text-muted">Envoyé par : {{ $item->user->name }}</small>
+                                        <small class="text-muted">Envoyé par : {{ $item->partner->name }}
+                                            ({{ $item->partner->email }})
+                                        </small>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -84,7 +84,7 @@
 
                 // Envoi de la requête AJAX
                 $.ajax({
-                    url: "{{ route('dashboard.reclamations.change-read-status') }}", // Remplacez par le chemin de votre route
+                    url: "{{ route('dashboard.partner_messages.change-read-status') }}", // Remplacez par le chemin de votre route
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}', // CSRF token pour sécuriser la requête

@@ -44,14 +44,17 @@
                     <i class="fas fa-wallet"></i> <span class="align-middle">Revenus</span>
                 </a>
             </li>
-            
+
 
             <li class="sidebar-header">
                 Support
             </li>
 
-            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
-                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('partner.panel.message.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('partner.panel.message.index') }}">
                     <i class="fas fa-phone align-middle"></i> <span class="align-middle">Contact Cadeau Rapide</span>
                 </a>
             </li>

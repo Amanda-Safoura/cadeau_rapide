@@ -118,13 +118,15 @@
                     <i class="fas fa-wallet"></i> <span class="align-middle">Revenus</span>
                 </a>
             </li>
-            
+
             <li @class([
                 'sidebar-item',
-                'active' => request()->routeIs('dashboard.finance.card_payment_to_validate'),
+                'active' => request()->routeIs(
+                    'dashboard.finance.card_payment_to_validate'),
             ])>
                 <a class="sidebar-link" href="{{ route('dashboard.finance.card_payment_to_validate') }}">
-                    <i class="far fa-credit-card"></i> <span class="align-middle">Valider les paiements par Carte Bancaire</span>
+                    <i class="far fa-credit-card"></i> <span class="align-middle">Valider les paiements par Carte
+                        Bancaire</span>
                 </a>
             </li>
 
@@ -144,8 +146,11 @@
                 </a>
             </li>
 
-            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
-                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.partner_message.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.partner_message.index') }}">
                     <i class="fas fa-phone align-middle"></i> <span class="align-middle">Contact Partenaires</span>
                 </a>
             </li>

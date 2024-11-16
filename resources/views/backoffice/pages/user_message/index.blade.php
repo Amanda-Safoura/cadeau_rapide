@@ -1,6 +1,6 @@
 @extends('backoffice.layouts.main')
 @section('title')
-    Message Utilisateur
+    Messages Utilisateur
 @endsection
 
 
@@ -27,7 +27,7 @@
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <button class="more-btn btn btn-sm btn-info me-2" title="Voir plus" data-bs-toggle="modal"
-                                        data-bs-target="#user_messageModal">
+                                        data-bs-target="#user_messageModal_{{ $item->id }}">
                                         <i class="far fa-file-alt"></i>
                                     </button>
                                     @if ($item->read)
@@ -45,8 +45,8 @@
                             </td>
                         </tr>
                         <!-- Modale -->
-                        <div class="modal fade" id="user_messageModal" tabindex="-1" aria-labelledby="user_messageModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="user_messageModal_{{ $item->id }}" tabindex="-1"
+                            aria-labelledby="user_messageModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -56,7 +56,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <p>{{ $item->message }} </p>
-                                        <small class="text-muted">Envoyé par : {{ $item->name }} ({{ $item->email }})</small>
+                                        <small class="text-muted">Envoyé par : {{ $item->name }}
+                                            ({{ $item->email }})</small>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
