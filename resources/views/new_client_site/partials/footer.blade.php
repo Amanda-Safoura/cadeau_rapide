@@ -97,7 +97,7 @@
 
                         <ul class="footer-contact-list">
                             <li><a href="javascript:void(0);">FAQ</a></li>
-                            <li><a href="javascript:void(0);">Politique de confidentialité</a></li>
+                            <li><a href="{{ route('client.policy') }}">Politique de confidentialité</a></li>
                             <li><a href="javascript:void(0);">Conditions Générales</a></li>
                             <li><a href="{{ route('client.contact') }}">Assistance Client</a></li>
                         </ul>

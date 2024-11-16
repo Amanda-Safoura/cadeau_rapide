@@ -58,7 +58,7 @@
                                         <div class="form-group">
                                             <i class='flaticon-loupe'></i>
                                             <input type="text" name="search" class="form-control"
-                                                placeholder="What Are Searching*">
+                                                placeholder="Que recherchez-vous ?">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 text-center">
@@ -79,7 +79,7 @@
                                 <div class="listing-right-form">
                                     <div class="row justify-content-center">
                                         <div class="form-group">
-                                            <label>Sort by:</label>
+                                            <label>Trier par:</label>
                                         </div>
                                         <div class="col-lg-7 col-sm-8">
                                             <div class="form-group">
@@ -157,7 +157,7 @@
                                                         @php
                                                             $tags = explode(', ', $oneLetterPartner->tags);
                                                         @endphp
-                                                        @for ($i = 0; $i < 3; $i++)
+                                                        @for ($i = 0; $i < count($tags); $i++)
                                                             <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
                                                         @endfor
                                                     </ul>

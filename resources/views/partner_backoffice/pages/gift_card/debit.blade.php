@@ -58,7 +58,7 @@
                                 class="text-primary">{{ number_format($gift_card->amount, 0, '', ' ') }}
                                 XOF</span></p>
                         <p><strong>Message Personnel:</strong> <span
-                                class="text-primary">{{ $gift_card->personal_message }}</span></p>
+                                class="text-primary">{{ $gift_card->personal_message ?? 'N/A' }}</span></p>
                     </div>
                     <div class="col-md-12">
                         <p class="text-center mt-3 h3"><strong>Solde:</strong> <span

@@ -69,7 +69,7 @@
                                                 @php
                                                     $tags = explode(', ', $partner->tags);
                                                 @endphp
-                                                @for ($i = 0; $i < 3; $i++)
+                                                @for ($i = 0; $i < count($tags); $i++)
                                                     <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
                                                 @endfor
                                             </ul>
@@ -105,9 +105,9 @@
                 <h2>Explorez nos catégories pour un choix rapide et facile !</h2>
             </div>
 
-            <div class="row category-bg">
+            <div class="category-bg category-container">
                 @foreach ($categories as $category)
-                    <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 text-center">
+                    <div class="mb-4 text-center">
                         <div class="category-box-card">
                             <a href="{{ route('client.partner.category', ['name' => $category->name]) }}">
                                 <i class="{{ $category->icon }}"></i>

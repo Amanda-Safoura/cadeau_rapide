@@ -36,7 +36,7 @@ class GiftCardController extends Controller
 
     public function to_deliver()
     {
-        $datas = GiftCard::where('requires_delivery', true)->with('paymentInfo')->get();
+        $datas = GiftCard::with('paymentInfo')->get();
         return view('backoffice.pages.gift_card.to_deliver', compact('datas'));
     }
 
@@ -69,27 +69,30 @@ class GiftCardController extends Controller
     {
         $gift_card = GiftCard::with('paymentInfo')->findOrFail($id);
 
-        // Configuration de Dompdf
-        $options = new Options();
-        $options->set('defaultFont', 'Arial');
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf = new Dompdf($options);
+        if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
+            // Configuration de Dompdf
+            $options = new Options();
+            $options->set('defaultFont', 'Arial');
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
 
-        // Génération du contenu HTML et du PDF
-        $html = view('to_generate.gift_card', compact('gift_card'))->render();
-        Log::info('HTML généré : ' . $html);
+            // Génération du contenu HTML et du PDF
+            $html = view('to_generate.gift_card', compact('gift_card'))->render();
 
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'landscape');
+            $dompdf->render();
 
-        // Enregistrer le fichier PDF
-        $output = $dompdf->output();
-        $filename = "Chèque_Cadeau_$gift_card->id.pdf";
-        file_put_contents(storage_path("app/public/$filename"), $output);
+            // Enregistrer le fichier PDF
+            $output = $dompdf->output();
+            $filename = "Chèque_Cadeau_$gift_card->id.pdf";
+            file_put_contents(storage_path("app/public/$filename"), $output);
 
-        return response()->download(storage_path("app/public/$filename"));
+            return response()->download(storage_path("app/public/$filename"));
+        } else {
+            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
+        }
     }
 
 
@@ -122,7 +125,7 @@ class GiftCardController extends Controller
             Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($gift_card, $tempPath) {
                 $message->to($gift_card->is_client_beneficiary
                     ? $gift_card->client_email
-                    : $gift_card->beneficiary_email) // Remplacez par l'adresse email du destinataire
+                    : $gift_card->beneficiary_email) // Adresse email du destinataire
                     ->subject("Votre chèque cadeau")
                     ->attach(Storage::path($tempPath), [
                         'as' => "Chèque Cadeau N° {$gift_card->id}.pdf",

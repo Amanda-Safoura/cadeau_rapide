@@ -17,8 +17,8 @@
 
         .gift-card {
             background-color: #ffffff;
-            width: 180mm;
-            height: 90mm;
+            width: 900px;
+            height: 470px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -144,16 +144,11 @@
             <div class="details-section">
                 <!-- Montant et détails -->
                 <div>
-                    <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
+                    <p><strong>Montant :</strong> {{ number_format($gift_card->amount, '0', '', ' ') }} XOF</p>
                     <p><strong>Offert à :</strong> {{ $gift_card->beneficiary_name }}</p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
                     <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} mois à
-                        compter du
-                        @if ($gift_card->requires_delivery)
-                            {{ $gift_card->delivery_date->format('d F Y') }}
-                        @else
-                            {{ $gift_card->created_at->format('d F Y') }}
-                        @endif
+                        compter du {{ $gift_card->delivery_date->format('d F Y') }}
                     </p>
                     @if ($gift_card->personal_message)
                         Voici quelques mots de votre donateur:

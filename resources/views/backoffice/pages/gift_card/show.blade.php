@@ -78,11 +78,10 @@
                 Étape 5 : Choix de Livraison
             </div>
             <div class="card-body">
-                <p><strong>Livraison au Bénéficiaire :</strong> {{ $gift_card->requires_delivery ? 'Oui' : 'Non' }}</p>
-                @if ($gift_card->requires_delivery)
                     <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
                     <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
                     <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
+                    <p><strong>Numéro de la personne à contacter :</strong> {{ $gift_card->delivery_contact }}</p>
                     @php
                         $shipping_status = '';
                         switch ($gift_card->shipping_status) {
@@ -100,7 +99,6 @@
                         }
                     @endphp
                     <p><strong>Statut de Livraison :</strong> {{ $shipping_status }}</p>
-                @endif
             </div>
         </div>
 

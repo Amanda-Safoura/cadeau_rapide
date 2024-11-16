@@ -84,6 +84,47 @@
                 margin-top: 240px;
             }
         }
+
+        .category-container {
+            display: grid;
+            gap: 1rem;
+            /* Espace entre les éléments */
+        }
+
+        /* 5 éléments par ligne sur les grands écrans */
+        @media (min-width: 1200px) {
+            .category-container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        /* 4 éléments par ligne sur les écrans de taille moyenne */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .category-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* 3 éléments par ligne sur les écrans de taille intermédiaire */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .category-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* 2 éléments par ligne sur les petits écrans */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .category-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 1 élément par ligne sur les très petits écrans */
+        @media (max-width: 575px) {
+            .category-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     @yield('additionnal_css')
 </head>
@@ -102,31 +143,6 @@
     <!-- Start Navbar Area -->
     @include('new_client_site.partials.header')
     <!-- End Navbar Area -->
-
-    <!-- Search Overlay -->
-    <div class="search-overlay">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="search-layer"></div>
-                <div class="search-layer"></div>
-                <div class="search-layer"></div>
-
-                <div class="search-close">
-                    <span class="search-close-line"></span>
-                    <span class="search-close-line"></span>
-                </div>
-
-                <div class="search-form">
-                    <form action="{{ route('client.partner.search') }}" method="get">
-                        @csrf
-                        <input name="search" type="text" class="input-search" placeholder="Mot-Clé . . .">
-                        <button type="submit"><i class="flaticon-loupe"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Search Overlay -->
 
     @yield('content')
 

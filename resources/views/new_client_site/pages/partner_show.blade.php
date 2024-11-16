@@ -30,27 +30,6 @@
                     </div>
 
                     <div class="col-lg-6 col-md-5">
-                        <ul class="social-link">
-                            <li>
-                                <a href="https://www.facebook.com/login/" target="_blank"><i
-                                        class='bx bxl-facebook'></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/i/flow/login" target="_blank"><i
-                                        class='bx bxl-twitter'></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/accounts/login/" target="_blank"><i
-                                        class='bx bxl-instagram'></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.pinterest.com/" target="_blank"><i
-                                        class='bx bxl-pinterest-alt'></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.youtube.com/" target="_blank"><i class='bx bxl-youtube'></i></a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -104,13 +83,6 @@
                                 {{ $partner->description }}
                             </p>
 
-                            {{-- <blockquote class="blockquote">
-                                <p>
-                                    Information Without Cross-media Value. Quickly Maximize Timely
-                                    Deliverables For Real-time Schemas. Dramatically Maintain Clicks
-                                </p>
-                            </blockquote> --}}
-
                             @php
                                 $tags = explode(', ', $partner->tags);
                             @endphp
@@ -126,7 +98,7 @@
                     </div>
 
                     <div class="listing-widget gallery-slider">
-                        <h3 class="title">Gallery / Photos</h3>
+                        <h3 class="title">Gallerie / Photos</h3>
                         <div class="gallery-slider-area owl-carousel owl-theme">
                             <div class="Gallery-item">
                                 <a href="{{ Storage::disk('public')->url($partner->picture_1) }}"><img
@@ -207,32 +179,11 @@
                     <div class="listing-widget-side">
                         <h3 class="title">Contact</h3>
                         <ul class="listing-widget-list">
-                            <li>Address : <span> {{ $partner->adress }}</span></li>
-                            <li>Phone : <span><a
+                            <li>Addresse : <span> {{ $partner->adress }}</span></li>
+                            <li>Numéro de téléphone : <span><a
                                         href="tel:{{ $partner->phone_number }}">{{ $partner->phone_number }}</a></span>
                             </li>
                             <li>Mail : <span><a href="mailto:{{ $partner->email }}">{{ $partner->email }}</a></span></li>
-                        </ul>
-                        <ul class="social-link">
-                            <li>
-                                <a href="https://www.facebook.com/login/" target="_blank"><i
-                                        class="bx bxl-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/i/flow/login" target="_blank"><i
-                                        class="bx bxl-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/accounts/login/" target="_blank"><i
-                                        class="bx bxl-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.pinterest.com/" target="_blank"><i
-                                        class="bx bxl-pinterest-alt"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://www.youtube.com/" target="_blank"><i class="bx bxl-youtube"></i></a>
-                            </li>
                         </ul>
                     </div>
                     <div class="listing-widget-side">

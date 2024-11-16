@@ -27,9 +27,9 @@ class GiftCardFactory extends Factory
             'beneficiary_phone' => $this->faker->phoneNumber,
             'is_customized' => $this->faker->boolean,
             'customization_fee' => $this->faker->numberBetween(0, 100),
-            'requires_delivery' => $this->faker->boolean,
             'delivery_address' => $this->faker->address,
             'delivery_date' => $this->faker->date(),
+            'delivery_contact' => $this->faker->phoneNumber,
             'shipping_id' => null, // Set to null if no shipping is needed
             'sent' => $this->faker->boolean,
             'validity_duration' => $this->faker->numberBetween(1, 365),

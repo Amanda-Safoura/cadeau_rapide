@@ -124,16 +124,13 @@
                             <div class="card mb-3 p-3">
                                 <div class="d-flex justify-content-between">
                                     <h5><strong>Commande</strong> #{{ $key + 1 }}</h5>
-                                    @if (!$order->requires_delivery)
                                         <a href="{{ route('client.gift_card.generatePDF', ['id' => $order->id]) }}"
                                             type="button" class="btn btn-success">Télécharger</a>
-                                    @endif
                                 </div>
                                 <p><strong>Montant Total</strong>: {{ $order->total_amount }}</p>
                                 <p><strong>Nom du Bénéficiaire</strong>:
                                     {{ $order->is_client_beneficiary ? 'Vous-même' : $order->beneficiary_name }}</p>
                                 <p>Date : {{ date_format($order->created_at, 'd F Y') }}</p>
-                                @if ($order->requires_delivery)
                                     @php
                                         $progressClass = 'progress-bar';
                                         $progressWidth = 'width: 0%';
@@ -164,7 +161,6 @@
                                         <span>Validée</span>
                                         <span>Livrée</span>
                                     </div>
-                                @endif
                                 <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal"
                                     data-bs-target="#detailsModal" order_id="{{ $order->id }}">Voir les
                                     détails</button>
@@ -239,8 +235,8 @@
                     <p><strong>Téléphone du Bénéficiaire :</strong> <span id="beneficiaryPhone"></span></p>
                     <p><strong>Personnalisé :</strong> <span id="isCustomized"></span></p>
                     <p><strong>Frais de Personnalisation :</strong> <span id="customizationFee"></span></p>
-                    <p><strong>Livraison Nécessaire :</strong> <span id="requiresDelivery"></span></p>
                     <p><strong>Adresse de Livraison :</strong> <span id="deliveryAddress"></span></p>
+                    <p><strong>Numéro de la personne à contacter :</strong> <span id="deliveryContact"></span></p>
                     <p><strong>Date de Livraison :</strong> <span id="deliveryDate"></span></p>
                     <p><strong>Montant Total :</strong> <span id="totalAmount"></span></p>
                 </div>
@@ -289,8 +285,8 @@
             $('#beneficiaryPhone').text(order.is_client_beneficiary ? order.client_phone : order.beneficiary_phone)
             $('#isCustomized').text(order.is_customized ? 'Oui' : 'Non')
             $('#customizationFee').text(order.customization_fee + ' XOF')
-            $('#requiresDelivery').text(order.requires_delivery ? 'Oui' : 'Non')
             $('#deliveryAddress').text(order.delivery_address)
+            $('#deliveryContact').text(order.delivery_contact ?? 'Non défini')
 
             let delivery_date = new Date(order.delivery_date)
 

@@ -130,9 +130,9 @@ class PartnerController extends Controller
             'beneficiary_phone',
             'is_customized',
             'customization_fee',
-            'requires_delivery',
             'delivery_address',
             'delivery_date',
+            'delivery_contact',
             'validity_duration',
             'shipping_id',
             'shipping_zone',
@@ -177,7 +177,7 @@ class PartnerController extends Controller
                     $new_payment_info->reference = $response;
                     $new_payment_info->save();
 
-                    return redirect()->back()->with('message', 'Nous avons bien enregistré votre commande.');
+                    return redirect()->back()->with('message', 'Veuillez consulter votre téléphone. Une requête de paiement vient d\'être émise. <br><br><span class="text-danger">P.S: Assurez-vous d\'avoir suffisamment de fonds. Auquel cas, vous ne recevrez pas de requête de paiement.</span>');
                 }
                 // Traitement du paiement web
                 elseif (in_array($network, ['FREE SN', 'ORANGE CI', 'MOOV CI', 'WAVE CI', 'MOOV BF', 'ORANGE BF'])) {

@@ -28,7 +28,7 @@ class AuthController extends Controller
             $receiver_email = $newest->email;
             Mail::to($receiver_email)->send(new VerifyEmail($receiver_email));
 
-            return redirect()->intended(route('client.login_page'));
+            return redirect()->intended(route('client.login_page'))->with('message', 'Un mail de confirmation de compte vous a été envoyé. Veuillez vérifiez votre boîte mail.');
         }
     }
 

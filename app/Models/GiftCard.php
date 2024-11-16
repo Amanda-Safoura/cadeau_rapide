@@ -25,9 +25,9 @@ class GiftCard extends Model
         'beneficiary_phone',
         'is_customized',
         'customization_fee',
-        'requires_delivery',
         'delivery_address',
         'delivery_date',
+        'delivery_contact',
         'shipping_id',
         'shipping_status',
         'shipping_zone',
@@ -54,8 +54,7 @@ class GiftCard extends Model
     // Accessor pour obtenir la date d'expiration
     public function getExpirationDateAttribute()
     {
-        $start_date = $this->requires_delivery ? $this->delivery_date : $this->created_at;
-
+        $start_date = $this->delivery_date;
         return Carbon::parse($start_date)->addMonths($this->validity_duration);
     }
 

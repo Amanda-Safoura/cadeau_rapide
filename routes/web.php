@@ -17,6 +17,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
 use App\Http\Controllers\PartnerDashBoard\HomeController;
 use App\Models\Admin;
+use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::name('client.')->group(function () {
 
     Route::view('/about', 'new_client_site.pages.about_page', ['categories' => PartnerCategory::all()])->name('about');
 
+    Route::view('/policy', 'new_client_site.pages.policy_page')->name('policy');
 
     Route::view('/contact', 'new_client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');

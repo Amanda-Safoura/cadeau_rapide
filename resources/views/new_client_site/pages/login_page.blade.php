@@ -55,7 +55,8 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-7 col-xl-6  p-0">
                     <div class="user-img">
-                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-login-register.jpg') }}" alt="Images">
+                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-login-register.jpg') }}"
+                            alt="Images">
                     </div>
                 </div>
 
@@ -71,7 +72,8 @@
                                 <div class="col-lg-12 col-md-12">
                                     <ul class="tabs">
                                         <li class="current">
-                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i> Login</a>
+                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i>
+                                                Connexion</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -90,7 +92,7 @@
                                                                     <i class="bx bx-user"></i>
                                                                     <input type="text" name="email" id="email"
                                                                         class="form-control" required=""
-                                                                        data-error="Please enter your Email"
+                                                                        data-error="Saisissez votre adresse mail"
                                                                         placeholder="Email">
                                                                 </div>
                                                             </div>
@@ -99,7 +101,7 @@
                                                                 <div class="form-group">
                                                                     <i class="bx bx-lock-alt"></i>
                                                                     <input class="form-control" type="password"
-                                                                        name="password" placeholder="Password">
+                                                                        name="password" placeholder="Mot de passe">
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
@@ -112,7 +114,7 @@
                                                             <div class="col-lg-12 col-md-12 text-center">
                                                                 <button type="submit"
                                                                     class="default-btn user-all-btn disabled">
-                                                                    Login
+                                                                    Connexion
                                                                 </button>
                                                             </div>
 
@@ -121,16 +123,15 @@
                                                                     <input type="checkbox" id="remember"
                                                                         name="remember">
                                                                     <label for="remember">
-                                                                        Remember Me
+                                                                        Se rappeler de moi
                                                                     </label>
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-lg-6 col-sm-6">
                                                                 <a class="forget"
-                                                                    href="{{ route('password.request') }}">Forgot
-                                                                    my
-                                                                    password?</a>
+                                                                    href="{{ route('password.request') }}">Mot de passe
+                                                                    oublié?</a>
                                                             </div>
 
                                                             <div class="col-12">
@@ -161,6 +162,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- Le conteneur de l'alerte modale -->
+        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel">Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        {{ session('message') }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Jquery Min JS -->
@@ -186,6 +204,14 @@
     <!-- Custom JS -->
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
 
+
+    <script>
+        @if (session('message'))
+            $(document).ready(function() {
+                $('#alertModal').modal('show')
+            });
+        @endif
+    </script>
 </body>
 
 </html>

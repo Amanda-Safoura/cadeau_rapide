@@ -23,7 +23,6 @@
                         <th>Montant</th>
                         <th>Somme totale payé</th>
                         <th>Customisé</th>
-                        <th>À Livrer</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -43,13 +42,6 @@
                             <td>{{ $gift_card->total_amount }}</td>
                             <td class=" text-center">
                                 @if ($gift_card->is_customized)
-                                    <span class="bg-success text-white p-1"><i class="fas fa-check"></i></span>
-                                @else
-                                    <span class="bg-danger text-white px-2 py-1"><i class="fas fa-times"></i></span>
-                                @endif
-                            </td>
-                            <td class=" text-center">
-                                @if ($gift_card->requires_delivery)
                                     <span class="bg-success text-white p-1"><i class="fas fa-check"></i></span>
                                 @else
                                     <span class="bg-danger text-white px-2 py-1"><i class="fas fa-times"></i></span>

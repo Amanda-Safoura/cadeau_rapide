@@ -33,14 +33,14 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4">
                     <div class="listing-section-right">
-                        <h3 class="title"> <i class="flaticon-filter"></i> Filters</h3>
+                        <h3 class="title"> <i class="flaticon-filter"></i> Filtres</h3>
                         <div class="listing-right-form">
                             <form>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <i class='flaticon-loupe'></i>
-                                            <input type="text" class="form-control" placeholder="What Are Searching*">
+                                            <input type="text" class="form-control" placeholder="Que recherchez-vous*">
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                 <div class="listing-right-form">
                                     <div class="row justify-content-center">
                                         <div class="form-group">
-                                            <label>Sort by:</label>
+                                            <label>Trier par:</label>
                                         </div>
                                         <div class="col-lg-7 col-sm-8">
                                             <div class="form-group">
@@ -122,7 +122,7 @@
                                                     @php
                                                         $tags = explode(', ', $partner->tags);
                                                     @endphp
-                                                    @for ($i = 0; $i < 3; $i++)
+                                                    @for ($i = 0; $i < count($tags); $i++)
                                                         <li class="chip me-2 mb-2">{{ $tags[$i] }}</li>
                                                     @endfor
                                                 </ul>

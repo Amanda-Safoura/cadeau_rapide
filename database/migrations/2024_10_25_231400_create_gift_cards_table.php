@@ -40,9 +40,9 @@ return new class extends Migration
             $table->integer('customization_fee')->default(0); // Montant fixe pour personnalisation
 
             // Étape 5 : Choix de Livraison
-            $table->boolean('requires_delivery')->default(false);
-            $table->text('delivery_address')->nullable();
-            $table->date('delivery_date')->nullable();
+            $table->text('delivery_address');
+            $table->date('delivery_date');
+            $table->string('delivery_contact', 20)->nullable();
 
             // Étape 2 : Détails du Client
             $table->bigInteger('shipping_id')->unsigned()->nullable();

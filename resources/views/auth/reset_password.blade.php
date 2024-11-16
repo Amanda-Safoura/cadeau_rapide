@@ -119,14 +119,20 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Structure -->
-        <div id="statusModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h4>Notification</h4>
-                <p>{{ session('status') }}</p>
-            </div>
-            <div class="modal-footer">
-                <button id="closeModal" class="modal-close btn">Fermer</button>
+        <!-- Le conteneur de l'alerte modale -->
+        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel">Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        {{ session('message') }}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -156,18 +162,11 @@
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            // Vérifie si le message de session 'status' est présent
-            @if (session('status'))
-                // Affiche le modal en cas de message de statut
-                $('#statusModal').show();
-            @endif
-
-            // Ferme le modal lorsque le bouton de fermeture est cliqué
-            $('#closeModal').on('click', function() {
-                $('#statusModal').hide();
+        @if (session('message'))
+            $(document).ready(function() {
+                $('#alertModal').modal('show')
             });
-        });
+        @endif
     </script>
 
 </body>

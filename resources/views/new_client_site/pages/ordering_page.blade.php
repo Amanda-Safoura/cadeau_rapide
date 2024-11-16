@@ -333,77 +333,61 @@
                                     <button type="button" class="btn btn-primary" onclick="nextStep()">Suivant</button>
                                 </div>
 
-                                <!-- Étape 5 : Choix de Livraison -->
+                                <!-- Étape 5 : Détails de la Livraison -->
                                 <div class="content" id="step5">
-                                    <h2 class="text-center">Étape 5 : Choix de Livraison</h2>
-                                    <div class="mb-3 custom-form-input form-group">
-                                        <label class="form-label">Souhaitez-vous que nous livrions le chèque cadeau au
-                                            bénéficiaire
-                                            ?</label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input id="requires_delivery_1" type="radio" class="form-check-input"
-                                                name="requires_delivery" @checked(old('requires_delivery') === '1') value="1"
-                                                onclick="toggleDelivery(true)">
-                                            <label for="requires_delivery_1" class="form-check-label">
-                                                Oui
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input id="requires_delivery_0" type="radio" class="form-check-input"
-                                                name="requires_delivery" @checked(old('requires_delivery') === '0' || !old('requires_delivery')) value="0"
-                                                onclick="toggleDelivery(false)">
-                                            <label for="requires_delivery_0" class="form-check-label">Non
-                                            </label>
-                                        </div>
+                                    <h2 class="text-center">Étape 5 : Détails de la Livraison</h2>
+
+                                    <div class="mb-5 custom-form-input form-group">
+                                        <div><label class="form-label">Option de livraison</label></div>
+                                        <select class="form-control" name="shipping_id" id="shipping_id" required>
+                                            <option value="">Sélectionnez une option de livraison</option>
+                                            @foreach ($shippings as $shipping)
+                                                <option value="{{ $shipping->id }}"
+                                                    shipping-price="{{ $shipping->price }}" @selected(old('shipping_id') == $shipping->id)>
+                                                    {{ $shipping->zone }}</option>
+                                            @endforeach
+                                        </select>
 
                                         <div class="alert alert-danger d-none" role="alert">
-                                            @error('requires_delivery')
+                                            @error('shipping_id')
                                                 <strong>{{ $message }}</strong>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div id="deliveryOptions" style="display: none;">
-                                        <div class="mb-3 custom-form-input form-group">
-                                            <label class="form-label" for="delivery_address">Adresse de Livraison</label>
-                                            <input id="delivery_address" type="text" name="delivery_address"
-                                                value="{{ old('delivery_address') }}" class="form-control">
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                @error('delivery_address')
-                                                    <strong>{{ $message }}</strong>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 custom-form-input form-group">
-                                            <label class="form-label" for="delivery_date">Date de Livraison</label>
-                                            <input type="date" name="delivery_date" id="delivery_date"
-                                                value="{{ old('delivery_date') }}" class="form-control">
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                @error('delivery_date')
-                                                    <strong>{{ $message }}</strong>
-                                                @enderror
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3 custom-form-input form-group">
-                                            <div><label class="form-label">Option de livraison</label></div>
-                                            <select class="form-control" name="shipping_id" id="shipping_id" required>
-                                                <option value="">Sélectionnez une option de livraison</option>
-                                                @foreach ($shippings as $shipping)
-                                                    <option value="{{ $shipping->id }}"
-                                                        shipping-price="{{ $shipping->price }}"
-                                                        @selected(old('shipping_id') == $shipping->id)>
-                                                        {{ $shipping->zone }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                @error('shipping_id')
-                                                    <strong>{{ $message }}</strong>
-                                                @enderror
-                                            </div>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="delivery_address">Adresse de Livraison</label>
+                                        <textarea id="delivery_address" name="delivery_address" class="form-control">{{ old('delivery_address') }}</textarea>
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('delivery_address')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
                                         </div>
-
                                     </div>
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="delivery_date">Date de Livraison</label>
+                                        <input type="date" name="delivery_date" id="delivery_date"
+                                            value="{{ old('delivery_date') }}" class="form-control">
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('delivery_date')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb-3 custom-form-input form-group">
+                                        <label class="form-label" for="delivery_contact">Numéro Personne à contacter
+                                            (facultatif)</label>
+                                        <input type="text" name="delivery_contact" id="delivery_contact"
+                                            value="{{ old('delivery_contact') }}" class="form-control">
+                                        <div class="alert alert-danger d-none" role="alert">
+                                            @error('delivery_contact')
+                                                <strong>{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                     <div>
                                         <button type="button" class="btn btn-secondary me-3"
@@ -455,7 +439,7 @@
                                         </div>
                                     </div>
                                     <div id="networkFields">
-                                        <div class="mb-3 custom-form-input form-group">
+                                        <div class="mb-5 custom-form-input form-group">
                                             <div><label class="form-label">Pays</label></div>
                                             <select class="form-control" id="countrySelect" required>
                                                 <option value="">Sélectionnez un Pays</option>
@@ -467,7 +451,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="mb-3 custom-form-input form-group">
+                                        <div class="mb-5 custom-form-input form-group">
                                             <div><label class="form-label">Réseau du Numéro Mobile</label></div>
                                             <select class="form-control" name="payment_network" id="networkSelect"
                                                 required>
@@ -586,7 +570,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-3 custom-form-input form-group">
+                                        <div class="mb-5 custom-form-input form-group">
                                             <div><label class="form-label" for="currency">Devise</label></div>
                                             <select name="currency" id="currency" class="form-control" required>
                                                 <option value="">Sélectionner une devise</option>
@@ -617,7 +601,7 @@
             <div class="modal-content">
                 <span class="close" onclick="closeResponseModal()">&times;</span>
                 <h4 class="modal-title text-center">
-                    {{ session('message') }}
+                    {!! session('message') !!}
                 </h4>
             </div>
         </div>
@@ -684,10 +668,10 @@
             let beneficiaryEmail = $('input[name="beneficiary_email"]').val() || "Non fourni"
             let beneficiaryPhone = $('input[name="beneficiary_phone"]').val() || "Non fourni"
             let isCustomized = $('input[name="is_customized"]:checked').val() == "1" ? "Oui" : "Non"
-            let requiresDelivery = $('input[name="requires_delivery"]:checked').val() == "1" ? "Oui" : "Non"
-            let deliveryAddress = $('input[name="delivery_address"]').val() || "Non applicable"
-            let shipping = $('#shipping_id option:selected').attr('shipping-price') || "Non applicable"
-            let deliveryDate = $('input[name="delivery_date"]').val() || "Non applicable"
+            let shipping = $('#shipping_id option:selected').attr('shipping-price') || "Non défini"
+            let deliveryAddress = $('input[name="delivery_address"]').val() || "Non défini"
+            let deliveryDate = $('input[name="delivery_date"]').val() || "Non défini"
+            let deliveryContact = $('input[name="delivery_contact"]').val() || "Non défini"
 
             // Insertion des valeurs dans le récapitulatif
             $('#step6').html(`
@@ -702,9 +686,9 @@
                     <li class="list-group-item"><strong>Email du Bénéficiaire : </strong>${beneficiaryEmail}</li>
                     <li class="list-group-item"><strong>Téléphone du Bénéficiaire : </strong>${beneficiaryPhone}</li>
                     <li class="list-group-item"><strong>Personnalisation : </strong>${isCustomized}</li>
-                    <li class="list-group-item"><strong>Livraison : </strong>${requiresDelivery}</li>
                     <li class="list-group-item"><strong>Adresse de Livraison : </strong>${deliveryAddress}</li>
                     <li class="list-group-item"><strong>Date de Livraison : </strong>${deliveryDate}</li>
+                    <li class="list-group-item"><strong>Numéro de la Peronne à contacter : </strong>${deliveryContact}</li>
                     <li class="list-group-item"><strong>Frais de Livraison : </strong>${shipping}</li>
                 </ul>
                 <button type="button" class="btn btn-secondary me-3" onclick="previousStep()">Précédent</button>
@@ -822,16 +806,17 @@
                         minlength: 8
                     },
                     delivery_address: {
-                        required: function() {
-                            return $('input[name="requires_delivery"]:checked').val() == '1';
-                        }
+                        required: true
                     },
                     delivery_date: {
-                        required: function() {
-                            return $('input[name="requires_delivery"]:checked').val() == '1';
-                        },
+                        required: true,
                         date: true,
                         afterToday: true // Applique la validation personnalisée
+                    },
+                    delivery_contact: {
+                        required: false,
+                        minlength: 8,
+                        maxlength: 15
                     },
                     payment_phone: {
                         required: true,
@@ -936,11 +921,15 @@
                         date: "Veuillez entrer une date valide.",
                         afterToday: "La date doit être postérieure à aujourd'hui." // Message personnalisé
                     },
+                    delivery_contact: {
+                        minlength: "Le numéro de téléphone doit contenir au moins 8 chiffres.",
+                        maxlength: "Le numéro de téléphone ne peut pas dépasser 15 chiffres."
+                    },
                     // Messages pour le paiement
                     payment_phone: {
                         required: "Veuillez entrer votre numéro de téléphone.",
-                        minlength: "Le numéro de téléphone doit contenir au moins 10 chiffres.",
-                        maxlength: "Le numéro de téléphone ne peut pas dépasser 20 chiffres."
+                        minlength: "Le numéro de téléphone doit contenir au moins 8 chiffres.",
+                        maxlength: "Le numéro de téléphone ne peut pas dépasser 15 chiffres."
                     },
                     payment_network: "Veuillez sélectionner un réseau de paiement.",
                     payment_otp: {
@@ -965,10 +954,6 @@
             // Affichage conditionnel des champs pour le bénéficiaire et la livraison
             window.toggleBeneficiary = function(show) {
                 $('#beneficiaryFields').toggle(show)
-            }
-
-            window.toggleDelivery = function(show) {
-                $('#deliveryOptions').toggle(show)
             }
         })
 
@@ -1005,9 +990,7 @@
             if (currentStep === 5) generateSummary()
             if (currentStep === 6) {
                 let totalAmount = parseInt($('#amount').val())
-                if ($('input[name="requires_delivery"]:checked').val() == "1") totalAmount += parseInt($(
-                    '#shipping_id option:selected').attr(
-                    'shipping-price'))
+                totalAmount += parseInt($('#shipping_id option:selected').attr('shipping-price'))
 
                 if ($('input[name="is_customized"]:checked').val() == "1") totalAmount += parseInt($(
                     'input[name="customization_fee"]').val())

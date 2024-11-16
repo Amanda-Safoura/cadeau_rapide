@@ -36,4 +36,23 @@ class ChangePasswordRequest extends FormRequest
             'password_confirmation' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            // Origin
+            'origin.required' => 'L\'origine est obligatoire.',
+            'origin.string' => 'L\'origine doit être une chaîne de caractères.',
+
+            // Mot de passe
+            'password.required' => 'Le mot de passe est obligatoire.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+            'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
+            'password.min' => 'Le mot de passe doit comporter au moins 8 caractères.',
+            'password.max' => 'Le mot de passe ne doit pas dépasser 40 caractères.',
+
+            // Confirmation du mot de passe
+            'password_confirmation.required' => 'La confirmation du mot de passe est obligatoire.',
+        ];
+    }
 }

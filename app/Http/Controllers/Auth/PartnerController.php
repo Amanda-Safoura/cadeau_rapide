@@ -43,7 +43,7 @@ class PartnerController extends Controller
             $cookie = cookie('partner_id', $instance->id, 60 * 12); // cookie d'authentification
             //}
 
-            return redirect()->route('partner.panel.gift_card')->withCookie($cookie);
+            return redirect()->intended(route('partner.panel.gift_card'))->withCookie($cookie);
         }
 
         return redirect()->back()->withErrors(['login' => 'Identifiants incorrects']);

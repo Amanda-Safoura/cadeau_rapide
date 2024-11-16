@@ -16,7 +16,7 @@ class FinanceController extends Controller
 
         // Calcul des totaux globaux pour livraison, personnalisation et prix des cartes cadeaux
         $total_delivery_revenue = $partners->reduce(function ($carry, $partner) {
-            return $carry + $partner->giftCards->where('requires_delivery', true)->sum('shipping_price');
+            return $carry + $partner->giftCards->sum('shipping_price');
         }, 0);
 
         $total_customization_revenue = $partners->reduce(function ($carry, $partner) {
@@ -34,7 +34,7 @@ class FinanceController extends Controller
                 'name' => $partner->name,
                 'category_id' => $partner->category->id,
                 'category_name' => $partner->category->name,
-                'delivery_revenue' => $partner->giftCards->where('requires_delivery', true)->sum('shipping_price'),
+                'delivery_revenue' => $partner->giftCards->sum('shipping_price'),
                 'customization_revenue' => $partner->giftCards->where('is_customized', true)->sum('customization_fee'),
                 'price_gift_card' => $partner->giftCards->sum('amount'),
                 'commission' => $partner->giftCards->sum('amount') * $partner->commission_percent / 100

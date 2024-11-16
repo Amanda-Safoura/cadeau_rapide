@@ -60,12 +60,6 @@
                         </div>
 
                         <div class="side-item">
-                            <div class="search-box">
-                                <i class="flaticon-loupe"></i>
-                            </div>
-                        </div>
-
-                        <div class="side-item">
                             <div class="user-btn">
                                 @guest
                                     <a href="{{ route('client.login_page') }}">
@@ -109,12 +103,6 @@
             <div class="container">
                 <div class="side-nav-inner">
                     <div class="side-nav justify-content-center  align-items-center">
-
-                        <div class="side-item">
-                            <div class="search-box">
-                                <i class="flaticon-loupe"></i>
-                            </div>
-                        </div>
 
                         <div class="side-item">
                             <div class="user-btn">

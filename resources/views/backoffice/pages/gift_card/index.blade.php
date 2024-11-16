@@ -12,22 +12,6 @@
     <div class="container mt-4">
 
         <div class="d-flex justify-content-end">
-            <div class="custom-dropdown me-3">
-                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-delivering">
-                    Filtrer par type de livraison
-                </button>
-                <ul class="custom-dropdown-menu">
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'À livrer')">À
-                            livrer</a></li>
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'À envoyer par mail')">À envoyer par mail</a></li>
-                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivering', 'Tous')">Tous</a>
-                    </li>
-                </ul>
-            </div>
-
             <div class="custom-dropdown">
                 <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
                     Filtrer par demande de personnalisation
@@ -54,7 +38,6 @@
                         <th>Montant</th>
                         <th>Somme totale payé</th>
                         <th>Customisé</th>
-                        <th>À Livrer</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
@@ -80,19 +63,6 @@
                                 @else
                                     <span class="bg-danger text-white px-2 py-1"><span class="d-none">Standards</span><i
                                             class="fas fa-times"></i></span>
-                                @endif
-                            </td>
-                            <td class=" text-center">
-                                @if ($gift_card->requires_delivery)
-                                    <span class="bg-success text-white p-1">
-                                        <span class="d-none">À livrer</span>
-                                        <i class="fas fa-check"></i>
-                                    </span>
-                                @else
-                                    <span class="bg-danger text-white px-2 py-1">
-                                        <span class="d-none">À envoyer par mail</span>
-                                        <i class="fas fa-times"></i>
-                                    </span>
                                 @endif
                             </td>
                             <td>{{ date_format($gift_card->created_at, 'd F Y, H:i') }}</td>
@@ -129,9 +99,7 @@
             let val = selection;
 
             // Identifie la colonne à filtrer selon le bouton
-            if (buttonId === 'filter-delivering') {
-                col = 6; // Colonne de livraison
-            } else if (buttonId === 'filter-customization') {
+            if (buttonId === 'filter-customization') {
                 col = 5; // Colonne de personnalisation
             }
 
