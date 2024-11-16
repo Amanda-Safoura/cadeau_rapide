@@ -14,13 +14,7 @@
             </div>
             <div class="card-body">
                 <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
-                <p><strong>Solde :</strong>
-                    @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
-                        {{ $gift_card->sold }} XOF
-                    @else
-                        N/A
-                    @endif
-                </p>
+                <p><strong>Utilisé :</strong> {{ $gift_card->used ? 'Oui' : 'Non' }} </p>
 
                 <p><strong>Message Personnel :</strong> {{ $gift_card->personal_message }}</p>
             </div>

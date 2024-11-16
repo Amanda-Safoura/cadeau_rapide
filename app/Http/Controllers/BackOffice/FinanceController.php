@@ -41,19 +41,30 @@ class FinanceController extends Controller
             ];
         })->sortByDesc('price_gift_card'); // Tri en ordre décroissant par montant des cartes cadeaux
 
+
         // Calcul des revenus totaux par catégorie et tri par montant des cartes cadeaux
+        /** 
+         * @var \Illuminate\Support\Collection $partners_with_revenue_datas Collection des revenus par partenaire 
+         *                             avec les détails sur la livraison, personnalisation, montant des cartes cadeaux, et commissions.
+         */
         $category_revenues = $partners_with_revenue_datas
-            ->groupBy('category_id')
+            ->groupBy('category_id') // Groupe les partenaires par ID de catégorie
+            /**
+             * @param \Illuminate\Support\Collection $partners Collection des partenaires appartenant à une catégorie spécifique
+             * @param int $category_id Identifiant de la catégorie
+             * @return array Détails des revenus pour une catégorie spécifique
+             */
             ->map(function ($partners, $category_id) {
                 return [
-                    'category_id' => $category_id,
-                    'category_name' => $partners->first()['category_name'],
-                    'total_delivery_revenue' => $partners->sum('delivery_revenue'),
-                    'total_customization_revenue' => $partners->sum('customization_revenue'),
-                    'total_price_gift_card' => $partners->sum('price_gift_card')
+                    'category_id' => $category_id, // ID de la catégorie
+                    'category_name' => $partners->first()['category_name'], // Nom de la catégorie
+                    'total_delivery_revenue' => $partners->sum('delivery_revenue'), // Total des frais de livraison
+                    'total_customization_revenue' => $partners->sum('customization_revenue'), // Total des frais de personnalisation
+                    'total_price_gift_card' => $partners->sum('price_gift_card') // Total des montants des cartes cadeaux
                 ];
             })
-            ->sortByDesc('total_price_gift_card'); // Tri en ordre décroissant par montant des cartes cadeaux pour les catégories
+            ->sortByDesc('total_price_gift_card'); // Tri par ordre décroissant du montant total des cartes cadeaux
+
 
 
         return view('backoffice.pages.finance.cash_entries', compact(
@@ -80,9 +91,9 @@ class FinanceController extends Controller
             'gift_card_id' => 'required|numeric|exists:gift_cards,id',
             'newStatus' => 'required|string|in:SUCCESSFUL,FAILED',
         ]);
-        
+
         $gift_card = GiftCard::findOrFail($request->input('gift_card_id'));
-        
+
         $paymentInfo = $gift_card->paymentInfo;
         $paymentInfo->status = $request->input('newStatus');
         $paymentInfo->save();

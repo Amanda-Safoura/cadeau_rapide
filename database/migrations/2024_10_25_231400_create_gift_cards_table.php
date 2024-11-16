@@ -57,7 +57,7 @@ return new class extends Migration
 
             // Étape 6 : Récapitulatif
             $table->bigInteger('total_amount')->unsigned(); // Montant total
-            $table->bigInteger('sold')->unsigned(); // Solde restant
+            $table->boolean('used')->default(false);
 
             // Étape 7 : Paiement
             $table->bigInteger('payment_info_id', false, true)->nullable()->unique(); // Numéro de transaction

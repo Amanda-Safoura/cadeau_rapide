@@ -22,7 +22,7 @@
                         <tr>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
-                            <td>{{ $item->subject }}</td>
+                            <td>{{ $item->subject ?? 'N/A' }}</td>
                             <td>{{ date_format($item->created_at, 'd F Y, H:i') }}</td>
                             <td>
                                 <div class="d-flex justify-content-center">

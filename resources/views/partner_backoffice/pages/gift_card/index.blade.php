@@ -32,6 +32,21 @@
                 </ul>
             </div>
 
+            <div class="custom-dropdown me-3">
+                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-used_status">
+                    Filtrer par statut d'utilisation
+                </button>
+                <ul class="custom-dropdown-menu">
+                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
+                            onclick="updateDropdown('filter-used_status', 'Comptabilisés')">Comptabilisés</a></li>
+                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
+                            onclick="updateDropdown('filter-used_status', 'Non Utilisés')">Non Utilisés</a>
+                    <li><a class="custom-dropdown-item" href="javascript:void(0);"
+                            onclick="updateDropdown('filter-used_status', 'Tous')">Tous</a>
+                    </li>
+                </ul>
+            </div>
+
             <div class="custom-dropdown">
                 <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
                     Filtrer par demande de personnalisation
@@ -56,7 +71,7 @@
                         <th>Bénéficiaire</th>
                         <th>Partenaire</th>
                         <th>Montant</th>
-                        <th>Solde</th>
+                        <th>Utilisé</th>
                         <th>Customisé</th>
                         <th>Livraison</th>
                         <th>Date de commande</th>
@@ -76,7 +91,15 @@
                             </td>
                             <td>{{ $gift_card->partner->name }} </td>
                             <td>{{ $gift_card->amount }}</td>
-                            <td>{{ $gift_card->sold }}</td>
+                            <td class="text-center">
+                                @if ($gift_card->used)
+                                    <span class="bg-success text-white p-1"><span class="d-none">Comptabilisés</span><i
+                                            class="fas fa-check"></i></span>
+                                @else
+                                    <span class="bg-danger text-white px-2 py-1"><span class="d-none">Non Utilisés</span><i
+                                            class="fas fa-times"></i></span>
+                                @endif
+                            </td>
                             <td class=" text-center">
                                 @if ($gift_card->is_customized)
                                     <span class="bg-success text-white p-1"><span class="d-none">Personnalisés</span><i
@@ -137,6 +160,8 @@
                 col = 6; // Colonne de livraison
             } else if (buttonId === 'filter-customization') {
                 col = 5; // Colonne de personnalisation
+            } else if (buttonId === 'filter-used_status') {
+                col = 4; // Colonne d'utilisation
             }
 
             // Application du filtre avec DataTable

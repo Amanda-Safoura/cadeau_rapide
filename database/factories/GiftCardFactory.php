@@ -37,7 +37,7 @@ class GiftCardFactory extends Factory
             'shipping_zone' => 'N/A',
             'shipping_price' => $this->faker->numberBetween(0, 50),
             'total_amount' => $this->faker->numberBetween(10, 500),
-            'sold' => $this->faker->numberBetween(0, 500),
+            'used' => $this->faker->boolean,
             'payment_info_id' => null, // Set to null if no payment info is provided
         ];
     }

@@ -138,8 +138,7 @@ class PartnerController extends Controller
             'shipping_zone',
             'shipping_price',
             'partner_id',
-            'total_amount',
-            'sold',
+            'total_amount'
         ))) {
 
             $infos_from_request = $request->only(

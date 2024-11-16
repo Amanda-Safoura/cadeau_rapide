@@ -10,10 +10,10 @@ use App\Models\Partner;
 use App\Models\PartnerCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-
     public function gift_card_index(Request $request)
     {
         $datas = GiftCard::where('partner_id', $request->cookie('partner_id'))->get();
@@ -36,57 +36,64 @@ class HomeController extends Controller
     }
 
 
-    public function gift_card_debit(Request $request, $id)
+    public function gift_card_mark_as_used(Request $request, $id)
     {
-        $gift_card = GiftCard::with('paymentInfo')->findOrFail($id);
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if ($gift_card->partner_id != $request->cookie('partner_id'))
-            return abort(403);
+        $instance = Partner::whereEmail($email)
+            ->first();
 
-        if (!$gift_card->isNotExpired())
-            return abort(404);
+        if ($instance && Hash::check($password, $instance->password)) {
+            $gift_card = GiftCard::findOrFail($id);
+            $gift_card->used = true;
+            $gift_card->save();
 
-        $payment = $gift_card->paymentInfo;
-        if (!$payment->status && $payment->payment_network) {
-            CustomHelpers::getPaymentStatus($payment);
+            return view('new_client_site.pages.check_validity.is_invalid')->with('message', 'Le chèque cadeau vient d\'être marqué comme utilisé.');
         }
 
-        return view('partner_backoffice.pages.gift_card.debit', compact('gift_card'));
-    }
-
-
-    public function gift_card_do_debit(Request $request, $id)
-    {
-        $gift_card = GiftCard::with('paymentInfo')->findOrFail($id);
-        $request->validate([
-            'debit_amount' => 'bail|required|numeric|max:' . $gift_card->sold
-        ]);
-
-        if ($gift_card->partner_id != $request->cookie('partner_id'))
-            return abort(403);
-
-        if (!$gift_card->isNotExpired())
-            return abort(404);
-
-        $gift_card->sold -= $request->input('debit_amount');
-        $gift_card->save();
-
-        return redirect()->back()->with('message', 'Le débit a été correctement effectué.');
+        return redirect()->back()->with(['message' => 'Identifiants incorrects']);
     }
 
 
     public function cash_entries(Request $request)
     {
-        // Récupère tous les partenaires avec leurs cartes cadeaux et leurs catégories
-        $partner = Partner::findOrFail($request->cookie('partner_id'))->load('giftCards')->get();
+        // Récupérer le partenaire
+        $partner = Partner::findOrFail($request->cookie('partner_id'));
 
-        $total_price_gift_card = $partner->giftCards->sum('amount');
-        $total_commission = $partner->giftCards->sum('amount') * $partner->commission_percent / 100;
+        // Récupérer les chèques cadeaux associés au partenaire avec statut "SUCCESSFUL"
+        $giftCards = GiftCard::with(['paymentInfo'])
+            ->where('partner_id', $request->cookie('partner_id'))
+            ->where('used', true)
+            ->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })
+            ->get();
 
-        return view('backoffice.pages.finance.cash_entries', compact(
-            'total_price_gift_card',
-            'total_commission',
-        ));
+        // Calcul des informations résumées
+        $summary = $giftCards->map(function ($giftCard) use ($partner) {
+            return [
+                'amount' => $giftCard->amount,
+                'commission_rate' => $partner->commission_percent,
+                'commission' => ($giftCard->amount * $partner->commission_percent) / 100,
+                'delivery_date' => $giftCard->delivery_date->format('d/m/Y'),
+            ];
+        });
+
+        // Statistiques globales pour ce partenaire
+        $totalAmount = $giftCards->sum('amount');
+        $totalCommission = $giftCards->sum(function ($giftCard) use ($partner) {
+            return ($giftCard->amount * $partner->commission_percent) / 100;
+        });
+        $totalSold = $giftCards->count();
+
+        return view('partner_backoffice.pages.finance.cash_entries', [
+            'partner' => $partner,
+            'summary' => $summary,
+            'totalAmount' => $totalAmount,
+            'totalCommission' => $totalCommission,
+            'totalSold' => $totalSold,
+        ]);
     }
 
 

@@ -58,8 +58,17 @@ class GiftCardController extends Controller
     public function check(int $gift_card_id)
     {
         $gift_card = GiftCard::find($gift_card_id);
-        if ($gift_card && $gift_card->isNotExpired() && $gift_card->paymentInfo->status === "SUCCESSFUL")
-            return view('new_client_site.pages.check_validity.is_valid', ['gift_card' => $gift_card]);
+
+        if ($gift_card) {
+            $payment = $gift_card->paymentInfo;
+            if (!$payment->status && $payment->payment_network) {
+                CustomHelpers::getPaymentStatus($payment);
+            }
+
+            if ($gift_card->isValid())
+                return view('new_client_site.pages.check_validity.is_valid', ['gift_card' => $gift_card]);
+        }
+
 
         return view('new_client_site.pages.check_validity.is_invalid');
     }

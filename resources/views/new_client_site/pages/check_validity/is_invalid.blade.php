@@ -44,10 +44,10 @@
     </div>
     <!-- Inner Banner End -->
 
-    <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="container d-flex justify-content-center align-items-center my-5">
         <div class="card-invalid text-center">
             <h2 class="text-danger-custom mb-3"> <i class="fas fa-times-circle"></i> Chèque Cadeau Invalide</h2>
-            <p class="card-text mb-4 text-secondary">Désolé, ce chèque-cadeau est soit invalide, soit son solde est épuisé.
+            <p class="card-text mb-4 text-secondary">Désolé, ce chèque-cadeau a soit déjà été utilisé soit il est invalide.
             </p>
             <div class="mt-4">
                 <a href="{{ route('client.home') }}" class="btn btn-outline-secondary-custom btn-lg px-4">Retour à
@@ -55,8 +55,31 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Le conteneur de l'alerte modale -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    {{ session('message') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('additionnal_js')
-
+    <script>
+        @if (session('message'))
+            $(document).ready(function() {
+                $('#alertModal').modal('show')
+            });
+        @endif
+    </script>
 @endsection

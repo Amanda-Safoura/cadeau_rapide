@@ -14,13 +14,7 @@
             </div>
             <div class="card-body">
                 <p><strong>Montant :</strong> {{ $gift_card->amount }} XOF</p>
-                <p><strong>Solde :</strong>
-                    @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
-                        {{ $gift_card->sold }} XOF
-                    @else
-                        N/A
-                    @endif
-                </p>
+                <p><strong>Utilisé :</strong> {{ $gift_card->used ? 'Oui' : 'Non' }} </p>
 
                 <p><strong>Message Personnel :</strong> {{ $gift_card->personal_message }}</p>
                 <p><strong>Partenaire :</strong> {{ $gift_card->partner->name }}</p>
@@ -78,27 +72,27 @@
                 Étape 5 : Choix de Livraison
             </div>
             <div class="card-body">
-                    <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
-                    <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
-                    <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
-                    <p><strong>Numéro de la personne à contacter :</strong> {{ $gift_card->delivery_contact }}</p>
-                    @php
-                        $shipping_status = '';
-                        switch ($gift_card->shipping_status) {
-                            case 'awaiting processing':
-                                $shipping_status = 'En attente de traitement';
-                                break;
+                <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
+                <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
+                <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
+                <p><strong>Numéro de la personne à contacter :</strong> {{ $gift_card->delivery_contact }}</p>
+                @php
+                    $shipping_status = '';
+                    switch ($gift_card->shipping_status) {
+                        case 'awaiting processing':
+                            $shipping_status = 'En attente de traitement';
+                            break;
 
-                            case 'pending':
-                                $shipping_status = 'En cours';
-                                break;
+                        case 'pending':
+                            $shipping_status = 'En cours';
+                            break;
 
-                            case 'delivered':
-                                $shipping_status = 'Livré';
-                                break;
-                        }
-                    @endphp
-                    <p><strong>Statut de Livraison :</strong> {{ $shipping_status }}</p>
+                        case 'delivered':
+                            $shipping_status = 'Livré';
+                            break;
+                    }
+                @endphp
+                <p><strong>Statut de Livraison :</strong> {{ $shipping_status }}</p>
             </div>
         </div>
 

@@ -32,7 +32,6 @@ class StoreOrderRequest extends FormRequest
         return [
             'user_id' => ['required', 'numeric', 'exists:users,id'],
             'amount' => ['required', 'numeric', 'min:10000'],
-            'sold' => ['required', 'numeric'],
             'personal_message' => ['nullable', 'string', 'max:500'],
             'client_name' => ['required', 'string', 'max:255'],
             'client_email' => ['required', 'email', 'max:255'],
@@ -92,7 +91,6 @@ class StoreOrderRequest extends FormRequest
 
         $total_amount = 0;
         if ($this->input('amount')) $total_amount += (int)($this->input('amount'));
-        if ($this->input('amount')) $sold = (int)($this->input('amount')) ?? 0;
         if ($this->input('is_customized') == '1') $total_amount += $customization_fee;
         $total_amount += $shipping_price;
 
@@ -111,7 +109,6 @@ class StoreOrderRequest extends FormRequest
                 'shipping_price' => $shipping_price ?? 0,
                 'validity_duration' => $validity_duration,
                 'total_amount' => $total_amount,
-                'sold' => $sold,
                 'customization_fee' => $customization_fee,
                 'payment_phone' => $dial_code . $this->input('payment_phone'),
                 'user_id' => auth()->user()->id

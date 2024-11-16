@@ -35,7 +35,7 @@ class GiftCard extends Model
         'sent',
         'validity_duration',
         'total_amount',
-        'sold',
+        'used',
         'partner_id',
         'payment_info_id'
     ];
@@ -62,6 +62,11 @@ class GiftCard extends Model
     public function isNotExpired()
     {
         return $this->expiration_date->isFuture(); // Retourne true si la date est dans le futur
+    }
+
+    public function isValid(): bool
+    {
+        return $this->isNotExpired() && $this->paymentInfo->status === "SUCCESSFUL" && !$this->used;
     }
 
     /**

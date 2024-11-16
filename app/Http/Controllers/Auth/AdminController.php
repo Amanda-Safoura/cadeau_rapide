@@ -29,7 +29,7 @@ class AdminController extends Controller
 
         if ($instance && Hash::check($password, $instance->password)) {
             //if ($instance->suspended)
-            //  return redirect()->back()->withErrors(['login' => 'Ce compte a été suspendu']);
+            //  return redirect()->back()->withErrors(['general' => 'Ce compte a été suspendu']);
 
 
             if (!$instance->first_login) {
@@ -46,7 +46,7 @@ class AdminController extends Controller
             return redirect()->route('dashboard.gift_card.index')->withCookie($cookie);
         }
 
-        return redirect()->back()->withErrors(['login' => 'Identifiants incorrects']);
+        return redirect()->back()->withErrors(['general' => 'Identifiants incorrects']);
     }
 
     public function logout(): RedirectResponse

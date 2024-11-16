@@ -17,7 +17,6 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
 use App\Http\Controllers\PartnerDashBoard\HomeController;
 use App\Models\Admin;
-use App\Models\GiftCard;
 use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +76,10 @@ Route::name('client.')->group(function () {
 
 
     Route::get('/storage/{filename}', [ImageController::class, 'showImage'])->name('image.show');
+    
     Route::get('/check_validity/{gift_card_id}', [GiftCardController::class, 'check'])->name('gift_card.check');
+    Route::post('/gift_card/mark_as_used/{id}', [HomeController::class, 'gift_card_mark_as_used'])->name('gift_card.do_mark_as_used');
+
     Route::get('/gift_card/download/{id}', [GiftCardController::class, 'generateGiftCard'])->name('gift_card.generatePDF');
 });
 
@@ -145,8 +147,6 @@ Route::prefix('partner-panel')->name('partner.')->group(function () {
 
         Route::get('/gift_card', [HomeController::class, 'gift_card_index'])->name('gift_card');
         Route::get('/gift_card/{id}', [HomeController::class, 'gift_card_show'])->name('gift_card.show');
-        Route::get('/gift_card/debit/{id}', [HomeController::class, 'gift_card_debit'])->name('gift_card.debit');
-        Route::post('/gift_card/debit/{id}', [HomeController::class, 'gift_card_do_debit'])->name('gift_card.do_debit');
 
         Route::get('/cash_entries', [HomeController::class, 'cash_entries'])->name('cash_entries');
 
