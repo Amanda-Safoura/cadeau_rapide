@@ -9,13 +9,98 @@ use App\Models\GiftCard;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
 use App\Models\PartnerMessage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
+    public function overview(Request $request)
+    {
+        $partnerId = $request->cookie('partner_id'); // Identifie le partenaire connecté.
+
+        // Cartes - Indicateurs clés
+        $totalOrders = GiftCard::where('partner_id', $partnerId)->count();
+        $totalRevenue = GiftCard::where('partner_id', $partnerId)
+            ->whereHas('paymentInfo', fn($query) => $query->where('status', 'SUCCESSFUL'))
+            ->sum('total_amount');
+        $deliveredOrders = GiftCard::where('partner_id', $partnerId)
+            ->where('shipping_status', 'delivered')
+            ->count();
+        $pendingOrders = GiftCard::where('partner_id', $partnerId)
+            ->where('shipping_status', 'pending')
+            ->count();
+
+        // Graphique - Commandes par mois
+        $ordersByMonth = GiftCard::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->where('partner_id', $partnerId)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->mapWithKeys(fn($item) => [date('F', mktime(0, 0, 0, $item->month, 1)) => $item->count]);
+
+        // Commandes récentes
+        $recentOrders = GiftCard::where('partner_id', $partnerId)
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get(['id', 'client_name', 'amount', 'shipping_status', 'created_at']);
+
+        return view('partner_backoffice.pages.overview', compact(
+            'totalOrders',
+            'totalRevenue',
+            'deliveredOrders',
+            'pendingOrders',
+            'ordersByMonth',
+            'recentOrders'
+        ));
+    }
+
+    public function salesStatistics()
+    {
+        // Total des ventes
+        $totalSales = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->where('status', 'SUCCESSFUL');
+        })->count();
+
+        // Revenu total généré
+        $totalRevenue = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->where('status', 'SUCCESSFUL');
+        })->sum('total_amount');
+
+        // Montant moyen des chèques cadeaux
+        $averageAmount = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->where('status', 'SUCCESSFUL');
+        })->avg('total_amount');
+
+        // Statistiques par statut de livraison
+        $ordersByShippingStatus = GiftCard::select('shipping_status', DB::raw('count(*) as total'))
+            ->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })
+            ->groupBy('shipping_status')
+            ->get();
+
+        // Statistiques par mois
+        $monthlySales = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->where('status', 'SUCCESSFUL');
+        })
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('count(*) as total_sales'), DB::raw('sum(total_amount) as total_revenue'))
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->get();
+
+        // Convertir le numéro du mois en nom du mois
+        $monthlySales = $monthlySales->map(function ($sale) {
+            $sale->month_name = Carbon::create()->month($sale->month)->format('F'); // "January", "February", etc.
+            return $sale;
+        });
+
+        return view('partner_backoffice.pages.sales_statistics', compact('totalSales', 'totalRevenue', 'averageAmount', 'ordersByShippingStatus', 'monthlySales'));
+    }
+
+
     public function gift_card_index(Request $request)
     {
         $datas = GiftCard::where('partner_id', $request->cookie('partner_id'))->get();
@@ -115,10 +200,11 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function profile_update(UpdatePartnerProfileRequest $request, Partner $partner)
+    public function profile_update(UpdatePartnerProfileRequest $request)
     {
-        $validated_inputs = $request->validated();
+        $validated_inputs = $request->validationData();
         $validated_inputs['offers'] = $request->input('offers');
+        $partner = Partner::findOrFail($validated_inputs['id']);
 
         $picture_1_old_file_path = '';
         $picture_2_old_file_path = '';
@@ -187,7 +273,7 @@ class HomeController extends Controller
             ], 200);
         } else {
 
-            foreach ([$validated_inputs['picture_2'], $validated_inputs['picture_1']] as $file_path) {
+            foreach ([$validated_inputs['picture_4'], $validated_inputs['picture_3'], $validated_inputs['picture_2'], $validated_inputs['picture_1']] as $file_path) {
                 $uploaded_file_path = public_path($file_path);
                 if (File::exists($uploaded_file_path)) {
                     File::delete($uploaded_file_path);

@@ -67,23 +67,7 @@
                 <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
                 <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
                 <p><strong>Numéro de la personne à contacter :</strong> {{ $gift_card->delivery_contact }}</p>
-                @php
-                    $shipping_status = '';
-                    switch ($gift_card->shipping_status) {
-                        case 'awaiting processing':
-                            $shipping_status = 'En attente de traitement';
-                            break;
-
-                        case 'pending':
-                            $shipping_status = 'En cours';
-                            break;
-
-                        case 'delivered':
-                            $shipping_status = 'Livré';
-                            break;
-                    }
-                @endphp
-                <p><strong>Statut de Livraison :</strong> {{ $shipping_status }}</p>
+                <p><strong>Statut de Livraison :</strong> {{ $gift_card->getTranslatedShippingStatus() }}</p>
             </div>
         </div>
 

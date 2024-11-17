@@ -26,4 +26,14 @@ class Reclamation extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the gift_card that owns the Reclamation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gift_card(): BelongsTo
+    {
+        return $this->belongsTo(GiftCard::class);
+    }
 }

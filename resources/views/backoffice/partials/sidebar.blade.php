@@ -15,13 +15,16 @@
                 'active' => request()->routeIs('dashboard.global_stats'),
             ])>
                 <a class="sidebar-link" href="{{ route('dashboard.global_stats') }}">
-                    <i class="fas fa-chart-bar align-middle"></i> <span class="align-middle">Vue d’ensemble</span>
+                    <i class="fas fa-chart-pie align-middle"></i> <span class="align-middle">Vue d’ensemble</span>
                 </a>
             </li>
 
-            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
-                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
-                    <i class="fas fa-chart-bar align-middle"></i> <span class="align-middle">Activités récentes</span>
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.logs'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.logs') }}">
+                    <i class="fas fa-history align-middle"></i> <span class="align-middle">Activités récentes</span>
                 </a>
             </li>
 
@@ -104,6 +107,38 @@
                     <i class="fas fa-headset align-middle"></i> <span class="align-middle">Support client</span>
                 </a>
             </li>
+
+
+            <li class="sidebar-header">
+                Rapports et Statitiques
+            </li>
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.stats.sales'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.stats.sales') }}">
+                    <i class="fas fa-chart-line"></i> <span class="align-middle">Statistiques des Ventes</span>
+                </a>
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.stats.sales_by_category'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.stats.sales_by_category') }}">
+                    <i class="fas fa-tags"></i> <span class="align-middle">Analyse par Catégorie</span>
+                </a>
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.stats.reports_customizations'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.stats.reports_customizations') }}">
+                    <i class="fas fa-cogs"></i> <span class="align-middle">Rapport des Personnalisations</span>
+                </a>
+            </li>
+
 
 
             <li class="sidebar-header">

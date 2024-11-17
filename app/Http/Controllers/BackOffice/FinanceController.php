@@ -11,10 +11,10 @@ class FinanceController extends Controller
 {
     public function cash_entries()
     {
-        // Récupère tous les partenaires avec leurs cartes cadeaux et leurs catégories
+        // Récupère tous les partenaires avec leurs chèques cadeaux et leurs catégories
         $partners = Partner::with(['giftCards', 'category'])->get();
 
-        // Calcul des totaux globaux pour livraison, personnalisation et prix des cartes cadeaux
+        // Calcul des totaux globaux pour livraison, personnalisation et prix des chèques cadeaux
         $total_delivery_revenue = $partners->reduce(function ($carry, $partner) {
             return $carry + $partner->giftCards->sum('shipping_price');
         }, 0);
@@ -27,7 +27,7 @@ class FinanceController extends Controller
             return $carry + $partner->giftCards->sum('amount');
         }, 0);
 
-        // Calcul des revenus par partenaire et tri par montant des cartes cadeaux
+        // Calcul des revenus par partenaire et tri par montant des chèques cadeaux
         $partners_with_revenue_datas = $partners->map(function ($partner) {
             return [
                 'id' => $partner->id,
@@ -39,13 +39,13 @@ class FinanceController extends Controller
                 'price_gift_card' => $partner->giftCards->sum('amount'),
                 'commission' => $partner->giftCards->sum('amount') * $partner->commission_percent / 100
             ];
-        })->sortByDesc('price_gift_card'); // Tri en ordre décroissant par montant des cartes cadeaux
+        })->sortByDesc('price_gift_card'); // Tri en ordre décroissant par montant des chèques cadeaux
 
 
-        // Calcul des revenus totaux par catégorie et tri par montant des cartes cadeaux
+        // Calcul des revenus totaux par catégorie et tri par montant des chèques cadeaux
         /** 
          * @var \Illuminate\Support\Collection $partners_with_revenue_datas Collection des revenus par partenaire 
-         *                             avec les détails sur la livraison, personnalisation, montant des cartes cadeaux, et commissions.
+         *                             avec les détails sur la livraison, personnalisation, montant des chèques cadeaux, et commissions.
          */
         $category_revenues = $partners_with_revenue_datas
             ->groupBy('category_id') // Groupe les partenaires par ID de catégorie
@@ -60,10 +60,10 @@ class FinanceController extends Controller
                     'category_name' => $partners->first()['category_name'], // Nom de la catégorie
                     'total_delivery_revenue' => $partners->sum('delivery_revenue'), // Total des frais de livraison
                     'total_customization_revenue' => $partners->sum('customization_revenue'), // Total des frais de personnalisation
-                    'total_price_gift_card' => $partners->sum('price_gift_card') // Total des montants des cartes cadeaux
+                    'total_price_gift_card' => $partners->sum('price_gift_card') // Total des montants des chèques cadeaux
                 ];
             })
-            ->sortByDesc('total_price_gift_card'); // Tri par ordre décroissant du montant total des cartes cadeaux
+            ->sortByDesc('total_price_gift_card'); // Tri par ordre décroissant du montant total des chèques cadeaux
 
 
 

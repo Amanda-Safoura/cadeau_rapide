@@ -158,7 +158,7 @@
 
                                     <div class="d-flex justify-content-between progress-step">
                                         <span>En attente de traitement</span>
-                                        <span>Validée</span>
+                                        <span>En cours</span>
                                         <span>Livrée</span>
                                     </div>
                                 <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal"

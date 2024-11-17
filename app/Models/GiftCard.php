@@ -28,7 +28,6 @@ class GiftCard extends Model
         'delivery_address',
         'delivery_date',
         'delivery_contact',
-        'shipping_id',
         'shipping_status',
         'shipping_zone',
         'shipping_price',
@@ -49,6 +48,12 @@ class GiftCard extends Model
     protected $casts = [
         'delivery_date' => 'datetime',
     ];
+
+
+    public function getTranslatedShippingStatus()
+    {
+        return __("statuses." . $this->shipping_status);
+    }
 
 
     // Accessor pour obtenir la date d'expiration
@@ -87,17 +92,6 @@ class GiftCard extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-
-    /**
-     * Get the shipping that owns the GiftCard
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function shipping(): BelongsTo
-    {
-        return $this->belongsTo(Shipping::class);
     }
 
 

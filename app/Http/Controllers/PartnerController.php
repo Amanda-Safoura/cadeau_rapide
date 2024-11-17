@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
+use App\Models\CustomLog;
 use App\Models\GiftCard;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
@@ -134,13 +135,21 @@ class PartnerController extends Controller
             'delivery_date',
             'delivery_contact',
             'validity_duration',
-            'shipping_id',
             'shipping_zone',
             'shipping_price',
             'partner_id',
             'total_amount'
         ))) {
 
+            // Récupérer l'utilisateur qui a effectué la commande
+            $userName = auth()->user()->name;
+
+            // Log de création de la chèque cadeau par l'utilisateur
+            CustomLog::create([
+                'content' => "L'utilisateur {$userName} a créé une nouvelle chèque cadeau pour un montant de {$new_gift_card->amount}.",
+                'color' => 'info',
+                'icon' => 'fas fa-gift',
+            ]);
             $infos_from_request = $request->only(
                 'payment_phone',
                 'payment_network',
@@ -156,6 +165,7 @@ class PartnerController extends Controller
             );
 
             if ($new_payment_info = PaymentInfo::create(array_merge($infos_from_request, ['gift_card_id' => $new_gift_card->id]))) {
+
                 $new_gift_card->payment_info_id = $new_payment_info->id;
                 $new_gift_card->save();
 
@@ -168,6 +178,23 @@ class PartnerController extends Controller
                 $amount = $new_gift_card->amount;
                 $phone = $new_payment_info->payment_phone;
                 $otp = $new_payment_info->payment_network === 'ORANGE SN' ? $new_payment_info->payment_otp : '';
+
+
+                if ($network)
+                    // Log pour le réseau de paiement
+                    CustomLog::create([
+                        'content' => "L'utilisateur {$userName} a lancé un paiement de {$amount} via {$network}.",
+                        'color' => 'primary',
+                        'icon' => 'fas fa-wallet',
+                    ]);
+                else
+                    // Log pour le réseau de paiement
+                    CustomLog::create([
+                        'content' => "L'utilisateur {$userName} a lancé un paiement de {$amount} par carte bancaire.",
+                        'color' => 'primary',
+                        'icon' => 'fas fa-credit-card',
+                    ]);
+
 
                 // Traitement du paiement mobile
                 if (in_array($network, ['MTN', 'MOOV', 'MOOV TG', 'TOGOCOM TG', 'ORANGE SN', 'MTN CI'])) {

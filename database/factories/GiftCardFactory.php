@@ -30,7 +30,6 @@ class GiftCardFactory extends Factory
             'delivery_address' => $this->faker->address,
             'delivery_date' => $this->faker->date(),
             'delivery_contact' => $this->faker->phoneNumber,
-            'shipping_id' => null, // Set to null if no shipping is needed
             'sent' => $this->faker->boolean,
             'validity_duration' => $this->faker->numberBetween(1, 365),
             'shipping_status' => 'awaiting processing',

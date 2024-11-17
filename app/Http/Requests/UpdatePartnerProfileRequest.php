@@ -14,7 +14,7 @@ class UpdatePartnerProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if ($this->route()->parameter('partner') == $this->cookie('partner_id'))
+        if ($this->input('id') == $this->cookie('partner_id'))
             return true;
 
         return false;
@@ -33,7 +33,7 @@ class UpdatePartnerProfileRequest extends FormRequest
                 'string',
                 'min:4',
                 'max:255',
-                Rule::unique('partners', 'name')->ignore($this->route()->parameter('partner'))
+                Rule::unique('partners', 'name')->ignore($this->input('id'))
             ],
             'category_id' => ['required', 'exists:partner_categories,id'],
             'picture_1' => 'nullable|file|image',
@@ -47,7 +47,7 @@ class UpdatePartnerProfileRequest extends FormRequest
             'adress' => 'nullable|string',
             'tags' => 'nullable|string|max:255',
             'min_amount' => 'required|numeric|min:10000',
-            'partner' => 'exists:partners,id'
+            'id' => 'exists:partners,id'
         ];
     }
 
@@ -104,7 +104,7 @@ class UpdatePartnerProfileRequest extends FormRequest
             'min_amount.min' => 'Le montant minimum doit être d\'au moins 10 000.',
 
             // Partenaire
-            'partner.exists' => 'Le partenaire sélectionné n\'existe pas.',
+            'id.exists' => 'Le partenaire sélectionné n\'existe pas.',
         ];
     }
 

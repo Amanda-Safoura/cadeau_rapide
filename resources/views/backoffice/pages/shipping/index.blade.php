@@ -184,7 +184,6 @@
         })
 
         $('#confirmDelete').on('click', function() {
-
             $.ajax({
                 url: CURRENTURL + `/${rowData.id}`, // Endpoint pour modifier l'instance choisie
                 type: 'DELETE',

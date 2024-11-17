@@ -5,6 +5,8 @@ namespace App\Http\Controllers\BackOffice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePartnerRequest;
 use App\Http\Requests\UpdatePartnerRequest;
+use App\Models\Admin;
+use App\Models\CustomLog;
 use App\Models\Partner;
 use App\Models\PartnerCategory;
 use App\Notifications\LoginCredentialsNotification;
@@ -83,6 +85,19 @@ class PartnerController extends Controller
         $newest = Partner::create($validated_inputs);
         if ($newest) {
             $newest->notify(new LoginCredentialsNotification($validated_inputs['email'], $password, 'partner'));
+
+
+            // Récupérer l'admin qui a effectué la modification
+            $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+            // Création du log personnalisé avec l'auteur de la modification (admin)
+            CustomLog::create([
+                'content' => "L'admin {$adminName} a créé un nouveau partenaire : {$newest->name}.",
+                'color' => 'primary', // couleur de la notification
+                'icon' => 'fas fa-user-plus', // icône pour la notification
+            ]);
+
+
             return response()->json(['message' => 'Partenaire créé avec succès'], 200);
         } else {
             foreach ([$validated_inputs['picture_4'] ?? '', $validated_inputs['picture_3'] ?? '', $validated_inputs['picture_2'] ?? '', $validated_inputs['picture_1'] ?? ''] as $file_path) {
@@ -181,6 +196,15 @@ class PartnerController extends Controller
             if ($request->hasFile('picture_1') && File::exists($picture_1_old_file_path))
                 File::delete($picture_1_old_file_path);
 
+            // Récupérer l'admin qui a effectué la modification
+            $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+            // Création du log personnalisé avec l'auteur de la modification (admin)
+            CustomLog::create([
+                'content' => "L'admin {$adminName} a modifié les informations du partenaire : {$partner->name}.",
+                'color' => 'warning', // couleur de la notification
+                'icon' => 'fas fa-user-edit', // icône pour la notification
+            ]);
 
             return response()->json([
                 'message' => 'Partenaire modifié avec succès',
@@ -205,6 +229,18 @@ class PartnerController extends Controller
         $partner = Partner::findOrFail($request->input('id'));
         $partner->suspended = $request->input('suspended') == 'true' ? 1 : 0;
         $partner->save();
+
+
+        // Récupérer l'admin qui a effectué la modification
+        $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+        // Création du log personnalisé avec l'auteur de la modification (admin)
+        CustomLog::create([
+            'content' => "L'admin {$adminName} a " . ($partner->suspended ? 'suspendu' : 'réactivé') . " le partenaire : {$partner->name}.",
+            'color' => 'danger', // couleur de la notification
+            'icon' => 'fas fa-user-slash', // icône pour la notification
+        ]);
+
 
         return response()->json();
     }

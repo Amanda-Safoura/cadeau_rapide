@@ -7,11 +7,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice\CustomerController;
 use App\Http\Controllers\BackOffice\FinanceController;
 use App\Http\Controllers\BackOffice\GiftCardController;
+use App\Http\Controllers\BackOffice\HomeController as BackOfficeHomeController;
 use App\Http\Controllers\BackOffice\PartnerCategoryController;
 use App\Http\Controllers\BackOffice\PartnerController as BackOfficePartnerController;
 use App\Http\Controllers\BackOffice\PartnerMessageController;
 use App\Http\Controllers\BackOffice\ReclamationController;
 use App\Http\Controllers\BackOffice\ShippingController;
+use App\Http\Controllers\BackOffice\StatsController;
 use App\Http\Controllers\BackOffice\UserMessageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
@@ -88,7 +90,6 @@ Route::name('client.')->group(function () {
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
-
     //Connexion
     Route::name('auth.')->group(function () {
         Route::get('/login', [AdminController::class, 'login'])->name('login_page');
@@ -98,7 +99,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
 
     Route::middleware('admin')->group(function () {
-        Route::view('/', 'backoffice.pages.home')->name('global_stats');
+        Route::get('/', [BackOfficeHomeController::class, 'overviewStats'])->name('global_stats');
+        Route::get('/activities', [BackOfficeHomeController::class, 'showActivities'])->name('logs');
+        Route::post('/activities/change-read-status', [BackOfficeHomeController::class, 'bulkUpdate'])->name('logs.change-read-status');
+
+        Route::get('/sales_stats', [StatsController::class, 'getSalesStats'])->name('stats.sales');
+        Route::get('/sales_stats_by_category', [StatsController::class, 'getSalesByCategory'])->name('stats.sales_by_category');
+        Route::get('/reports_customizations', [StatsController::class, 'customizationsReport'])->name('stats.reports_customizations');
 
         Route::get('/gift_card/settings', [GiftCardController::class, 'settings'])->name('gift_card.settings');
         Route::post('/gift_card/update_settings', [GiftCardController::class, 'update_settings'])->name('gift_card.update_settings');
@@ -147,7 +154,8 @@ Route::prefix('partner-panel')->name('partner.')->group(function () {
 
     Route::name('panel.')->middleware('partner')->group(function () {
 
-        Route::view('/', 'partner_backoffice.pages.home')->name('global_stats');
+        Route::get('/', [HomeController::class, 'overview'])->name('global_stats');
+        Route::get('/sales_stats', [HomeController::class, 'salesStatistics'])->name('sales_stats');
 
         Route::get('/gift_card', [HomeController::class, 'gift_card_index'])->name('gift_card');
         Route::get('/gift_card/{id}', [HomeController::class, 'gift_card_show'])->name('gift_card.show');

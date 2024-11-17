@@ -4,15 +4,15 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\CustomHelpers;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\CustomLog;
 use App\Models\GiftCard;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 
 class GiftCardController extends Controller
 {
@@ -50,6 +50,23 @@ class GiftCardController extends Controller
         $gift_card = GiftCard::findOrFail($request->input('orderId'));
         $gift_card->shipping_status = $request->input('newStatus');
         $gift_card->save();
+
+        // Récupérer l'admin qui a effectué la modification
+        $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+        // Traduction du statut de livraison en français
+        $statutLivraison = [
+            'awaiting processing' => 'en attente de traitement',
+            'pending' => 'en attente',
+            'delivered' => 'livré'
+        ];
+
+        // Création du log personnalisé avec l'auteur de la modification (admin)
+        CustomLog::create([
+            'content' => "L'admin {$adminName} a modifié le statut de livraison de la chèque cadeau #{$gift_card->id} à : {$statutLivraison[$gift_card->shipping_status]}.",
+            'color' => 'warning', // couleur de la notification
+            'icon' => 'fas fa-truck', // icône pour la notification
+        ]);
 
         return response()->json();
     }
@@ -171,6 +188,17 @@ class GiftCardController extends Controller
         if ($settings) {
             // Mettre à jour les réglages existants
             DB::table('gift_card_settings')->update($request->only('customization_fee', 'validity_duration'));
+
+
+            // Récupérer l'admin qui a effectué la modification
+            $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+            // Création du log personnalisé avec l'auteur de la modification (admin)
+            CustomLog::create([
+                'content' => "L'admin {$adminName} a mis à jour les réglages des chèques cadeaux.",
+                'color' => 'warning', // couleur de la notification
+                'icon' => 'fas fa-cogs', // icône pour la notification
+            ]);
         } else {
             // Insérer les nouveaux réglages
             DB::table('gift_card_settings')->insert($request->only('customization_fee', 'validity_duration'));

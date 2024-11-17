@@ -1,6 +1,6 @@
 @extends('partner_backoffice.layouts.main')
 @section('title')
-    Ajouter un Partenaire
+    Editer ma page de présentation
 @endsection
 
 @section('additionnal_css')
@@ -10,14 +10,14 @@
 
 @section('content')
     <div class="container px-5">
-        <h5 class="text-center mb-5 h3">Profile <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}"
+        <h5 class="text-center mb-5 h3">Profil <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}"
                 class="btn btn-link ms-3"></a></h5>
 
         <form method="POST" action="{{ route('partner.panel.profile.update') }}" id="updateProfile"
             enctype="multipart/form-data">
             @csrf
 
-            <input type="hidden" name="partner" value="{{ $partner->id }}">
+            <input type="hidden" name="id" value="{{ $partner->id }}">
             <div class="mb-3 custom-form-input">
                 <label for="nameEdit" class="form-label">Nom Partenaire <span class="text-danger">*</span></label>
                 <input type="text" id="nameEdit" class="form-control" name="name"
@@ -124,7 +124,11 @@
 
             <div class="mb-3 custom-form-input">
                 <label for="offersEdit" class="form-label">Offres/Services <span class="text-danger">*</span></label>
-                <textarea class="form-control" name="offers" id="offersEdit" rows="4">{{ $partner->offers }}</textarea>
+                <textarea class="form-control" name="offers" id="offersEdit" rows="4">
+@foreach (explode('--separator--', $partner->offers) as $offer)
+{{ $offer }}
+@endforeach
+</textarea>
                 <div class="alert alert-danger" error-input="offers"></div>
             </div>
 
@@ -138,7 +142,7 @@
 
             <div class="alert alert-danger" error-input="general"></div>
 
-            <button type="submit" class="w-100 btn btn-primary btn-rounded mt-3">Créer</button>
+            <button type="submit" class="w-100 btn btn-primary btn-rounded mt-3">Mettre à jour</button>
         </form>
 
     </div>

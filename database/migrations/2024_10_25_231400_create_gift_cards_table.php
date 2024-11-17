@@ -45,9 +45,6 @@ return new class extends Migration
             $table->string('delivery_contact', 20)->nullable();
 
             // Étape 2 : Détails du Client
-            $table->bigInteger('shipping_id')->unsigned()->nullable();
-            $table->foreign('shipping_id')->references('id')->on('shippings');
-
             $table->boolean('sent')->nullable()->default(false);
             $table->integer('validity_duration')->unsigned()->nullable();
             $table->enum('shipping_status', ['awaiting processing','pending', 'delivered'])->default('awaiting processing');

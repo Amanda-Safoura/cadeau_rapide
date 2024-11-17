@@ -12,7 +12,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header py-3">
-                <h6 class="mb-0">Add Partner Category</h6>
+                <h6 class="mb-0">Nouvelle Catégorie</h6>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -47,9 +47,10 @@
             </div>
         </div>
 
-
         <!-- Offcanvas d'édition -->
         @include('backoffice.pages.partner_category.formUpdate')
+
+        @include('backoffice.pages.partner_category.deleteModal')
     </div>
 @endsection
 
@@ -138,7 +139,8 @@
                                 data-bs-toggle="offcanvas" data-bs-target="#editPartnerCategory" aria-controls="editPartnerCategory">
                                 <i class="fas fa-edit"></i>
                             </button> 
-                            <button class="delete-btn btn btn-sm btn-danger" title="Supprimer">
+                            <button class="delete-btn btn btn-sm btn-danger" title="Supprimer"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         <div>
@@ -311,5 +313,27 @@
         })
 
         //#endregion
+
+
+        $('#confirmDelete').on('click', function() {
+            $.ajax({
+                url: CURRENTURL + `/${rowData.id}`, // Endpoint pour modifier l'instance choisie
+                type: 'DELETE',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $("#deleteModal .btn-close").trigger('click')
+                    table.ajax.reload() // Recharger le DataTable
+                    showNotif('success', '<strong>Success</strong>', 'fa fa-user', response
+                        .message)
+                },
+                error: function(response) {
+                    $("#deleteModal .btn-close").trigger('click')
+                    showNotif('danger', '<strong>Error</strong>', 'fa fa-user', response.responseJSON
+                        .message)
+                }
+            })
+        })
     </script>
 @endsection
