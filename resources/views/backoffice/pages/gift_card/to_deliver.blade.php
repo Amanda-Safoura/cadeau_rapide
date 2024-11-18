@@ -95,7 +95,7 @@
                             </td>
                             <td>{{ $gift_card->delivery_address }} </td>
                             <td>{{ $gift_card->shipping_price }} </td>
-                            <td>{{ $gift_card->delivery_date->format('d F Y') }} </td>
+                            <td>{{ $gift_card->delivery_date->translatedFormat('d F Y') }} </td>
                             <td>{{ $gift_card->amount }}</td>
                             <td class="text-center">
                                 @if ($gift_card->is_customized)

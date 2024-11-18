@@ -35,6 +35,6 @@ class Admin extends Model
 
     public function getFirstLoginAttribute($value)
     {
-        return $value ? Carbon::parse($value)->format('d F Y, H:i') : null;
+        return $value ? Carbon::parse($value)->translatedFormat('d F Y, H:i') : null;
     }
 }

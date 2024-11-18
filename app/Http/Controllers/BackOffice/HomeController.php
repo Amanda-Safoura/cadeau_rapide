@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class HomeController extends Controller
 {
@@ -64,11 +65,32 @@ class HomeController extends Controller
 
     public function showActivities()
     {
-        // Récupérer les logs d'activités avec pagination
-        $activities = CustomLog::latest()->paginate(20); // Vous pouvez ajuster la pagination si nécessaire
+        // Charger tous les logs d'activités sans pagination
+        $activities = CustomLog::latest()->get();
         return view('backoffice.pages.logs', compact('activities'));
     }
 
+    public function getActivitiesData()
+    {
+        $query = CustomLog::query()->latest();
+
+        return DataTables::of($query)
+            ->addIndexColumn() // Ajoute un index pour la colonne #
+            ->addColumn('checkbox', function ($row) {
+                return ''; // Placeholder pour la colonne checkbox
+            })
+            ->addColumn('actions', function ($row) {
+                return ''; // Placeholder pour les boutons d'action
+            })
+            ->editColumn('read', function ($row) {
+                return $row->read ? true : false; // Remplacez selon vos besoins
+            })
+            ->editColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->translatedFormat('d F Y'); // Format : 18 Novembre 2024
+            })
+            ->rawColumns(['checkbox', 'actions']) // Permet d'inclure des colonnes HTML
+            ->make(true);
+    }
 
     public function bulkUpdate(Request $request)
     {

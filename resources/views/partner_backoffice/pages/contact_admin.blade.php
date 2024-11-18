@@ -52,7 +52,7 @@
                                     <i class="fa fa-tag me-2"></i>{{ $item->subject }}
                                 </h5>
                                 <small class="text-muted">
-                                    <i class="fa fa-calendar-alt me-1"></i>{{ $item->created_at->format('d F Y, H:i') }}
+                                    <i class="fa fa-calendar-alt me-1"></i>{{ $item->created_at->translatedFormat('d F Y, H:i') }}
                                 </small>
                             </div>
                             <p class="mb-1 text-muted">

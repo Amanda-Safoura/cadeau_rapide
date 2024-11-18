@@ -31,28 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($activities as $activity)
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="activity-checkbox" value="{{ $activity->id }}">
-                                </td>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $activity->content }}</td>
-                                <td><i class="{{ $activity->icon }}"></i></td>
-                                <td>{{ $activity->created_at->format('d/m/Y H:i') }}</td>
-                                <td>
-                                    <span class="badge bg-{{ $activity->read ? 'success' : 'secondary' }}">
-                                        {{ $activity->read ? 'Lu' : 'Non lu' }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-outline-success update-status"
-                                        data-id="{{ $activity->id }}" data-read="true">Marquer comme lu</button>
-                                    <button type="button" class="btn btn-sm btn-outline-warning update-status"
-                                        data-id="{{ $activity->id }}" data-read="false">Marquer comme non lu</button>
-                                </td>
-                            </tr>
-                        @endforeach
+                        <!-- DataTables remplira cette partie via AJAX -->
                     </tbody>
                 </table>
             </form>
@@ -88,7 +67,65 @@
     <script>
         $(document).ready(function() {
             // Initialize DataTable
-            let table = $('#activities-table').DataTable();
+            $(document).ready(function() {
+                let table = $('#activities-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: '{{ route('dashboard.logs.data') }}',
+                    columns: [{
+                            data: 'checkbox',
+                            name: 'checkbox',
+                            orderable: false,
+                            searchable: false,
+                            render: function(data, type, row) {
+                                return `<input type="checkbox" class="activity-checkbox" value="${row.id}">`;
+                            }
+                        },
+                        {
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        },
+                        {
+                            data: 'content',
+                            name: 'content'
+                        },
+                        {
+                            data: 'icon',
+                            name: 'icon',
+                            render: function(data, type, row) {
+                                return `<i class="${data}"></i>`;
+                            }
+                        },
+                        {
+                            data: 'created_at',
+                            name: 'created_at'
+                        },
+                        {
+                            data: 'read',
+                            name: 'read',
+                            render: function(data, type, row) {
+                                let badgeClass = data ? 'success' : 'secondary';
+                                let text = data ? 'Lu' : 'Non lu';
+                                return `<span class="badge bg-${badgeClass}">${text}</span>`;
+                            }
+                        },
+                        {
+                            data: 'actions',
+                            name: 'actions',
+                            orderable: false,
+                            searchable: false,
+                            render: function(data, type, row) {
+                                return `
+                        <button type="button" class="btn btn-sm btn-outline-success update-status" data-id="${row.id}" data-read="true">Marquer comme lu</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning update-status" data-id="${row.id}" data-read="false">Marquer comme non lu</button>
+                    `;
+                            }
+                        }
+                    ]
+                });
+            });
 
             // Handle select-all checkbox
             $('#select-all').on('click', function() {

@@ -102,7 +102,9 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/', [BackOfficeHomeController::class, 'overviewStats'])->name('global_stats');
         Route::get('/activities', [BackOfficeHomeController::class, 'showActivities'])->name('logs');
+        Route::get('/activities/activities-data', [BackOfficeHomeController::class, 'getActivitiesData'])->name('logs.data');
         Route::post('/activities/change-read-status', [BackOfficeHomeController::class, 'bulkUpdate'])->name('logs.change-read-status');
+
 
         Route::get('/sales_stats', [StatsController::class, 'getSalesStats'])->name('stats.sales');
         Route::get('/sales_stats_by_category', [StatsController::class, 'getSalesByCategory'])->name('stats.sales_by_category');

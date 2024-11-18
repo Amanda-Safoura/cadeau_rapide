@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Admin;
+use App\Models\CustomLog;
 use App\Models\Partner;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -35,7 +36,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer('backoffice.pages.*', function ($view) {
 
             $admin = Admin::find(request()->cookie('admin_id'));
-            $view->with('admin', $admin);
+            $activities = CustomLog::where('read', false)->latest()->take(7)->get();
+
+            $view->with(['admin' => $admin, 'activities' => $activities]);
         });
     }
 }
