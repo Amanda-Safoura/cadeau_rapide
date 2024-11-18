@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackOffice\AdminController as BackOfficeAdminController;
 use App\Http\Controllers\BackOffice\CustomerController;
+use App\Http\Controllers\BackOffice\EmailTemplateController;
 use App\Http\Controllers\BackOffice\FinanceController;
 use App\Http\Controllers\BackOffice\GiftCardController;
 use App\Http\Controllers\BackOffice\HomeController as BackOfficeHomeController;
@@ -101,6 +102,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::get('/', [BackOfficeHomeController::class, 'overviewStats'])->name('global_stats');
+
         Route::get('/activities', [BackOfficeHomeController::class, 'showActivities'])->name('logs');
         Route::get('/activities/activities-data', [BackOfficeHomeController::class, 'getActivitiesData'])->name('logs.data');
         Route::post('/activities/change-read-status', [BackOfficeHomeController::class, 'bulkUpdate'])->name('logs.change-read-status');
@@ -120,6 +122,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
         Route::get('/customers', [CustomerController::class, 'index'])->name('customer.index');
         Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+
+        Route::get('email-templates', [EmailTemplateController::class, 'index'])->name('email_templates.index');
+        Route::get('email-templates/{id}/edit', [EmailTemplateController::class, 'edit'])->name('email_templates.edit');
+        Route::post('email-templates/{id}', [EmailTemplateController::class, 'update'])->name('email_templates.update');
 
         Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamation.index');
         Route::post('reclamations/change_read_status', [ReclamationController::class, 'changeReadStatus'])->name('reclamations.change-read-status');

@@ -216,8 +216,11 @@
                 </a>
             </li>
 
-            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
-                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.email_templates.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.email_templates.index') }}">
                     <i class="fas fa-cog"></i> <span class="align-middle">Personnalisation des Notifications</span>
                 </a>
             </li>

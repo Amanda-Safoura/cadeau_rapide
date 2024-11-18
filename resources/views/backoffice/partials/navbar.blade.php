@@ -36,7 +36,7 @@
                         @endforeach
                     </div>
                     <div class="dropdown-menu-footer">
-                        <a href="javascript:void(0);" class="text-muted">Voir toutes les notifications</a>
+                        <a href="{{ route('dashboard.logs') }}" class="text-muted">Voir toutes les notifications</a>
                     </div>
                 </div>
             </li>
