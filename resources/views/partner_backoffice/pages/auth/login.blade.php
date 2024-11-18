@@ -73,7 +73,7 @@
                                 <div class="col-lg-12 col-md-12">
                                     <ul class="tabs">
                                         <li class="current">
-                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i> Login</a>
+                                            <a href="javascript:void(0);"> <i class="flaticon-contact"></i> Connexion</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -101,7 +101,7 @@
                                                                 <div class="form-group">
                                                                     <i class="bx bx-lock-alt"></i>
                                                                     <input class="form-control" type="password"
-                                                                        name="password" placeholder="Password">
+                                                                        name="password" placeholder="Mot de passe">
                                                                 </div>
                                                             </div>
                                                             <div class="col-12">
@@ -114,7 +114,7 @@
                                                             <div class="col-lg-12 col-md-12 text-center">
                                                                 <button type="submit"
                                                                     class="default-btn user-all-btn disabled">
-                                                                    Login
+                                                                    Connexion
                                                                 </button>
                                                             </div>
 

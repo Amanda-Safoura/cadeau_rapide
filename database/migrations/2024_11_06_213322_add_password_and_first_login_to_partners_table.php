@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('partners', function (Blueprint $table) {
             $table->string('password');
-            $table->date('first_login')->nullable();
+            $table->dateTime('first_login')->nullable();
         });
     }
 

@@ -145,7 +145,7 @@
                                                         </div>
                                                     </form>
                                                     <div class="social-option">
-                                                        <h3>Or Login With</h3>
+                                                        <h3>Se connecter avec</h3>
                                                         <ul>
                                                             <li><a href="javascript:void(0);">Facebook</a></li>
                                                             <li><a href="javascript:void(0);">Google</a></li>

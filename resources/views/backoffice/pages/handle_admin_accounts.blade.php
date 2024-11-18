@@ -185,7 +185,7 @@
                 {
                     data: 'suspended',
                     render: function(data, type, full, meta) {
-                        return data ? '<span class="badge bg-warning">Suspendu</span>' :
+                        return data == "1" ? '<span class="badge bg-warning">Suspendu</span>' :
                             '<span class="badge bg-success">Actif</span>'
                     }
                 },
