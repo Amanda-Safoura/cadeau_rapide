@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\CustomLog;
 use App\Models\EmailTemplate;
 use Illuminate\Http\Request;
 
@@ -39,15 +41,28 @@ class EmailTemplateController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'content' => 'required|string',
-        ]);
-
         $template = EmailTemplate::findOrFail($id);
+
+        // Nettoyer les lignes vides inutiles
+        $content = trim($request->input('content'));
+        if ($content === '<p><br></p>' || $content === '') {
+            $content = null; // Ou un contenu par défaut
+        }
+
         $template->update([
-            'content' => $request->content,
+            'content' => $content,
         ]);
 
-        return redirect()->route('dashboard.email_templates.index')->with('success', 'Modèle mis à jour avec succès.');
+        // Récupérer l'admin qui a effectué la modification
+        $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
+
+        // Création du log personnalisé avec l'auteur de la modification (admin)
+        CustomLog::create([
+            'content' => "L'admin {$adminName} a modifié le template : {ucfirst($template->type)}.",
+            'color' => 'info', // couleur de la notification
+            'icon' => 'fas fa-edit', // icône pour la notification
+        ]);
+
+        return redirect()->route('dashboard.email_templates.index')->with('message', 'Modèle {$template->type} mis à jour avec succès.');
     }
 }

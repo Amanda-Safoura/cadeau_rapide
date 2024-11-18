@@ -174,7 +174,7 @@
         }
 
         // Initialisation du DataTable
-        var table = $('#editableTable').DataTable({
+        let table = $('#editableTable').DataTable({
             ajax: FETCHDATAURL, // Endpoint pour récupérer les données
             columns: [{
                     data: 'name'
