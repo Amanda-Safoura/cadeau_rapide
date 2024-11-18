@@ -37,7 +37,7 @@ class StorePartnerRequest extends FormRequest
             'email' => 'required|email|unique:partners,email',
             'adress' => 'nullable|string',
             'tags' => 'nullable|string|max:255',
-            'min_amount' => 'required|numeric',
+            'min_amount' => 'required|numeric|min:10000',
             'commission_percent' => 'required|numeric|max:100'
         ];
     }
@@ -105,6 +105,7 @@ class StorePartnerRequest extends FormRequest
             // Montant minimal
             'min_amount.required' => 'Le montant minimum est obligatoire.',
             'min_amount.numeric' => 'Le montant minimum doit être un nombre.',
+            'min_amount.min' => 'Le montant minimum doit être d\'au moins 10 000.',
 
             // Commission
             'commission_percent.required' => 'Le pourcentage de commission est obligatoire.',

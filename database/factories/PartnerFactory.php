@@ -27,7 +27,7 @@ class PartnerFactory extends Factory
             'adress' => $this->faker->address,
             'offers' => $this->faker->text,
             'tags' => $this->faker->words(3, true),
-            'min_amount' => $this->faker->numberBetween(10, 1000),
+            'min_amount' => $this->faker->numberBetween(10000, 100000),
             'commission_percent' => $this->faker->numberBetween(1, 100),
             'suspended' => $this->faker->boolean,
         ];
