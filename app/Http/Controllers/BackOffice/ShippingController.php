@@ -48,7 +48,7 @@ class ShippingController extends Controller
 
             // Création du log personnalisé avec l'auteur de la modification (admin)
             CustomLog::create([
-                'content' => "L'admin {$adminName} a créé une nouvelle adresse de livraison pour la commande #{$validated_inputs['gift_card_id']}.",
+                'content' => "L'admin {$adminName} a créé une nouvelle adresse de livraison.",
                 'color' => 'primary', // couleur de la notification
                 'icon' => 'fas fa-map-marker-alt', // icône pour la notification
             ]);
@@ -73,7 +73,7 @@ class ShippingController extends Controller
 
             // Création du log personnalisé avec l'auteur de la modification (admin)
             CustomLog::create([
-                'content' => "L'admin {$adminName} a modifié l'adresse de livraison pour la commande #{$shipping->gift_card_id}.",
+                'content' => "L'admin {$adminName} a modifié l'adresse de livraison.",
                 'color' => 'warning', // couleur de la notification
                 'icon' => 'fas fa-edit', // icône pour la notification
             ]);
@@ -99,7 +99,7 @@ class ShippingController extends Controller
 
             // Création du log personnalisé avec l'auteur de la modification (admin)
             CustomLog::create([
-                'content' => "L'admin {$adminName} a supprimé l'adresse de livraison pour la commande #{$shipping->gift_card_id}.",
+                'content' => "L'admin {$adminName} a supprimé l'adresse de livraison.",
                 'color' => 'danger', // couleur de la notification
                 'icon' => 'fas fa-trash', // icône pour la notification
             ]);

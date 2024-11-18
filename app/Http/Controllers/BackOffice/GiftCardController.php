@@ -63,7 +63,7 @@ class GiftCardController extends Controller
 
         // Création du log personnalisé avec l'auteur de la modification (admin)
         CustomLog::create([
-            'content' => "L'admin {$adminName} a modifié le statut de livraison de la chèque cadeau #{$gift_card->id} à : {$statutLivraison[$gift_card->shipping_status]}.",
+            'content' => "L'admin {$adminName} a modifié le statut de livraison du chèque cadeau #{$gift_card->id} à : {$statutLivraison[$gift_card->shipping_status]}.",
             'color' => 'warning', // couleur de la notification
             'icon' => 'fas fa-truck', // icône pour la notification
         ]);

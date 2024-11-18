@@ -146,7 +146,7 @@ class PartnerController extends Controller
 
             // Log de création de la chèque cadeau par l'utilisateur
             CustomLog::create([
-                'content' => "L'utilisateur {$userName} a créé une nouvelle chèque cadeau pour un montant de {$new_gift_card->amount}.",
+                'content' => "L'utilisateur {$userName} a créé un nouveau chèque cadeau pour un montant de {$new_gift_card->amount}.",
                 'color' => 'info',
                 'icon' => 'fas fa-gift',
             ]);

@@ -32,10 +32,10 @@ class UserMessageController extends Controller
                 ->withInput();
         }
 
-        UserMessage::create($validator->validated());
+        $user_message = UserMessage::create($validator->validated());
 
         // Récupérer l'utilisateur qui a effectué la soumission
-        $userName = auth()->user()->name;
+        $userName = $user_message->name;
 
         // Création du log personnalisé avec l'auteur de la soumission (utilisateur)
         CustomLog::create([
@@ -58,7 +58,7 @@ class UserMessageController extends Controller
 
         // Création du log personnalisé avec l'auteur de la modification (admin)
         CustomLog::create([
-            'content' => "L'admin {$adminName} a marqué le message de l'utilisateur #{$instance->user->name} comme " . ($instance->read ? 'lu' : 'non lu') . ".",
+            'content' => "L'admin {$adminName} a marqué le message de l'utilisateur #{$instance->name} comme " . ($instance->read ? 'lu' : 'non lu') . ".",
             'color' => 'warning', // couleur de la notification
             'icon' => 'fas fa-envelope-open', // icône pour la notification
         ]);
