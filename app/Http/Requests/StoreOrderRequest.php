@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Partner;
 use App\Models\Shipping;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +30,11 @@ class StoreOrderRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */ public function rules(): array
     {
+        $partner = Partner::findOrFail($this->input('partner_id'));
+
         return [
             'user_id' => ['required', 'numeric', 'exists:users,id'],
-            'amount' => ['required', 'numeric', 'min:10000'],
+            'amount' => ['required', 'numeric', 'min:' . $partner->min_amount ],
             'personal_message' => ['nullable', 'string', 'max:500'],
             'client_name' => ['required', 'string', 'max:255'],
             'client_email' => ['required', 'email', 'max:255'],
@@ -62,7 +65,7 @@ class StoreOrderRequest extends FormRequest
             'payment_method' => ['required', 'string', 'in:mobile,card'],
 
             // Règles pour le paiement
-            'total_amount' => ['required', 'numeric', 'min:10000'],
+            'total_amount' => ['required', 'numeric', 'min:' . $partner->min_amount ],
             'payment_phone' => ['required_if:payment_method,mobile', 'nullable', 'numeric', 'min_digits:8', 'max_digits:15'],
             'payment_network' => ['required_if:payment_method,mobile', 'nullable', 'string', 'in:MTN,MOOV,MOOV TG,TOGOCOM TG,ORANGE SN,MTN CI,FREE SN,ORANGE CI,MOOV CI,WAVE CI,MOOV BF,ORANGE BF'],
             'payment_otp' => ['nullable', 'string'], // Only required for ORANGE SN

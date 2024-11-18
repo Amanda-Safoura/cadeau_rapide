@@ -659,7 +659,7 @@
 
         // Fonction pour générer le récapitulatif des informations saisies
         function generateSummary() {
-            let amount = $('input[name="amount"]').val()
+            let amount = $('input[name="amount"]').val() + 'XOF'
             let personalMessage = $('textarea[name="personal_message"]').val()
             let clientName = $('input[name="client_name"]').val()
             let clientEmail = $('input[name="client_email"]').val()
@@ -1005,7 +1005,7 @@
                 if ($('input[name="is_customized"]:checked').val() == "1") totalAmount += parseInt($(
                     'input[name="customization_fee"]').val())
 
-                $('#total_amount').text(totalAmount + '')
+                $('#total_amount').text(totalAmount + 'XOF')
             }
 
             if ($('#giftCardForm').valid()) { // Vérifie la validation de toutes les étapes
