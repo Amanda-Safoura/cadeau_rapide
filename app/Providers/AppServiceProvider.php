@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Admin;
 use App\Models\CustomLog;
+use App\Models\GiftCard;
 use App\Models\Partner;
+use App\Observers\GiftCardObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+
+        GiftCard::observe(GiftCardObserver::class);
 
         View::composer('partner_backoffice.pages.*', function ($view) {
 

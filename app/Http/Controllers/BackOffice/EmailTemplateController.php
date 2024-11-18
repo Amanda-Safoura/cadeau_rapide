@@ -58,11 +58,11 @@ class EmailTemplateController extends Controller
 
         // Création du log personnalisé avec l'auteur de la modification (admin)
         CustomLog::create([
-            'content' => "L'admin {$adminName} a modifié le template : {ucfirst($template->type)}.",
+            'content' => "L'admin {$adminName} a modifié le template : {$template->type}.",
             'color' => 'info', // couleur de la notification
             'icon' => 'fas fa-edit', // icône pour la notification
         ]);
 
-        return redirect()->route('dashboard.email_templates.index')->with('message', 'Modèle {$template->type} mis à jour avec succès.');
+        return redirect()->route('dashboard.email_templates.index')->with('message', 'Modèle d\'email ' . $template->type . ' mis à jour avec succès.');
     }
 }

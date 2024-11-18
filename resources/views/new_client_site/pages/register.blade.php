@@ -148,7 +148,7 @@
                                                                     <input type="checkbox" name="agree_policy"
                                                                         required>
                                                                     <a href="{{ route('client.policy') }}"
-                                                                        class="ms-2 text-secondary">
+                                                                        class="ms-2 text-secondary text-decoration-underline">
                                                                         J'accepte les termes et conditions
                                                                     </a>
                                                                 </div>

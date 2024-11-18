@@ -669,7 +669,7 @@
             let beneficiaryPhone = $('input[name="beneficiary_phone"]').val() || "Non fourni"
             let isCustomized = $('input[name="is_customized"]:checked').val() == "1" ? "Oui" : "Non"
             let shipping = $('#shipping_id option:selected').attr('shipping-price') || "Non défini"
-            let deliveryAddress = $('input[name="delivery_address"]').val() || "Non défini"
+            let deliveryAddress = $('textarea[name="delivery_address"]').val() || "Non défini"
             let deliveryDate = $('input[name="delivery_date"]').val() || "Non défini"
             let deliveryContact = $('input[name="delivery_contact"]').val() || "Non défini"
 
@@ -762,6 +762,10 @@
                 return inputDate > today;
             }, "La date doit être postérieure à aujourd'hui.");
 
+            jQuery.validator.addMethod("valueNotEmpty", function(value, element) {                
+                return value !== "";
+            }, "Veuillez sélectionner une option de livraison.");
+
 
             // Initialisation de la validation avec jQuery Validate
             $('#giftCardForm').validate({
@@ -804,6 +808,9 @@
                             return $('input[name="is_client_beneficiary"]:checked').val() == '0';
                         },
                         minlength: 8
+                    },
+                    shipping_id: {
+                        valueNotEmpty: true
                     },
                     delivery_address: {
                         required: true
@@ -914,6 +921,9 @@
                     beneficiary_phone: {
                         required: "Veuillez entrer le numéro de téléphone du bénéficiaire.",
                         minlength: "Le numéro de téléphone doit contenir au moins 8 chiffres."
+                    },
+                    shipping_id: {
+                        valueNotEmpty: "Sélectionnez une option de livraison valide."
                     },
                     delivery_address: "Veuillez entrer l'adresse de livraison.",
                     delivery_date: {
