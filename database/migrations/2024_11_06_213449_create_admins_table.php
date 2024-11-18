@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100)->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('suspended')->default(false);
             $table->date('first_login')->nullable();
             $table->timestamps();
         });

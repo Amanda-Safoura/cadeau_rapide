@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\PartnerController as AuthPartnerController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BackOffice\AdminController as BackOfficeAdminController;
 use App\Http\Controllers\BackOffice\CustomerController;
 use App\Http\Controllers\BackOffice\FinanceController;
 use App\Http\Controllers\BackOffice\GiftCardController;
@@ -137,6 +138,10 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('/partners', BackOfficePartnerController::class);
         Route::post('/partners/suspense', [BackOfficePartnerController::class, 'suspense'])->name('partner.suspense');
         Route::get('/partners_all', [BackOfficePartnerController::class, 'fetch_resource'])->name('partner.fetch_all');
+
+        Route::resource('/admin_accounts', BackOfficeAdminController::class);
+        Route::post('/admin_accounts/suspense', [BackOfficeAdminController::class, 'suspense'])->name('admin_accounts.suspense');
+        Route::get('/admin_accounts_all', [BackOfficeAdminController::class, 'fetch_resource'])->name('admin_accounts.fetch_all');
 
         Route::get('/cash_entries', [FinanceController::class, 'cash_entries'])->name('cash_entries');
 

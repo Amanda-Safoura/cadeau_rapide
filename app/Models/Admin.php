@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -31,4 +32,9 @@ class Admin extends Model
         'first_login' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getFirstLoginAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('d F Y, H:i') : null;
+    }
 }

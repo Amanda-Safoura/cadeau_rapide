@@ -47,18 +47,17 @@ class LoginCredentialsNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $loginUrl = $this->for == 'partner'
+            ? route('partner.auth.login')
+            : route('dashboard.auth.login');
+
         return (new MailMessage)
             ->subject('Vos Identifiants de Connexion')
-            ->greeting('Bonjour ' . $notifiable->name . ',')
-            ->line('Votre compte a été créé avec succès !')
-            ->line('Voici vos identifiants de connexion :')
-            ->line('**Adresse e-mail :** ' . $this->email)
-            ->line('**Mot de passe :** ' . $this->password)
-            ->line('Ces identifiants ne sont connus que de vous.')
-            ->line('__**Veuillez bien conserver ce mot de passe.**__')
-            ->action('Connexion à votre compte', $this->for == 'partner'
-                ? route('partner.auth.login')
-                : route('dashboard.auth.login'))
-            ->line('Merci de faire partie de notre communauté !');
+            ->view('mails.login_credentials', [
+                'name' => $notifiable->name,
+                'email' => $this->email,
+                'password' => $this->password,
+                'loginUrl' => $loginUrl,
+            ]);
     }
 }

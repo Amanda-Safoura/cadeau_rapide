@@ -93,7 +93,7 @@ class PartnerController extends Controller
             // Création du log personnalisé avec l'auteur de la modification (admin)
             CustomLog::create([
                 'content' => "L'admin {$adminName} a créé un nouveau partenaire : {$newest->name}.",
-                'color' => 'primary', // couleur de la notification
+                'color' => 'success', // couleur de la notification
                 'icon' => 'fas fa-user-plus', // icône pour la notification
             ]);
 

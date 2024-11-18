@@ -168,30 +168,6 @@
 
 
             <li class="sidebar-header">
-                Support & Réclamations
-            </li>
-
-            <li @class([
-                'sidebar-item',
-                'active' => request()->routeIs('dashboard.reclamation.index'),
-            ])>
-                <a class="sidebar-link" href="{{ route('dashboard.reclamation.index') }}">
-                    <i class="fas fa-exclamation-triangle align-middle"></i> <span class="align-middle">Gestion des
-                        réclamations</span>
-                </a>
-            </li>
-
-            <li @class([
-                'sidebar-item',
-                'active' => request()->routeIs('dashboard.partner_message.index'),
-            ])>
-                <a class="sidebar-link" href="{{ route('dashboard.partner_message.index') }}">
-                    <i class="fas fa-phone align-middle"></i> <span class="align-middle">Contact Partenaires</span>
-                </a>
-            </li>
-
-
-            <li class="sidebar-header">
                 Livraisons
             </li>
 
@@ -222,6 +198,52 @@
                 <a class="sidebar-link" href="{{ route('dashboard.shippings.create') }}">
                     <i class="fas fa-plus-circle align-middle"></i> <span class="align-middle">Créer une option de
                         livraison</span>
+                </a>
+            </li>
+
+
+
+            <li class="sidebar-header">
+                Paramètres du Site
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.admin_accounts.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.admin_accounts.index') }}">
+                    <i class="fas fa-users-cog"></i> <span class="align-middle">Gestion des comptes Admins</span>
+                </a>
+            </li>
+
+            <li @class(['sidebar-item', 'active' => request()->routeIs('')])>
+                <a class="sidebar-link" href="{{-- {{ route('') }} --}}#">
+                    <i class="fas fa-cog"></i> <span class="align-middle">Personnalisation des Notifications</span>
+                </a>
+            </li>
+
+
+
+            <li class="sidebar-header">
+                Support & Réclamations
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.reclamation.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.reclamation.index') }}">
+                    <i class="fas fa-exclamation-triangle align-middle"></i> <span class="align-middle">Gestion des
+                        réclamations</span>
+                </a>
+            </li>
+
+            <li @class([
+                'sidebar-item',
+                'active' => request()->routeIs('dashboard.partner_message.index'),
+            ])>
+                <a class="sidebar-link" href="{{ route('dashboard.partner_message.index') }}">
+                    <i class="fas fa-phone align-middle"></i> <span class="align-middle">Contact Partenaires</span>
                 </a>
             </li>
 
