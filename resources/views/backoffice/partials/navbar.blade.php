@@ -10,25 +10,25 @@
                     data-bs-toggle="dropdown">
                     <div class="position-relative">
                         <i class="align-middle" data-feather="bell"></i>
-                        <span class="indicator">{{ $activities->count() }}</span>
+                        <span class="indicator">{{ $notifsCount }}</span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
                     <div class="dropdown-menu-header">
-                        {{ $activities->count() }} Nouvelles Notifications
+                        {{ $notifsCount }} Nouvelles Notifications
                     </div>
                     <div class="list-group">
-                        @foreach ($activities as $activity)
+                        @foreach ($notifs as $notif)
                             <a href="javascript:void(0);" class="list-group-item">
                                 <div class="row g-0 align-items-center">
                                     <div class="col-2">
-                                        <span class="text-{{ $activity->color }}"><i
-                                                class="{{ $activity->icon }}"></i></span>
+                                        <span class="text-{{ $notif->color }}"><i
+                                                class="{{ $notif->icon }}"></i></span>
                                     </div>
                                     <div class="col-10">
-                                        <div class="text-dark">{{ $activity->content }}
+                                        <div class="text-dark">{{ $notif->content }}
                                         </div>
-                                        <div class="text-muted small mt-1">{{ $activity->created_at->diffForHumans() }}
+                                        <div class="text-muted small mt-1">{{ $notif->created_at->diffForHumans() }}
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="javascript:void(0);"><i class="align-middle me-1"
-                            data-feather="user"></i> Profile</a>
+                            data-feather="user"></i> Profil</a>
                     <div class="dropdown-divider"></div>
 
                     <button class="dropdown-item">

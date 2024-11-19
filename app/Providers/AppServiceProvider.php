@@ -40,9 +40,13 @@ class AppServiceProvider extends ServiceProvider
         View::composer('backoffice.pages.*', function ($view) {
 
             $admin = Admin::find(request()->cookie('admin_id'));
-            $activities = CustomLog::where('read', false)->latest()->take(7)->get();
 
-            $view->with(['admin' => $admin, 'activities' => $activities]);
+            $allUnread = CustomLog::where('read', false);
+
+            $notifsCount = $allUnread->count();
+            $notifs = $allUnread->latest()->take(4)->get();
+
+            $view->with(['admin' => $admin, 'notifs' => $notifs, 'notifsCount' => $notifsCount]);
         });
     }
 }
