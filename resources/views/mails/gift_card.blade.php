@@ -175,7 +175,7 @@
     <div class="email-wrapper">
         <!-- Header -->
         <div class="header">
-            <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
+            <img src="{{ url('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
             <h1>Votre Chèque Cadeau</h1>
             <p>Offrez un moment spécial à vos proches avec Cadeau Rapide.</p>
         </div>

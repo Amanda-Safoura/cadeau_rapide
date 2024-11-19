@@ -395,7 +395,7 @@
                                                                                                     width="170px"
                                                                                                     height="auto"
                                                                                                     alt=""
-                                                                                                    src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" />
+                                                                                                    src="{{ url('assets/LOGO CADEAURAPIDE.png') }}" />
                                                                                             </div>
                                                                                         </td>
                                                                                     </tr>

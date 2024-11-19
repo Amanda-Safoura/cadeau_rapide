@@ -197,7 +197,7 @@
     <div class="email-wrapper">
         <!-- Header -->
         <div class="header">
-            <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
+            <img src="{{ url('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
         </div>
 
         <!-- Content -->
