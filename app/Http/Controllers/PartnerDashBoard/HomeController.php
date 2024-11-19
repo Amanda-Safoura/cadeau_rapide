@@ -103,7 +103,12 @@ class HomeController extends Controller
 
     public function gift_card_index(Request $request)
     {
-        $datas = GiftCard::where('partner_id', $request->cookie('partner_id'))->get();
+        $datas = GiftCard::whereHas('paymentInfo', function ($query) {
+            $query->where('status', 'SUCCESSFUL');
+        })
+            ->where('partner_id', $request->cookie('partner_id'))
+            ->get();
+
         return view('partner_backoffice.pages.gift_card.index', compact('datas'));
     }
 

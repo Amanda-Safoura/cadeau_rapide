@@ -207,7 +207,7 @@
                     Bonjour {{ $name }},
                 </div>
                 <div class="card-body">
-                    {{ $mail_content }}
+                    {!! $mail_content !!}
                 </div>
             </div>
 

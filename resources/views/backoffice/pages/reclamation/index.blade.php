@@ -19,7 +19,8 @@
                 <tbody>
                     @foreach ($datas as $item)
                         <tr>
-                            <td>{{ $item->user->name }}</td>
+                            <td><a href="{{ route('dashboard.customer.show', ['id' => $item->user->id]) }}"></a>
+                                {{ $item->user->name }}</td>
                             <td><a href="{{ route('dashboard.gift_card.show', ['id' => $item->gift_card_id]) }}">Commande n°
                                     {{ $item->gift_card_id }}</a>
                             </td>

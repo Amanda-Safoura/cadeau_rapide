@@ -47,7 +47,7 @@
                 </ul>
             </div>
 
-            <div class="custom-dropdown">
+            <div class="custom-dropdown me-3">
                 <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
                     Filtrer par demande de personnalisation
                 </button>
@@ -67,13 +67,14 @@
                 style="width:100%">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Client</th>
                         <th>Bénéficiaire</th>
                         <th>Partenaire</th>
-                        <th>Montant</th>
+                        <th>Montant (XOF)</th>
                         <th>Utilisé</th>
                         <th>Customisé</th>
-                        <th>Livraison</th>
+                        <th>Statut de livraison</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
@@ -81,6 +82,7 @@
                 <tbody>
                     @foreach ($datas as $gift_card)
                         <tr>
+                            <td>{{ $gift_card->id }}</td>
                             <td>{{ $gift_card->client_name }}</td>
                             <td>
                                 @if ($gift_card->is_client_beneficiary)
@@ -157,11 +159,11 @@
 
             // Identifie la colonne à filtrer selon le bouton
             if (buttonId === 'filter-delivery_status') {
-                col = 6; // Colonne de livraison
+                col = 7; // Colonne de livraison
             } else if (buttonId === 'filter-customization') {
-                col = 5; // Colonne de personnalisation
+                col = 6; // Colonne de personnalisation
             } else if (buttonId === 'filter-used_status') {
-                col = 4; // Colonne d'utilisation
+                col = 5; // Colonne d'utilisation
             }
 
             // Application du filtre avec DataTable

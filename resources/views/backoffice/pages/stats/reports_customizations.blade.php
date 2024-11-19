@@ -25,20 +25,22 @@
 
                 <!-- Tableau des rapports de personnalisations -->
                 <h5>Rapport des Personnalisations</h5>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre de Chèques Cadeaux Personnalisés</th>
-                            <th>Revenu Total des Personnalisations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ $customizationsStats['total_customized'] }}</td>
-                            <td>{{ number_format($customizationsStats['total_revenue'], '0', '', ' ') }} XOF</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre de Chèques Cadeaux Personnalisés</th>
+                                <th>Revenu Total des Personnalisations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $customizationsStats['total_customized'] }}</td>
+                                <td>{{ number_format($customizationsStats['total_revenue'], '0', '', ' ') }} XOF</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- Graphique des personnalisations (Chart.js) -->
                 <div class="mt-4">
@@ -60,14 +62,16 @@
                 datasets: [{
                     label: 'Nombre de Chèques Cadeaux Personnalisés',
                     data: [
-                    {{ $customizationsStats['total_customized'] }}], // Nombre de chèques personnalisés
+                        {{ $customizationsStats['total_customized'] }}
+                    ], // Nombre de chèques personnalisés
                     backgroundColor: 'rgba(255, 159, 64, 0.2)',
                     borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1
                 }, {
                     label: 'Revenu Total des Personnalisations',
                     data: [
-                    {{ $customizationsStats['total_revenue'] }}], // Revenu total des personnalisations
+                        {{ $customizationsStats['total_revenue'] }}
+                    ], // Revenu total des personnalisations
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1

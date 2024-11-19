@@ -25,26 +25,28 @@
 
                 <!-- Tableau des statistiques par catégorie -->
                 <h5>Statistiques des ventes par catégorie</h5>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Catégorie</th>
-                            <th>Nombre de Commandes</th>
-                            <th>Revenu Total</th>
-                            <th>Montant Moyen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categoriesStats as $stat)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $stat['category'] }}</td>
-                                <td>{{ $stat['totalOrders'] }}</td>
-                                <td>{{ number_format($stat['totalRevenue'], '0', '', ' ') }} XOF</td>
-                                <td>{{ number_format($stat['averageAmount'], '0', '', ' ') }} XOF</td>
+                                <th>Catégorie</th>
+                                <th>Nombre de Commandes</th>
+                                <th>Revenu Total</th>
+                                <th>Montant Moyen</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($categoriesStats as $stat)
+                                <tr>
+                                    <td>{{ $stat['category'] }}</td>
+                                    <td>{{ $stat['totalOrders'] }}</td>
+                                    <td>{{ number_format($stat['totalRevenue'], '0', '', ' ') }} XOF</td>
+                                    <td>{{ number_format($stat['averageAmount'], '0', '', ' ') }} XOF</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- Graphique des ventes par catégorie (Chart.js) -->
                 <div class="mt-4">

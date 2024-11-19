@@ -17,11 +17,12 @@
                 style="width:100%">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Client</th>
                         <th>Bénéficiaire</th>
                         <th>Partenaire</th>
-                        <th>Montant</th>
-                        <th>Somme totale payé</th>
+                        <th>Montant (XOF)</th>
+                        <th>Somme totale payé (XOF)</th>
                         <th>Customisé</th>
                         <th>Actions</th>
                     </tr>
@@ -29,6 +30,7 @@
                 <tbody>
                     @foreach ($datas as $gift_card)
                         <tr>
+                            <td>{{ $gift_card->id }}</td>
                             <td>{{ $gift_card->client_name }}</td>
                             <td>
                                 @if ($gift_card->is_client_beneficiary)

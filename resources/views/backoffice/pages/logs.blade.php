@@ -18,22 +18,24 @@
                     <button type="button" id="mark-as-read" class="btn btn-success">Marquer comme lu</button>
                     <button type="button" id="mark-as-unread" class="btn btn-warning">Marquer comme non lu</button>
                 </div>
-                <table id="activities-table" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" id="select-all"></th>
-                            <th>#</th>
-                            <th>Activité</th>
-                            <th>Icône</th>
-                            <th>Date</th>
-                            <th>Statut</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- DataTables remplira cette partie via AJAX -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="activities-table" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>#</th>
+                                <th>Activité</th>
+                                <th>Icône</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- DataTables remplira cette partie via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
             </form>
             <!-- Bootstrap Modal -->
             <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel"

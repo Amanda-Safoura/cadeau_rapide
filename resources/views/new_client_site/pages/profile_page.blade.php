@@ -124,43 +124,43 @@
                             <div class="card mb-3 p-3">
                                 <div class="d-flex justify-content-between">
                                     <h5><strong>Commande</strong> #{{ $key + 1 }}</h5>
-                                        <a href="{{ route('client.gift_card.generatePDF', ['id' => $order->id]) }}"
-                                            type="button" class="btn btn-success">Télécharger</a>
+                                    <a href="{{ route('client.gift_card.generatePDF', ['id' => $order->id]) }}"
+                                        type="button" class="btn btn-success">Télécharger</a>
                                 </div>
                                 <p><strong>Montant Total</strong>: {{ $order->total_amount }}</p>
                                 <p><strong>Nom du Bénéficiaire</strong>:
                                     {{ $order->is_client_beneficiary ? 'Vous-même' : $order->beneficiary_name }}</p>
                                 <p>Date : {{ date_format($order->created_at, 'd F Y') }}</p>
-                                    @php
-                                        $progressClass = 'progress-bar';
-                                        $progressWidth = 'width: 0%';
-                                        $progressAria = 'aria-valuenow="0"';
+                                @php
+                                    $progressClass = 'progress-bar';
+                                    $progressWidth = 'width: 0%';
+                                    $progressAria = 'aria-valuenow="0"';
 
-                                        if ($order->shipping_status === 'awaiting processing') {
-                                            $progressClass .= ' bg-primary';
-                                            $progressWidth = 'width: 1%';
-                                            $progressAria = 'aria-valuenow="1"';
-                                        } elseif ($order->shipping_status === 'pending') {
-                                            $progressClass .= ' bg-warning';
-                                            $progressWidth = 'width: 33%';
-                                            $progressAria = 'aria-valuenow="33"';
-                                        } elseif ($order->shipping_status === 'delivered') {
-                                            $progressClass .= ' bg-success';
-                                            $progressWidth = 'width: 100%';
-                                            $progressAria = 'aria-valuenow="100"';
-                                        }
-                                    @endphp
+                                    if ($order->shipping_status === 'awaiting processing') {
+                                        $progressClass .= ' bg-primary';
+                                        $progressWidth = 'width: 1%';
+                                        $progressAria = 'aria-valuenow="1"';
+                                    } elseif ($order->shipping_status === 'pending') {
+                                        $progressClass .= ' bg-warning';
+                                        $progressWidth = 'width: 33%';
+                                        $progressAria = 'aria-valuenow="33"';
+                                    } elseif ($order->shipping_status === 'delivered') {
+                                        $progressClass .= ' bg-success';
+                                        $progressWidth = 'width: 100%';
+                                        $progressAria = 'aria-valuenow="100"';
+                                    }
+                                @endphp
 
-                                    <div class="progress mb-2" style="height: 8px;">
-                                        <div class="{{ $progressClass }}" role="progressbar" style="{{ $progressWidth }}"
-                                            {{ $progressAria }}></div>
-                                    </div>
+                                <div class="progress mb-2" style="height: 8px;">
+                                    <div class="{{ $progressClass }}" role="progressbar" style="{{ $progressWidth }}"
+                                        {{ $progressAria }}></div>
+                                </div>
 
-                                    <div class="d-flex justify-content-between progress-step">
-                                        <span>En attente de traitement</span>
-                                        <span>En cours</span>
-                                        <span>Livrée</span>
-                                    </div>
+                                <div class="d-flex justify-content-between progress-step">
+                                    <span>En attente de traitement</span>
+                                    <span>En cours</span>
+                                    <span>Livrée</span>
+                                </div>
                                 <button class="btn btn-primary btn-sm mt-2" data-bs-toggle="modal"
                                     data-bs-target="#detailsModal" order_id="{{ $order->id }}">Voir les
                                     détails</button>
@@ -236,6 +236,8 @@
                     <p><strong>Personnalisé :</strong> <span id="isCustomized"></span></p>
                     <p><strong>Frais de Personnalisation :</strong> <span id="customizationFee"></span></p>
                     <p><strong>Adresse de Livraison :</strong> <span id="deliveryAddress"></span></p>
+                    <p><strong>Zone de Livraison :</strong> <span id="shippingZone"></span></p>
+                    <p><strong>Frais de Livraison :</strong> <span id="shippingPrice"></span></p>
                     <p><strong>Numéro de la personne à contacter :</strong> <span id="deliveryContact"></span></p>
                     <p><strong>Date de Livraison :</strong> <span id="deliveryDate"></span></p>
                     <p><strong>Montant Total :</strong> <span id="totalAmount"></span></p>
@@ -286,6 +288,8 @@
             $('#isCustomized').text(order.is_customized ? 'Oui' : 'Non')
             $('#customizationFee').text(order.customization_fee + ' XOF')
             $('#deliveryAddress').text(order.delivery_address)
+            $('#shippingZone').text(order.shipping_zone)
+            $('#shippingPrice').text(order.shipping_price + ' XOF')
             $('#deliveryContact').text(order.delivery_contact ?? 'Non défini')
 
             let delivery_date = new Date(order.delivery_date)

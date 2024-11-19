@@ -107,7 +107,7 @@
                                 <thead>
                                     <tr>
                                         <th>Partenaire</th>
-                                        <th>Revenu Frais Livraison</th>
+                                        <th>Revenu Frais Statut de livraison</th>
                                         <th>Revenu Frais Personnalisation</th>
                                         <th>Valeurs des Chèques Cadeaux</th>
                                         <th>Commission</th>
@@ -137,7 +137,7 @@
                                 <thead>
                                     <tr>
                                         <th>Catégorie</th>
-                                        <th>Revenu Livraison</th>
+                                        <th>Revenu Statut de livraison</th>
                                         <th>Revenu Personnalisation</th>
                                         <th>Prix des Chèques Cadeaux</th>
                                     </tr>

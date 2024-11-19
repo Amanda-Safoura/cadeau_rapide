@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\App;
 
 class GiftCard extends Model
 {
@@ -52,7 +53,13 @@ class GiftCard extends Model
 
     public function getTranslatedShippingStatus()
     {
-        return __("statuses." . $this->shipping_status);
+        $shippingStatusFr = [
+            'awaiting processing' => 'En attente de traitement',
+            'pending' => 'En cours',
+            'delivered' => 'Livré',
+        ];
+
+        return $shippingStatusFr[$this->shipping_status];
     }
 
 

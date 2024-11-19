@@ -12,23 +12,17 @@
     <div class="container mt-4">
 
         <div class="d-flex justify-content-end">
-            <div class="custom-dropdown me-3">
-                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-delivery_status">
-                    Filtrer par statut de livraison
+            <div class="custom-dropdown mx-3">
+                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
+                    Filtrer par demande de personnalisation
                 </button>
                 <ul class="custom-dropdown-menu">
-                    <li>
-                        <a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivery_status', 'En attente de traitement')">En attente de
-                            traitement</a>
-                    </li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivery_status', 'En cours')">En cours</a></li>
+                            onclick="updateDropdown('filter-customization', 'Personnalisés')">Personnalisés</a></li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivery_status', 'Livrés')">Livrés</a>
+                            onclick="updateDropdown('filter-customization', 'Standards')">Standards</a></li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-delivery_status', 'Tous')">Tous</a>
-                    </li>
+                            onclick="updateDropdown('filter-customization', 'Tous')">Tous</a></li>
                 </ul>
             </div>
 
@@ -49,17 +43,23 @@
                 </ul>
             </div>
 
-            <div class="custom-dropdown">
-                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
-                    Filtrer par demande de personnalisation
+            <div class="custom-dropdown me-3">
+                <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-delivery_status">
+                    Filtrer par statut de livraison
                 </button>
                 <ul class="custom-dropdown-menu">
+                    <li>
+                        <a class="custom-dropdown-item" href="javascript:void(0);"
+                            onclick="updateDropdown('filter-delivery_status', 'En attente de traitement')">En attente de
+                            traitement</a>
+                    </li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Personnalisés')">Personnalisés</a></li>
+                            onclick="updateDropdown('filter-delivery_status', 'En cours')">En cours</a></li>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Standards')">Standards</a></li>
+                            onclick="updateDropdown('filter-delivery_status', 'Livrés')">Livrés</a>
                     <li><a class="custom-dropdown-item" href="javascript:void(0);"
-                            onclick="updateDropdown('filter-customization', 'Tous')">Tous</a></li>
+                            onclick="updateDropdown('filter-delivery_status', 'Tous')">Tous</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -69,15 +69,16 @@
                 style="width:100%">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Client</th>
                         <th>Bénéficiaire</th>
-                        <th>Adresse de livraison</th>
-                        <th>Frais de livraison</th>
-                        <th>Date de livraison</th>
-                        <th>Montant</th>
+                        <th>Adresse de Statut de livraison</th>
+                        <th>Frais de Statut de livraison</th>
+                        <th>Date de Statut de livraison</th>
+                        <th>Montant (XOF)</th>
                         <th>Customisé</th>
                         <th>Payé</th>
-                        <th>Statut de livraison</th>
+                        <th>Statut de Statut de livraison</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
@@ -85,6 +86,7 @@
                 <tbody>
                     @foreach ($datas as $gift_card)
                         <tr>
+                            <td>{{ $gift_card->id }}</td>
                             <td>{{ $gift_card->client_name }}</td>
                             <td>
                                 @if ($gift_card->is_client_beneficiary)
@@ -207,11 +209,11 @@
 
             // Identifie la colonne à filtrer selon le bouton
             if (buttonId === 'filter-paid') {
-                col = 7; // Colonne de renseignement sur le paiement
+                col = 8; // Colonne de renseignement sur le paiement
             } else if (buttonId === 'filter-customization') {
-                col = 6; // Colonne de personnalisation
+                col = 7; // Colonne de personnalisation
             } else if (buttonId === 'filter-delivery_status') {
-                col = 8; // Colonne de renseignement sur le statut de livraison
+                col = 9; // Colonne de renseignement sur le statut de livraison
             }
 
             // Application du filtre avec DataTable
@@ -294,7 +296,7 @@
                 },
                 success: function(response) {
                     // Met à jour le tableau
-                    $(`button[data-id="${orderId}"]`).closest('tr').find('td:nth-child(9)').html(
+                    $(`button[data-id="${orderId}"]`).closest('tr').find('td:nth-child(10)').html(
                         statusIcon);
 
                 }

@@ -126,48 +126,42 @@ class GiftCardController extends Controller
     {
         $gift_card = GiftCard::with('partner')->findOrFail($id);
 
-        if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
+        // Configuration de Dompdf
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true); // Permettre les ressources externes
+        $dompdf = new Dompdf($options);
 
-            // Configuration de Dompdf
-            $options = new Options();
-            $options->set('defaultFont', 'Arial');
-            $options->set('isHtml5ParserEnabled', true);
-            $options->set('isRemoteEnabled', true); // Permettre les ressources externes
-            $dompdf = new Dompdf($options);
+        // Génération du contenu HTML et du PDF
+        $html = view('to_generate.gift_card', compact('gift_card'))->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
 
-            // Génération du contenu HTML et du PDF
-            $html = view('to_generate.gift_card', compact('gift_card'))->render();
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'landscape');
-            $dompdf->render();
+        // Stocker le fichier PDF temporairement
+        $pdfContent = $dompdf->output();
+        $fileName = "Chèque Cadeau N° $gift_card->id.pdf";
+        $tempPath = "temp/$fileName";
+        Storage::disk('public')->put($tempPath, $pdfContent);
 
-            // Stocker le fichier PDF temporairement
-            $pdfContent = $dompdf->output();
-            $fileName = "Chèque Cadeau N° $gift_card->id.pdf";
-            $tempPath = "temp/$fileName";
-            Storage::disk('public')->put($tempPath, $pdfContent);
+        // Envoyer l'email avec le PDF en pièce jointe
+        Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($gift_card, $tempPath) {
+            $message->to($gift_card->is_client_beneficiary
+                ? $gift_card->client_email
+                : $gift_card->beneficiary_email) // Adresse email du destinataire
+                ->subject("Votre chèque cadeau")
+                ->attach(Storage::path($tempPath), [
+                    'as' => "Chèque Cadeau N° {$gift_card->id}.pdf",
+                    'mime' => 'application/pdf',
+                ]);
+        });
 
-            // Envoyer l'email avec le PDF en pièce jointe
-            Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($gift_card, $tempPath) {
-                $message->to($gift_card->is_client_beneficiary
-                    ? $gift_card->client_email
-                    : $gift_card->beneficiary_email) // Adresse email du destinataire
-                    ->subject("Votre chèque cadeau")
-                    ->attach(Storage::path($tempPath), [
-                        'as' => "Chèque Cadeau N° {$gift_card->id}.pdf",
-                        'mime' => 'application/pdf',
-                    ]);
-            });
+        $gift_card->sent = true;
+        $gift_card->save();
 
-            $gift_card->sent = true;
-            $gift_card->shipping_status = 'delivered';
-            $gift_card->save();
-
-            // Supprimer le fichier temporaire après l'envoi de l'email
-            Storage::delete($tempPath);
-        } else {
-            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
-        }
+        // Supprimer le fichier temporaire après l'envoi de l'email
+        Storage::delete($tempPath);
     }
 
     public function settings()

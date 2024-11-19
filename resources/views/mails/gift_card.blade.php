@@ -10,7 +10,8 @@
     <style>
         body {
             font-family: 'Poppins', Arial, sans-serif;
-            background-color: #f5f5f5; /* Fond gris clair */
+            background-color: #f5f5f5;
+            /* Fond gris clair */
             color: #333;
             margin: 0;
             padding: 0;
@@ -18,7 +19,8 @@
 
         /* Wrapper */
         .email-wrapper {
-            background-color: #f5f5f5; /* Fond gris clair */
+            background-color: #f5f5f5;
+            /* Fond gris clair */
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -49,7 +51,8 @@
 
         /* Content Section */
         .content {
-            background-color: #ffffff; /* Fond contrasté pour le contenu */
+            background-color: #ffffff;
+            /* Fond contrasté pour le contenu */
             padding: 30px;
             border-radius: 8px;
         }
@@ -106,7 +109,8 @@
 
         /* Footer */
         .footer {
-            background-color: #2d2d2d; /* Gris foncé pour footer */
+            background-color: #2d2d2d;
+            /* Gris foncé pour footer */
             color: white;
             padding: 40px 30px;
             border-top: 5px solid #e7b50a;
@@ -185,34 +189,36 @@
             </p>
 
             <h5>Informations du Chèque</h5>
-            <table class="info-table">
-                <tbody>
-                    <tr>
-                        <th>Numéro du Chèque</th>
-                        <td>#{{ $gift_card->id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Expéditeur</th>
-                        <td>{{ $gift_card->client_name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Partenaire</th>
-                        <td>{{ $gift_card->partner->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Montant</th>
-                        <td>{{ $gift_card->amount }} XOF</td>
-                    </tr>
-                    <tr>
-                        <th>Date de début de validité</th>
-                        <td>{{ $gift_card->created_at->format('d/m/Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Durée de validité</th>
-                        <td>{{ $gift_card->validity_duration ?? 0 }} mois</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="info-table">
+                    <tbody>
+                        <tr>
+                            <th>Numéro du Chèque</th>
+                            <td>#{{ $gift_card->id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expéditeur</th>
+                            <td>{{ $gift_card->client_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Partenaire</th>
+                            <td>{{ $gift_card->partner->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Montant</th>
+                            <td>{{ $gift_card->amount }} XOF</td>
+                        </tr>
+                        <tr>
+                            <th>Date de début de validité</th>
+                            <td>{{ $gift_card->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Durée de validité</th>
+                            <td>{{ $gift_card->validity_duration ?? 0 }} mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             @if ($gift_card->personal_message)
                 <div class="message-box">
@@ -240,7 +246,8 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Contactez-nous</h5>
-                    <p><i class="fa fa-envelope"></i> <a href="mailto:contact@cadeaurapide.com">contact@cadeaurapide.com</a></p>
+                    <p><i class="fa fa-envelope"></i> <a
+                            href="mailto:contact@cadeaurapide.com">contact@cadeaurapide.com</a></p>
                     <p><i class="fa fa-phone"></i> +229 123 456 789</p>
                     <a href="#" class="btn-custom btn-block">Devenir Partenaire</a>
                     <a href="#" class="btn-custom btn-block">Commander un Chèque Cadeau</a>

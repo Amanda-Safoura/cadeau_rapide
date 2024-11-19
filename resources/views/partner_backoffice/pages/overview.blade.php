@@ -61,28 +61,30 @@
                 <div class="card">
                     <div class="card-header">Commandes Récentes</div>
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Client</th>
-                                    <th>Montant</th>
-                                    <th>Statut</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recentOrders as $order)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->client_name }}</td>
-                                        <td>{{ number_format($order->amount, 0, ',', ' ') }} XOF</td>
-                                        <td>{{ $order->getTranslatedShippingStatus() }}</td>
-                                        <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                        <th>#</th>
+                                        <th>Client</th>
+                                        <th>Montant (XOF)</th>
+                                        <th>Statut</th>
+                                        <th>Date</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($recentOrders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->client_name }}</td>
+                                            <td>{{ number_format($order->amount, 0, ',', ' ') }}</td>
+                                            <td>{{ $order->getTranslatedShippingStatus() }}</td>
+                                            <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

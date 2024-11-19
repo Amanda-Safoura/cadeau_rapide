@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th>Zone</th>
-                        <th>Prix de la livraison</th>
+                        <th>Prix de la Statut de livraison</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
