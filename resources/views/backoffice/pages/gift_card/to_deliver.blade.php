@@ -73,12 +73,12 @@
                         <th>Client</th>
                         <th>Bénéficiaire</th>
                         <th>Adresse de Statut de livraison</th>
-                        <th>Frais de Statut de livraison</th>
-                        <th>Date de Statut de livraison</th>
+                        <th>Frais de livraison</th>
+                        <th>Date de livraison demandée</th>
                         <th>Montant (XOF)</th>
                         <th>Customisé</th>
                         <th>Payé</th>
-                        <th>Statut de Statut de livraison</th>
+                        <th>Statut de livraison</th>
                         <th>Date de commande</th>
                         <th>Actions</th>
                     </tr>
