@@ -68,7 +68,7 @@
 
         .partner-section {
             width: 30%;
-            background: url("{{ $partnerPictureBase64 }}") center center / cover no-repeat;
+            background: url("{{ Storage::disk('public')->url($gift_card->partner->picture_1) }}") center center / cover no-repeat;
             position: relative;
         }
 
@@ -146,9 +146,7 @@
                 <!-- Montant et détails -->
                 <div>
                     <p><strong>Montant :</strong> {{ number_format($gift_card->amount, '0', '', ' ') }} XOF</p>
-                    <p><strong>Offert à :</strong>
-                        {{ $gift_card->is_client_beneficiary ? $gift_card->client_name : $gift_card->beneficiary_name }}
-                    </p>
+                    <p><strong>Offert à :</strong> {{ $gift_card->is_client_beneficiary ? $gift_card->client_name : $gift_card->beneficiary_name }}</p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
                     <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} mois à
                         compter du {{ $gift_card->delivery_date->translatedFormat('d F Y') }}

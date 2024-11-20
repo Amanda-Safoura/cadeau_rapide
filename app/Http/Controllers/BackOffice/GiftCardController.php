@@ -98,14 +98,8 @@ class GiftCardController extends Controller
             $dompdf = new Dompdf($options);
 
             // Génération du contenu HTML et du PDF
-            $partnerPicturePath = Storage::disk('public')->path($gift_card->partner->picture_1);
-            $partnerPictureBase64 =
-                'data:image/' .
-                pathinfo($partnerPicturePath, PATHINFO_EXTENSION) .
-                ';base64,' .
-                base64_encode(file_get_contents($partnerPicturePath));
-
-            $html = view('to_generate.gift_card', compact('gift_card', 'partnerPictureBase64'))->render();
+            
+            $html = view('to_generate.gift_card', compact('gift_card', /* 'partnerPictureBase64' */))->render();
 
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'landscape');
