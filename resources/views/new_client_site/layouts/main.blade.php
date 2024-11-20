@@ -196,7 +196,7 @@
         Pusher.logToConsole = false;
 
         var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-            cluster: 'mt1'
+            cluster: '{{env('PUSHER_APP_CLUSTER')}}'
         });
 
         var channel = pusher.subscribe('updating-payment-info');

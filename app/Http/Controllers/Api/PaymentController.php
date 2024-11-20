@@ -20,6 +20,7 @@ class PaymentController extends Controller
                 case 'SUCCESSFUL':
                     $statusMessage = 'a bien été reçu.';
                     break;
+
                 case 'FAILED':
                     $statusMessage = 'a échoué. Veuillez réésayer.';
                     break;
