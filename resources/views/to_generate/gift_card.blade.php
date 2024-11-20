@@ -155,7 +155,9 @@
                 <!-- Montant et détails -->
                 <div>
                     <p><strong>Montant :</strong> {{ number_format($gift_card->amount, '0', '', ' ') }} XOF</p>
-                    <p><strong>Offert à :</strong> {{ $gift_card->beneficiary_name }}</p>
+                    <p><strong>Offert à :</strong>
+                        {{ $gift_card->is_client_beneficiary ? $gift_card->client_name : $gift_card->beneficiary_name }}
+                    </p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
                     <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} mois à
                         compter du {{ $gift_card->delivery_date->translatedFormat('d F Y') }}
@@ -168,7 +170,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate('{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}') !!}
+                    {!! QrCode::size(80)->generate("{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}") !!}
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>
