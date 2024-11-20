@@ -127,7 +127,7 @@
                                     <a href="{{ route('client.gift_card.generatePDF', ['id' => $order->id]) }}"
                                         type="button" class="btn btn-success">Télécharger</a>
                                 </div>
-                                <p><strong>Montant Total</strong>: {{ $order->total_amount }}</p>
+                                <p><strong>Montant Total</strong>: {{ $order->total_amount }} XOF</p>
                                 <p><strong>Nom du Bénéficiaire</strong>:
                                     {{ $order->is_client_beneficiary ? 'Vous-même' : $order->beneficiary_name }}</p>
                                 <p>Date : {{ date_format($order->created_at, 'd F Y') }}</p>

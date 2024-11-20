@@ -68,7 +68,7 @@
 
         .partner-section {
             width: 30%;
-            background: url("{{ Storage::disk('public')->url($gift_card->partner->picture_1) }}") center center / cover no-repeat;
+            background: url("{{ asset('storage/' . $gift_card->partner->picture_1) }}") center center / cover no-repeat;
             position: relative;
         }
 
