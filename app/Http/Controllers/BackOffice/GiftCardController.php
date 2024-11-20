@@ -105,7 +105,7 @@ class GiftCardController extends Controller
                 ';base64,' .
                 base64_encode(file_get_contents($partnerPicturePath));
 
-            $html = view('to_generate.gift_card', compact('gift_card, partnerPictureBase64'))->render();
+            $html = view('to_generate.gift_card', compact('gift_card', 'partnerPictureBase64'))->render();
 
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'landscape');
