@@ -15,7 +15,7 @@ class GiftCardObserver
     {
         // Si le statut est défini dès la création
         if ($giftCard->shipping_status) {
-            $this->handleShippingStatusChange($giftCard, $giftCard->shipping_status);
+            $this->handleShippingStatusChange($giftCard);
         }
     }
 
@@ -26,27 +26,22 @@ class GiftCardObserver
     {
         // Si le statut a changé lors de la mise à jour
         if ($giftCard->isDirty('shipping_status')) {
-            $this->handleShippingStatusChange($giftCard, $giftCard->shipping_status);
+            $this->handleShippingStatusChange($giftCard);
         }
     }
 
     /**
      * Gère le changement de statut et l'envoi de l'e-mail.
      */
-    private function handleShippingStatusChange(GiftCard $giftCard, $newStatus)
+    private function handleShippingStatusChange(GiftCard $giftCard)
     {
-        $statusFr = [
-            'awaiting processing' => 'En attente de traitement',
-            'pending' => 'En cours',
-            'delivered' => 'Livré',
-        ];
         $recipient = $giftCard->is_client_beneficiary ? $giftCard->client_email : $giftCard->beneficiary_email;
-        $template = EmailTemplate::where('type', $statusFr[$newStatus])->first();
+        $template = EmailTemplate::where('type', $giftCard->getTranslatedShippingStatus())->first();
 
         $data = [
             'name' =>  $giftCard->is_client_beneficiary ? $giftCard->client_name : $giftCard->beneficiary_name,
             'giftCard' => $giftCard,
-            'mail_content' => $template->content ?? 'Le statut de votre commande pour le chèque cadeau #' . $giftCard->id . ' a été modifié. Elle est à présent `' . $statusFr[$newStatus] . '`',
+            'mail_content' => $template->content ?? 'Le statut de votre commande pour le chèque cadeau #' . $giftCard->id . ' a été modifié. Elle est à présent `' . $giftCard->getTranslatedShippingStatus() . '`',
         ];
 
         // Envoi d'un e-mail

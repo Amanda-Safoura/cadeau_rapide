@@ -8,15 +8,6 @@
     <link href="{{ asset('assets/backoffice/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    @php
-        $partnerPicturePath = Storage::disk('public')->path($gift_card->partner->picture_1);
-        $partnerPictureBase64 =
-            'data:image/' .
-            pathinfo($partnerPicturePath, PATHINFO_EXTENSION) .
-            ';base64,' .
-            base64_encode(file_get_contents($partnerPicturePath));
-    @endphp
-
     <style>
         body {
             font-family: 'Roboto', sans-serif;

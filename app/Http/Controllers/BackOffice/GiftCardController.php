@@ -53,17 +53,11 @@ class GiftCardController extends Controller
 
         // Récupérer l'admin qui a effectué la modification
         $adminName = Admin::findOrFail($request->cookie('admin_id'))->name;
-
-        // Traduction du statut de livraison en français
-        $statutLivraison = [
-            'awaiting processing' => 'en attente de traitement',
-            'pending' => 'en attente',
-            'delivered' => 'livré'
-        ];
+        $statutLivraison = $gift_card->getTranslatedShippingStatus();
 
         // Création du log personnalisé avec l'auteur de la modification (admin)
         CustomLog::create([
-            'content' => "L'admin {$adminName} a modifié le statut de livraison du chèque cadeau #{$gift_card->id} à : {$statutLivraison[$gift_card->shipping_status]}.",
+            'content' => "L'admin {$adminName} a modifié le statut de livraison du chèque cadeau #{$gift_card->id} à : {$statutLivraison}.",
             'color' => 'warning', // couleur de la notification
             'icon' => 'fas fa-truck', // icône pour la notification
         ]);
@@ -104,7 +98,14 @@ class GiftCardController extends Controller
             $dompdf = new Dompdf($options);
 
             // Génération du contenu HTML et du PDF
-            $html = view('to_generate.gift_card', compact('gift_card'))->render();
+            $partnerPicturePath = Storage::disk('public')->path($gift_card->partner->picture_1);
+            $partnerPictureBase64 =
+                'data:image/' .
+                pathinfo($partnerPicturePath, PATHINFO_EXTENSION) .
+                ';base64,' .
+                base64_encode(file_get_contents($partnerPicturePath));
+
+            $html = view('to_generate.gift_card', compact('gift_card, partnerPictureBase64'))->render();
 
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'landscape');
