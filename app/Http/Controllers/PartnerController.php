@@ -207,13 +207,13 @@ class PartnerController extends Controller
                 }
                 // Traitement du paiement web
                 elseif (in_array($network, ['FREE SN', 'ORANGE CI', 'MOOV CI', 'WAVE CI', 'MOOV BF', 'ORANGE BF'])) {
-                    $response = $skeleton->requestToPayWeb($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, "cancel_url", "return_url");
+                    $response = $skeleton->requestToPayWeb($amount, $phone, $network, $new_gift_card->client_name, $new_gift_card->client_email, 'cancel_url', 'return_url');
                     $reference = $response["reference"];
 
                     $new_payment_info->reference = $reference;
                     $new_payment_info->save();
 
-                    return redirect($response["payment_url"]);
+                    return redirect($response['payment_url']);
                 }
                 // Traitement du paiement par carte bancaire
                 elseif ($request->has('card_number')) {

@@ -146,6 +146,21 @@
 
     @yield('content')
 
+
+    <!-- Le conteneur de l'alerte modale -->
+    <div class="modal fade" id="paymentNotifModal" tabindex="-1" aria-labelledby="paymentNotifModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentNotifModalLabel">Notification de Paiement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="paymentNotifMessage"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer Area -->
     @include('new_client_site.partials.footer')
     <!-- Footer Area End -->
@@ -173,6 +188,25 @@
     <script src="{{ asset('assets/new_client_side/js/form-validator.min.js') }}"></script>
     <!-- Custom JS -->
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
+
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = false;
+
+        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: 'mt1'
+        });
+
+        var channel = pusher.subscribe('updating-payment-info');
+        channel.bind('App\\Events\\NewFeexPayPaymentPayloadEvent', function(data) {
+            $('#alertModal').modal('hide')
+
+            $('#paymentNotifMessage').html(data['message'])
+            $('#paymentNotifModal').modal('show')
+        });
+    </script>
 
     @yield('additionnal_js')
 </body>
