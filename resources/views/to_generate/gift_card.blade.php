@@ -7,6 +7,16 @@
     <title>Chèque Cadeau</title>
     <link href="{{ asset('assets/backoffice/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    @php
+        $partnerPicturePath = Storage::disk('public')->path($gift_card->partner->picture_1);
+        $partnerPictureBase64 =
+            'data:image/' .
+            pathinfo($partnerPicturePath, PATHINFO_EXTENSION) .
+            ';base64,' .
+            base64_encode(file_get_contents($partnerPicturePath));
+    @endphp
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -67,7 +77,7 @@
 
         .partner-section {
             width: 30%;
-            background: url("{{ Storage::disk('public')->url($gift_card->partner->picture_1) }}") center center / cover no-repeat;
+            background: url("{{ $partnerPictureBase64 }}") center center / cover no-repeat;
             position: relative;
         }
 
@@ -158,7 +168,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate("{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}") !!}
+                    {!! QrCode::size(80)->generate('{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}') !!}
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>
