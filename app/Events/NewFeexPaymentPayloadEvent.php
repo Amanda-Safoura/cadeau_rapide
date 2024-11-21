@@ -10,19 +10,34 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewFeexPayPaymentPayloadEvent
+class NewFeexPaymentPayloadEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
     public string $message;
+    public int $userId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(string $message)
+    public function __construct(string $message, int $id)
     {
+        $this->userId = $id;
         $this->message = $message;
+    }
+
+    /**
+     * The data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith(): array
+    {
+        return [
+            'message' => $this->message,
+            'userId' => $this->userId,
+        ];
     }
 
     /**
@@ -33,7 +48,7 @@ class NewFeexPayPaymentPayloadEvent
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('updating-payment-info'),
+            new PrivateChannel('payment-status-updated.' . $this->userId),
         ];
     }
 }

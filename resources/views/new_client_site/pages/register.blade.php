@@ -188,6 +188,7 @@
                     </div>
                 </div>
             </div>
+            @include('new_client_site.partials.notificationModals')
         </div>
     </div>
 

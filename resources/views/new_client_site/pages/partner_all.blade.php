@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-
     <!-- Inner Banner -->
     <div class="inner-banner inner-bg1">
         <div class="container">
@@ -179,7 +177,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Listing Widget Section End -->

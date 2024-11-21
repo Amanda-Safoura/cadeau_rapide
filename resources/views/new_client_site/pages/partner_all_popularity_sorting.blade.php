@@ -112,8 +112,7 @@
                                                 <i class="flaticon-cursor"></i>
                                                 {{ $partner->adress ? $partner->adress : 'Non spécifiée' }}
                                             </span>
-                                            <a
-                                                href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}">
+                                            <a href="{{ route('client.partner.show', ['slug' => $partner->slug]) }}">
                                                 <h3>{{ $partner->short_description }}</h3>
                                             </a>
                                             <p>{{ substr($partner->description, 0, 90) }}</p>

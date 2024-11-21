@@ -146,20 +146,8 @@
 
     @yield('content')
 
+    @include('new_client_site.partials.notificationModals')
 
-    <!-- Le conteneur de l'alerte modale -->
-    <div class="modal fade" id="paymentNotifModal" tabindex="-1" aria-labelledby="paymentNotifModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentNotifModalLabel">Notification de Paiement</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center" id="paymentNotifMessage"></div>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer Area -->
     @include('new_client_site.partials.footer')
@@ -189,24 +177,31 @@
     <!-- Custom JS -->
     <script src="{{ asset('assets/new_client_side/js/custom.js') }}"></script>
 
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    @auth
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script>
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = false;
 
-    <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = false;
+            let pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+                cluster: "{{ env('PUSHER_APP_CLUSTER') }}",
+                authEndpoint: "{{ env('APP_URL') }}/broadcasting/auth"
+            });
 
-        var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-            cluster: '{{env('PUSHER_APP_CLUSTER')}}'
-        });
+            let channel = pusher.subscribe('private-payment-status-updated.{{ auth()->user()->id }}');
+            channel.bind('App\\Events\\NewFeexPaymentPayloadEvent', function(data) {
+                $('#paymentNotifMessage').html(data['message'])
+                $('#paymentNotifModal').modal('show')
+            });
 
-        var channel = pusher.subscribe('updating-payment-info');
-        channel.bind('App\\Events\\NewFeexPayPaymentPayloadEvent', function(data) {
-            $('#alertModal').modal('hide')
+            @if (session('message'))
+                $(document).ready(function() {
+                    $('#alertModal').modal('show')
+                });
+            @endif
+        </script>
+    @endauth
 
-            $('#paymentNotifMessage').html(data['message'])
-            $('#paymentNotifModal').modal('show')
-        });
-    </script>
 
     @yield('additionnal_js')
 </body>

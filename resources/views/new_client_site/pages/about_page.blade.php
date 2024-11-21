@@ -82,7 +82,8 @@
 
                 <div class="col-lg-5">
                     <div class="about-img">
-                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/about-choice.jpg') }}" alt="image">
+                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/about-choice.jpg') }}"
+                            alt="image">
                     </div>
                 </div>
             </div>
@@ -222,7 +223,8 @@
 
                 <div class="col-lg-5">
                     <div class="application-img-two">
-                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-cadeau-rapide-380x545.jpg') }}" alt="Images">
+                        <img src="{{ asset('assets/new_client_side/img/img_cadeau_rapide/img-cadeau-rapide-380x545.jpg') }}"
+                            alt="Images">
                     </div>
                 </div>
             </div>

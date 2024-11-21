@@ -25,7 +25,7 @@
         <div class="banner-form-area banner-form-mt">
             <div class="container">
                 <div class="banner-form banner-form-pl border-radius">
-                    <form action="{{route('client.partner.search')}}" method="get">
+                    <form action="{{ route('client.partner.search') }}" method="get">
                         @csrf
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-4">

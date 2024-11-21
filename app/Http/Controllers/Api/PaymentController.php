@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\NewFeexPayPaymentPayloadEvent;
+use App\Events\NewFeexPaymentPayloadEvent;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentInfo;
 use Illuminate\Http\Request;
@@ -33,11 +33,11 @@ class PaymentController extends Controller
 
             $gift_card = $payment->giftCard;
 
-            $message = 'Votre paiement pour un chèque cadeau d\'une valeur de ' . $gift_card->amount . ' XOF pour ' . ($gift_card->is_client_beneficiary ? 'vous-même' : '' . $gift_card->beneficiary_name) . ' ' . $statusMessage . '<br>Demande effectué à ' . $gift_card->created_at->format('d F Y');
+            $message = 'Votre paiement pour un chèque cadeau d\'une valeur de ' . number_format($gift_card->amount, '0', '', ' ') . ' XOF pour ' . ($gift_card->is_client_beneficiary ? 'vous-même' : '' . $gift_card->beneficiary_name) . ' ' . $statusMessage . '<br>Demande effectuée le ' . $gift_card->created_at->format('d F Y');
 
-            NewFeexPayPaymentPayloadEvent::dispatch($message);
+            NewFeexPaymentPayloadEvent::dispatch($message, $gift_card->user->id);
         }
 
-        return response();
+        return response()->json();
     }
 }

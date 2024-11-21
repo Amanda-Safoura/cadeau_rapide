@@ -4,82 +4,6 @@
 
 @section('additionnal_css')
     <style>
-        /* Styles pour le modal personnalisé */
-        .modal {
-            display: none;
-            /* Caché par défaut */
-            position: fixed;
-            /* Reste en place */
-            z-index: 1000;
-            /* Au-dessus des autres éléments */
-            left: 0;
-            top: 0;
-            width: 100%;
-            /* Pleine largeur */
-            height: 100%;
-            /* Pleine hauteur */
-            overflow: hidden;
-            /* Masque le scroll */
-            background-color: rgba(0, 0, 0, 0.6);
-            /* Fond noir transparent */
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            border-radius: 8px;
-            /* Coins arrondis */
-            padding: 20px;
-            margin: auto;
-            /* Centrer le modal */
-            width: 90%;
-            /* Largeur relative */
-            max-width: 600px;
-            /* Largeur maximum */
-            max-height: 90vh;
-            /* Hauteur maximale pour permettre le scroll */
-            overflow-y: auto;
-            /* Activer le scroll vertical */
-            position: absolute;
-            /* Positionnement absolu */
-            left: 50%;
-            /* Centrer horizontalement */
-            top: 50%;
-            /* Centrer verticalement */
-            transform: translate(-50%, -50%);
-            /* Centrer verticalement et horizontalement */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            /* Ombre autour du modal */
-        }
-
-
-        .modal-header {
-            border-bottom: none;
-            /* Enlever la bordure du header */
-            margin-bottom: 15px;
-            /* Espace entre le header et le contenu */
-        }
-
-        .modal-title {
-            margin-bottom: 15px;
-            /* Pas de marge par défaut */
-            font-weight: bold;
-            /* Titre en gras */
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
         .text-danger {
             color: #eb3535 !important
         }
@@ -208,15 +132,6 @@
     </div>
     <!-- Map Area Two End -->
 
-    <!-- Modal pour afficher la réponse du serveur -->
-    <div id="responseModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeResponseModal()">&times;</span>
-            <h4 class="modal-title">
-                {{ session('message') }}
-            </h4>
-        </div>
-    </div>
     </section>
 
 @endsection
@@ -264,28 +179,5 @@
             }
         });
 
-
-        // Fonction pour ouvrir le modal de réclamation
-        function openResponseModal() {
-            document.getElementById('responseModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Empêche le scroll de la page en dehors du modal
-        }
-
-        @if (session('message'))
-            openResponseModal()
-        @endif
-
-        // Fonction pour fermer le modal de réclamation
-        function closeResponseModal() {
-            document.getElementById('responseModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Rétablit le scroll de la page
-        }
-
-        // Fermer le modal en cliquant en dehors de celui-ci
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('responseModal')) {
-                closeResponseModal();
-            }
-        }
     </script>
 @endsection
