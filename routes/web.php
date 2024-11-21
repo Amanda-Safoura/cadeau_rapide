@@ -21,7 +21,6 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PartnerController as ClientPartnerController;
 use App\Http\Controllers\PartnerDashBoard\HomeController;
-use App\Models\PartnerCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,17 +50,17 @@ Route::name('client.')->group(function () {
     Route::get('/partner_profile/{slug}', [ClientPartnerController::class, 'profile'])->name('partner.show');
 
 
-    Route::view('/about', 'new_client_site.pages.about_page', ['categories' => PartnerCategory::all()])->name('about');
+    Route::view('/about', 'new_client_site.pages.about_page')->name('about');
 
     Route::view('/policy', 'new_client_site.pages.policy_page')->name('policy');
 
-    Route::view('/contact', 'new_client_site.pages.contact_page', ['categories' => PartnerCategory::all()])->name('contact');
+    Route::view('/contact', 'new_client_site.pages.contact_page')->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');
 
-    Route::view('/register', 'new_client_site.pages.register', ['categories' => PartnerCategory::all()])->name('register_page');
+    Route::view('/register', 'new_client_site.pages.auth.register_page')->name('register_page');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-    Route::view('/login', 'new_client_site.pages.login_page', ['categories' => PartnerCategory::all()])->name('login_page');
+    Route::view('/login', 'new_client_site.pages.auth.login_page')->name('login_page');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     Route::get('/verify_email/{token}', [AuthController::class, 'verify_email'])->name('verify-email');

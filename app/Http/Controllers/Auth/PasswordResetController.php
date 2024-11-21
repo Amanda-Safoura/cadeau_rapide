@@ -11,7 +11,7 @@ class PasswordResetController extends Controller
 {
     public function showResetRequestForm()
     {
-        return view('auth.reset_password');
+        return view('new_client_site.pages.auth.reset_password');
     }
 
     public function sendResetLink(Request $request)
@@ -27,7 +27,7 @@ class PasswordResetController extends Controller
 
     public function showResetForm($token)
     {
-        return view('auth.change_password', ['token' => $token]);
+        return view('new_client_site.pages.auth.change_password', ['token' => $token]);
     }
 
     public function resetPassword(Request $request)

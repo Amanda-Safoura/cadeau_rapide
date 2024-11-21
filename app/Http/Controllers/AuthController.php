@@ -101,7 +101,7 @@ class AuthController extends Controller
 
     public function change_password_page(string $origin_hashed): View
     {
-        return view('auth.change_password', ['origin_hashed' => $origin_hashed]);
+        return view('new_client_site.pages.auth.change_password', ['origin_hashed' => $origin_hashed]);
     }
 
     public function change_password(ChangePasswordRequest $request): RedirectResponse

@@ -180,6 +180,15 @@
     @auth
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
         <script>
+            function closeAllModals() {
+                $('.modal.show').each(function() {
+                    const modalInstance = bootstrap.Modal.getInstance(this); // Récupère l'instance Bootstrap
+                    if (modalInstance) {
+                        modalInstance.hide(); // Ferme le modal
+                    }
+                });
+            }
+
             // Enable pusher logging - don't include this in production
             Pusher.logToConsole = false;
 
@@ -190,6 +199,8 @@
 
             let channel = pusher.subscribe('private-payment-status-updated.{{ auth()->user()->id }}');
             channel.bind('App\\Events\\NewFeexPaymentPayloadEvent', function(data) {
+                closeAllModals()
+
                 $('#paymentNotifMessage').html(data['message'])
                 $('#paymentNotifModal').modal('show')
             });
