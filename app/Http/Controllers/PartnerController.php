@@ -25,7 +25,7 @@ class PartnerController extends Controller
             return strtoupper(substr($partner->name, 0, 1));
         });
 
-        return view('new_client_site.pages.partner_all', compact('categories', 'groupedPartners', 'partners'));
+        return view('new_client_site.pages.partners.all', compact('categories', 'groupedPartners', 'partners'));
     }
 
     public function index_popularity_sorting()
@@ -35,7 +35,7 @@ class PartnerController extends Controller
             ->withCount('giftCards')
             ->orderBy('gift_cards_count', 'desc')
             ->paginate(20);
-        return view('new_client_site.pages.partner_all_popularity_sorting', compact('categories', 'partners'));
+        return view('new_client_site.pages.partners.all_popularity_sorting', compact('categories', 'partners'));
     }
 
     public function resultByLetter($letter)
@@ -45,7 +45,7 @@ class PartnerController extends Controller
             ->paginate(9);
         $categories = PartnerCategory::all();
 
-        return view('new_client_site.pages.partner_alphabetical_result', compact('partners', 'categories', 'letter'));
+        return view('new_client_site.pages.partners.alphabetical_result', compact('partners', 'categories', 'letter'));
     }
 
     public function category(Request $request, $name)
@@ -88,7 +88,7 @@ class PartnerController extends Controller
 
         $categories = PartnerCategory::all();
 
-        return view('new_client_site.pages.partner_search', compact('partners', 'categories', 'keyword', 'categoryId'));
+        return view('new_client_site.pages.partners.search', compact('partners', 'categories', 'keyword', 'categoryId'));
     }
 
 
