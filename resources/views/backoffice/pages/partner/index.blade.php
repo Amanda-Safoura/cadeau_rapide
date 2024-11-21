@@ -20,7 +20,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Désignation</th>
-                        <th>Valeur min. coupon</th>
+                        <th>Valeur min. coupon (XOF)</th>
                         <th>Commission(%)</th>
                         <th>Catégorie</th>
                         <th>Tel</th>

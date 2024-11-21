@@ -174,8 +174,7 @@
     <div class="email-wrapper">
         <!-- Header -->
         <div class="header">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/LOGO CADEAURAPIDE.png'))) }}"
-                alt="Logo">
+            <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo">
             @yield('header')
         </div>
 
