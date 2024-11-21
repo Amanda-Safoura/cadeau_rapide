@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Auth\PartnerController as AuthPartnerController;
 use App\Http\Controllers\Auth\PasswordResetController;
@@ -70,7 +71,7 @@ Route::name('client.')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/partner/{slug}', [ClientPartnerController::class, 'orderingPage'])->name('partner.ordering_page');
-        Route::post('/gift_card/store', [ClientPartnerController::class, 'storeGiftCard'])->name('order.store');
+        Route::post('/gift_card/store', [PaymentController::class, 'storeGiftCard'])->name('order.store');
         Route::get('/profile', [AuthController::class, 'profile'])->name('profile_page');
         Route::post('/reclamation/store', [ReclamationController::class, 'store'])->name('reclamation.store');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
