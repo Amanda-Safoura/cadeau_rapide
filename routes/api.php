@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/feex_webhook', [PaymentController::class, 'handle_webhook'])->name('feex.webhook');
+Route::any('/feex_webhook', [PaymentController::class, 'handle_webhook'])->name('feex.webhook');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -246,7 +246,7 @@
 
             } else if (section === 'profile') {
                 $('#profile-section').removeClass('d-none')
-                $('#details-section').addClass('d-none') = 'none'
+                $('#details-section').addClass('d-none')
             }
         }
 
