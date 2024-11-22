@@ -450,7 +450,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="{{ env('APP_URL') }}/assets/new_client_side/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}/public/assets/new_client_side/css/bootstrap.min.css">
     <style>
         /* ----------- Personnal CSS ---------------- */
 
@@ -557,7 +557,7 @@
                                                                 <td align="center"
                                                                     style="padding:0;Margin:0;font-size:0px"><img
                                                                         class="adapt-img"
-                                                                        src="{{ env('APP_URL') }}/mails/images/logocadeaurapide.png"
+                                                                        src="{{ env('APP_URL') }}/public/mails/images/logocadeaurapide.png"
                                                                         alt="logo"
                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                                                                         width="180" height="35"></td>
@@ -585,7 +585,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:5px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/facebook-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/facebook-circle-black.png"
                                                                                         alt="Fb" width="32"
                                                                                         height="32"
                                                                                         title="Facebook"
@@ -595,7 +595,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:5px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/instagram-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/instagram-circle-black.png"
                                                                                         alt="Ig" width="32"
                                                                                         height="32"
                                                                                         title="Instagram"
@@ -605,7 +605,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:5px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/linkedin-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/linkedin-circle-black.png"
                                                                                         alt="In" width="32"
                                                                                         height="32"
                                                                                         title="LinkedIn"
@@ -615,7 +615,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:5px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/youtube-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/youtube-circle-black.png"
                                                                                         alt="Yt" width="32"
                                                                                         height="32" title="YouTube"
                                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
@@ -624,7 +624,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0">
                                                                                 <a href="#">
-                                                                                    <img src="{{ env('APP_URL') }}/mails/images/tiktok-circle-black.png"
+                                                                                    <img src="{{ env('APP_URL') }}/public/mails/images/tiktok-circle-black.png"
                                                                                         alt="Tt" width="32"
                                                                                         height="32" title="TikTok"
                                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
@@ -699,7 +699,7 @@
                                                                 <td align="center"
                                                                     style="padding:0;Margin:0;font-size:0px"><img
                                                                         class="adapt-img"
-                                                                        src="{{ env('APP_URL') }}/mails/images/logocadeaurapide.png"
+                                                                        src="{{ env('APP_URL') }}/public/mails/images/logocadeaurapide.png"
                                                                         alt="logo"
                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                                                                         width="250" height="48">
@@ -745,7 +745,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:20px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/facebook-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/facebook-circle-black.png"
                                                                                         alt="Fb" width="32"
                                                                                         height="32"
                                                                                         title="Facebook"
@@ -755,7 +755,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:20px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/instagram-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/instagram-circle-black.png"
                                                                                         alt="Ig" width="32"
                                                                                         height="32"
                                                                                         title="Instagram"
@@ -765,7 +765,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:20px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/linkedin-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/linkedin-circle-black.png"
                                                                                         alt="In" width="32"
                                                                                         height="32"
                                                                                         title="LinkedIn"
@@ -775,7 +775,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0;padding-right:20px">
                                                                                 <a href="#"><img
-                                                                                        src="{{ env('APP_URL') }}/mails/images/youtube-circle-black.png"
+                                                                                        src="{{ env('APP_URL') }}/public/mails/images/youtube-circle-black.png"
                                                                                         alt="Yt" width="32"
                                                                                         height="32" title="YouTube"
                                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
@@ -784,7 +784,7 @@
                                                                             <td valign="top" align="center"
                                                                                 style="padding:0;Margin:0">
                                                                                 <a href="#">
-                                                                                    <img src="{{ env('APP_URL') }}/mails/images/tiktok-circle-black.png"
+                                                                                    <img src="{{ env('APP_URL') }}/public/mails/images/tiktok-circle-black.png"
                                                                                         alt="Tt" width="32"
                                                                                         height="32" title="TikTok"
                                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
