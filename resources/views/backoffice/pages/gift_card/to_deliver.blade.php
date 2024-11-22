@@ -11,7 +11,7 @@
 @section('content')
     <div class="container mt-4">
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-center">
             <div class="custom-dropdown mx-3">
                 <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-customization">
                     Filtrer par demande de personnalisation
@@ -73,7 +73,7 @@
                         <th>Client</th>
                         <th>Bénéficiaire</th>
                         <th>Adresse de Statut de livraison</th>
-                        <th>Frais de livraison</th>
+                        <th>Frais de livraison (XOF)</th>
                         <th>Date de livraison demandée</th>
                         <th>Montant (XOF)</th>
                         <th>Customisé</th>
@@ -97,7 +97,7 @@
                             </td>
                             <td>{{ $gift_card->delivery_address }} </td>
                             <td>{{ $gift_card->shipping_price }} </td>
-                            <td>{{ $gift_card->delivery_date->translatedFormat('d F Y') }} </td>
+                            <td>{{ $gift_card->delivery_date->format('d F Y') }} </td>
                             <td>{{ $gift_card->amount }}</td>
                             <td class="text-center">
                                 @if ($gift_card->is_customized)

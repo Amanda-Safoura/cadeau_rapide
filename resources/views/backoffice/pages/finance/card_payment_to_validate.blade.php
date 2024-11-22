@@ -59,7 +59,7 @@
                             <td>{{ $gift_card->partner->name }} </td>
                             <td>{{ $gift_card->amount }}</td>
                             <td>{{ $gift_card->total_amount }}</td>
-                            <td>
+                            <td class="text-center">
                                 @if ($gift_card->paymentInfo->status === 'SUCCESSFUL')
                                     <span class="bg-success text-white p-1">
                                         <span class="d-none">Acquittés</span>
@@ -135,7 +135,7 @@
         }
 
 
-        $('.change_payment_status').on('click', function() {
+        $('#editableTable', ).on('click', '.change_payment_status', function() {
             let newStatus = null;
             let self = $(this); // Garde une référence au bouton déclencheur
 
@@ -155,12 +155,13 @@
                     self.addClass('disabled').siblings('button.change_payment_status').removeClass(
                         'disabled');
 
-                    // Mettre à jour la ligne dans DataTable
-                    let rowData = table.row(self.closest('tr')).data();
-                    rowData[6] = newStatus === "SUCCESSFUL" ?
-                        '<span class="bg-success text-white p-1"><span class="d-none">Acquittés</span><i class="fas fa-check"></i></span>' :
-                        '<span class="bg-danger text-white p-1"><span class="d-none">Impayés</span><i class="fas fa-times"></i></span>'; // Met à jour la colonne de statut
-                    table.row(self.closest('tr')).data(rowData).draw(); // Redessiner le tableau
+                    // Redessiner la colonne
+                    self.closest('tr').find('td:nth-child(7)')
+                        .html(newStatus === "SUCCESSFUL" ?
+                            '<span class="bg-success text-white p-1"><span class="d-none">Acquittés</span><i class="fas fa-check"></i></span>' :
+                            '<span class="bg-danger text-white px-2 py-1"><span class="d-none">Impayés</span><i class="fas fa-times"></i></span>'
+                        );
+
                 }
             });
         });

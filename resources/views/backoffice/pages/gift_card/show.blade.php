@@ -74,7 +74,7 @@
             <div class="card-body">
                 <p><strong>Adresse :</strong> {{ $gift_card->delivery_address }}</p>
                 <p><strong>Zone Applicable de livraison :</strong> {{ $gift_card->shipping_zone }}</p>
-                <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->translatedFormat('d F Y') }}</p>
+                <p><strong>Date de Livraison :</strong> {{ $gift_card->delivery_date->format('d F Y') }}</p>
                 <p><strong>Numéro de la personne à contacter :</strong> {{ $gift_card->delivery_contact }}</p>
                 <p><strong>Statut de Livraison :</strong> {{ $gift_card->getTranslatedShippingStatus() }}</p>
             </div>

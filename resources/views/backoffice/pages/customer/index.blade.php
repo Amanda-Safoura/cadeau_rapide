@@ -17,7 +17,8 @@
                     <tr>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Nombre d'achat</th>
+                        <th>Nombre Total de Commandes</th>
+                        <th>Nombre Commandes Payés</th>
                         <th>Total Commandes (XOF)</th>
                         <th>Actions</th>
                     </tr>
@@ -28,9 +29,23 @@
                             <td>{{ $customer->name }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->giftCards->count() }}</td>
+                            <td>
+                                {{ $customer->giftCards()->whereHas('paymentInfo', function ($query) {
+                                        $query->where('status', 'SUCCESSFUL');
+                                    })->get()->count() }}
+                            </td>
+
                             @php
                                 $total = 0;
-                                foreach ($customer->giftCards as $giftCard) {
+                                foreach (
+                                    $customer
+                                        ->giftCards()
+                                        ->whereHas('paymentInfo', function ($query) {
+                                            $query->where('status', 'SUCCESSFUL');
+                                        })
+                                        ->get()
+                                    as $giftCard
+                                ) {
                                     $total += (int) $giftCard->total_amount;
                                 }
                             @endphp

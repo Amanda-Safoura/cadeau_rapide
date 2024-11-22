@@ -151,7 +151,7 @@
                     </p>
                     <p><strong>Par :</strong> {{ $gift_card->client_name }}</p>
                     <p class="validity"><strong>Validité :</strong> Valable {{ $gift_card->validity_duration }} mois à
-                        compter du {{ $gift_card->delivery_date->translatedFormat('d F Y') }}
+                        compter du {{ $gift_card->delivery_date->format('d F Y') }}
                     </p>
                     @if ($gift_card->personal_message)
                         Voici quelques mots de votre donateur:
@@ -161,7 +161,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate('{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}') !!}
+                    {!! QrCode::size(80)->generate("{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}") !!}
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>

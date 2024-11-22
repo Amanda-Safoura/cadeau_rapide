@@ -86,7 +86,7 @@ class HomeController extends Controller
                 return $row->read ? true : false; // Remplacez selon vos besoins
             })
             ->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->translatedFormat('d F Y'); // Format : 18 Novembre 2024
+                return Carbon::parse($row->created_at)->format('d F Y'); // Format : 18 Novembre 2024
             })
             ->rawColumns(['checkbox', 'actions']) // Permet d'inclure des colonnes HTML
             ->make(true);

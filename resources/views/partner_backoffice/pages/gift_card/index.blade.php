@@ -11,7 +11,7 @@
 @section('content')
     <div class="container mt-4">
 
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-center">
             <div class="custom-dropdown me-3">
                 <button class="btn-primary custom-dropdown-toggle" type="button" id="filter-delivery_status">
                     Filtrer par statut de livraison

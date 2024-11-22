@@ -107,20 +107,20 @@
                                 <thead>
                                     <tr>
                                         <th>Partenaire</th>
-                                        <th>Revenu Frais Statut de livraison</th>
-                                        <th>Revenu Frais Personnalisation</th>
-                                        <th>Valeurs des Chèques Cadeaux</th>
-                                        <th>Commission</th>
+                                        <th>Revenu Frais Statut de livraison (XOF)</th>
+                                        <th>Revenu Frais Personnalisation (XOF)</th>
+                                        <th>Valeurs des Chèques Cadeaux (XOF)</th>
+                                        <th>Commission (XOF)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($partners_with_revenue_datas as $partner)
                                         <tr>
                                             <td>{{ $partner['name'] }}</td>
-                                            <td>{{ $partner['delivery_revenue'] }} XOF</td>
-                                            <td>{{ number_format($partner['customization_revenue'], 0, '', ' ') }} XOF</td>
-                                            <td>{{ number_format($partner['price_gift_card'], 0, '', ' ') }} XOF</td>
-                                            <td>{{ number_format($partner['commission'], 0, '', ' ') }} XOF</td>
+                                            <td>{{ $partner['delivery_revenue'] }}</td>
+                                            <td>{{ number_format($partner['customization_revenue'], 0, '', ' ') }}</td>
+                                            <td>{{ number_format($partner['price_gift_card'], 0, '', ' ') }}</td>
+                                            <td>{{ number_format($partner['commission'], 0, '', ' ') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -137,9 +137,9 @@
                                 <thead>
                                     <tr>
                                         <th>Catégorie</th>
-                                        <th>Revenu Statut de livraison</th>
-                                        <th>Revenu Personnalisation</th>
-                                        <th>Prix des Chèques Cadeaux</th>
+                                        <th>Revenu Statut de livraison (XOF)</th>
+                                        <th>Revenu Personnalisation (XOF)</th>
+                                        <th>Prix des Chèques Cadeaux (XOF)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -147,9 +147,9 @@
                                     @foreach ($category_revenues as $category)
                                         <tr>
                                             <td>{{ $category['category_name'] }}</td>
-                                            <td>{{ $category['total_delivery_revenue'] }} XOF</td>
-                                            <td>{{ $category['total_customization_revenue'] }} XOF</td>
-                                            <td>{{ $category['total_price_gift_card'] }} XOF</td>
+                                            <td>{{ $category['total_delivery_revenue'] }}</td>
+                                            <td>{{ $category['total_customization_revenue'] }}</td>
+                                            <td>{{ $category['total_price_gift_card'] }}</td>
                                         </tr>
                                     @endforeach
 

@@ -16,15 +16,21 @@ class FinanceController extends Controller
 
         // Calcul des totaux globaux pour livraison, personnalisation et prix des chèques cadeaux
         $total_delivery_revenue = $partners->reduce(function ($carry, $partner) {
-            return $carry + $partner->giftCards->sum('shipping_price');
+            return $carry + $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })->get()->sum('shipping_price');
         }, 0);
 
         $total_customization_revenue = $partners->reduce(function ($carry, $partner) {
-            return $carry + $partner->giftCards->where('is_customized', true)->sum('customization_fee');
+            return $carry + $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })->get()->where('is_customized', true)->sum('customization_fee');
         }, 0);
 
         $total_price_gift_card = $partners->reduce(function ($carry, $partner) {
-            return $carry + $partner->giftCards->sum('amount');
+            return $carry + $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })->get()->sum('amount');
         }, 0);
 
         // Calcul des revenus par partenaire et tri par montant des chèques cadeaux
@@ -34,10 +40,18 @@ class FinanceController extends Controller
                 'name' => $partner->name,
                 'category_id' => $partner->category->id,
                 'category_name' => $partner->category->name,
-                'delivery_revenue' => $partner->giftCards->sum('shipping_price'),
-                'customization_revenue' => $partner->giftCards->where('is_customized', true)->sum('customization_fee'),
-                'price_gift_card' => $partner->giftCards->sum('amount'),
-                'commission' => $partner->giftCards->sum('amount') * $partner->commission_percent / 100
+                'delivery_revenue' => $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                    $query->where('status', 'SUCCESSFUL');
+                })->get()->sum('shipping_price'),
+                'customization_revenue' => $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                    $query->where('status', 'SUCCESSFUL');
+                })->get()->where('is_customized', true)->sum('customization_fee'),
+                'price_gift_card' => $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                    $query->where('status', 'SUCCESSFUL');
+                })->get()->sum('amount'),
+                'commission' => $partner->giftCards()->whereHas('paymentInfo', function ($query) {
+                    $query->where('status', 'SUCCESSFUL');
+                })->get()->sum('amount') * $partner->commission_percent / 100
             ];
         })->sortByDesc('price_gift_card'); // Tri en ordre décroissant par montant des chèques cadeaux
 

@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\GiftCard;
 use Illuminate\Http\Request;
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-use Carbon\Carbon;
 
 
 class StatsController extends Controller
@@ -80,6 +76,9 @@ class StatsController extends Controller
 
         // Récupérer les données des personnalisations (chiffres de ventes personnalisées)
         $customizationsStats = GiftCard::where('is_customized', true)
+            ->whereHas('paymentInfo', function ($query) {
+                $query->where('status', 'SUCCESSFUL');
+            })
             ->whereBetween('created_at', [$startDate, $endDate])
             ->selectRaw('COUNT(id) as total_customized, SUM(total_amount) as total_revenue')
             ->first();

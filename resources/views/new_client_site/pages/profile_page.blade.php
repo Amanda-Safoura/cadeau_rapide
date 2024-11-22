@@ -211,6 +211,7 @@
                 </div>
                 <div class="modal-body">
                     <p><strong>Montant :</strong> <span id="orderAmount"></span></p>
+                    <p><strong>Partenaire :</strong> <span id="partnerName"></span></p>
                     <p><strong>Message Personnel :</strong> <span id="personalMessage"></span></p>
                     <p><strong>Nom du Client :</strong> <span id="clientName"></span></p>
                     <p><strong>Email du Client :</strong> <span id="clientEmail"></span></p>
@@ -263,6 +264,7 @@
             let order = CUSTOMER_ORDERS.find((order) => order.id == orderId)
 
             $('#orderAmount').text(order.amount + ' XOF')
+            $('#partnerName').text(order.partner.name)
             $('#personalMessage').text(order.personal_message)
             $('#clientName').text(order.client_name)
             $('#clientEmail').text(order.client_email)

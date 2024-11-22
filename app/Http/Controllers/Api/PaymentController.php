@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\NewFeexPaymentPayloadEvent;
+use App\Http\Controllers\BackOffice\GiftCardController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\CustomLog;
@@ -164,6 +165,11 @@ class PaymentController extends Controller
             $message = 'Votre paiement pour un chèque cadeau d\'une valeur de ' . number_format($gift_card->amount, '0', '', ' ') . ' XOF pour ' . ($gift_card->is_client_beneficiary ? 'vous-même' : '' . $gift_card->beneficiary_name) . ' ' . $statusMessage . '<br>Demande effectuée le ' . $gift_card->created_at->format('d F Y');
 
             NewFeexPaymentPayloadEvent::dispatch($message, $gift_card->user->id);
+
+            if ($payment->status == 'SUCCESSFUL') {
+                $giftCardController = new GiftCardController;
+                $giftCardController->generateAndSendGiftCard($gift_card->id);
+            }
         }
 
         return response()->json();
