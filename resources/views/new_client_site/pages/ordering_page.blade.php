@@ -464,7 +464,7 @@
                                         <div class="mb-3 custom-form-input form-group">
                                             <label class="form-label" for="countryCard">Pays</label>
                                             <input type="text" name="countryCard" value="{{ old('countryCard') }}"
-                                                id="countryCard" class="form-control" required>
+                                                id="countryCard" class="form-control" placeholder="Benin" required>
                                             <div class="alert alert-danger d-none" role="alert">
                                                 @error('countryCard')
                                                     <strong>{{ $message }}</strong>
@@ -475,7 +475,7 @@
                                         <div class="mb-3 custom-form-input form-group">
                                             <label class="form-label" for="addressCard">Adresse</label>
                                             <input type="text" name="addressCard" value="{{ old('addressCard') }}"
-                                                id="addressCard" class="form-control" required>
+                                                id="addressCard" class="form-control" placeholder="Cotonou" required>
                                             <div class="alert alert-danger d-none" role="alert">
                                                 @error('addressCard')
                                                     <strong>{{ $message }}</strong>
@@ -486,7 +486,7 @@
                                         <div class="mb-3 custom-form-input form-group">
                                             <label class="form-label" for="districtCard">District</label>
                                             <input type="text" name="districtCard" value="{{ old('districtCard') }}"
-                                                id="districtCard" class="form-control" required>
+                                                id="districtCard" class="form-control" placeholder="Littoral" required>
                                             <div class="alert alert-danger d-none" role="alert">
                                                 @error('districtCard')
                                                     <strong>{{ $message }}</strong>
@@ -509,6 +509,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    
+
                                     <button type="button" class="btn btn-secondary me-3"
                                         onclick="previousStep()">Précédent</button>
                                     <button type="submit" class="btn btn-success">Payer</button>
@@ -813,6 +816,9 @@
                                 ':checked'); // Si le paiement par carte est sélectionné
                         },
                         maxlength: 3
+                    },
+                    accept_general_terms: {
+                        required: true
                     }
                 },
                 messages: {
@@ -871,7 +877,8 @@
                     countryCard: "Veuillez entrer votre pays.",
                     addressCard: "Veuillez entrer votre adresse.",
                     districtCard: "Veuillez entrer votre district.",
-                    currency: "Veuillez sélectionner une devise."
+                    currency: "Veuillez sélectionner une devise.",
+                    accept_general_terms: "Veuillez accepter nos conditions générales."
                 }
             });
 

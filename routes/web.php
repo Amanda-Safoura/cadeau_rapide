@@ -54,6 +54,7 @@ Route::name('client.')->group(function () {
     Route::view('/about', 'new_client_site.pages.about_page')->name('about');
 
     Route::view('/policy', 'new_client_site.pages.policy_page')->name('policy');
+    Route::view('/general_terms', 'new_client_site.pages.general_terms_page')->name('general_terms');
 
     Route::view('/contact', 'new_client_site.pages.contact_page')->name('contact');
     Route::post('/user_message/store', [UserMessageController::class, 'store'])->name('user_message.store');

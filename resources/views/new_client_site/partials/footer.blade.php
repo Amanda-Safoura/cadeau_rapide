@@ -36,7 +36,8 @@
                         </a>
                         <p>
                             Cadeau Rapide est votre solution de chèques cadeaux personnalisés, vous permettant d'offrir
-                            des expériences uniques et mémorables à vos proches. <br><br> Facile à utiliser et rapide, notre
+                            des expériences uniques et mémorables à vos proches. <br><br> Facile à utiliser et rapide,
+                            notre
                             plateforme vous aide à créer des chèques cadeaux sur mesure pour toutes les occasions.
                             Rejoignez notre communauté et faites plaisir à ceux que vous aimez !
                         </p>
@@ -98,7 +99,7 @@
                         <ul class="footer-contact-list">
                             <li><a href="javascript:void(0);">FAQ</a></li>
                             <li><a href="{{ route('client.policy') }}">Politique de confidentialité</a></li>
-                            <li><a href="javascript:void(0);">Conditions Générales</a></li>
+                            <li><a href="{{ route('client.general_terms') }}">Conditions Générales</a></li>
                             <li><a href="{{ route('client.contact') }}">Assistance Client</a></li>
                         </ul>
                     </div>

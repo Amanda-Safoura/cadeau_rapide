@@ -131,7 +131,7 @@
             <img src="{{ asset('assets/LOGO CADEAURAPIDE.png') }}" alt="Logo Site Web" class="partner-logo">
         </div>
 
-        <!-- Section du contenu principal de la chèque cadeau -->
+        <!-- Section du contenu principal du chèque cadeau -->
         <div class="gift-card-body">
             <!-- Section gauche avec l'image du partenaire -->
             <div class="partner-section">
