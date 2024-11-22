@@ -27,7 +27,7 @@
     <div class="privacy-policy-area ptb-100">
         <div class="container">
             <div class="single-content px-3 py-3 mx-auto">
-                <p class="fs-4 fw-semibold mb-2 text-dark">Dernière mise à jour : 22 Novembre 2024</p>
+                <p class="fs-4 fw-semibold mb-2">Dernière mise à jour : 22 Novembre 2024</p>
 
                 <p class="fs-5" style="margin-bottom: 20px">
                     Chez Cadeau Rapide, nous attachons une importance particulière à la confidentialité et à la protection
@@ -37,7 +37,7 @@
                     protection.
                 </p>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">1. Données Collectées</h2>
+                <h2 class="fs-4 fw-semibold mb-4">1. Données Collectées</h2>
                 <p class="fs-6 mb-4">
                     Nous collectons différents types d'informations dans le cadre de l'utilisation de notre plateforme,
                     notamment :
@@ -53,7 +53,7 @@
                         notre plateforme nécessitant la localisation géographique.</li>
                 </ul>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">2. Utilisation des Données</h2>
+                <h2 class="fs-4 fw-semibold mb-4">2. Utilisation des Données</h2>
                 <p class="fs-6 mb-4">
                     Vos données personnelles sont utilisées aux fins suivantes :
                 </p>
@@ -65,7 +65,7 @@
                     <li>Réaliser des analyses et des études de marché afin d’améliorer nos services.</li>
                 </ul>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">3. Partage des Données</h2>
+                <h2 class="fs-4 fw-semibold mb-4">3. Partage des Données</h2>
                 <p class="fs-6 mb-4">
                     Vos données personnelles peuvent être partagées avec des tiers dans les cas suivants :
                 </p>
@@ -78,19 +78,19 @@
                         consentement avant de partager vos informations.</li>
                 </ul>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">4. Conservation des Données</h2>
+                <h2 class="fs-4 fw-semibold mb-4">4. Conservation des Données</h2>
                 <p class="fs-6" style="margin-bottom: 12px">
                     Vos données personnelles sont conservées uniquement pendant la durée nécessaire aux fins pour lesquelles
                     elles ont été collectées, ou dans le respect des obligations légales et réglementaires en vigueur.
                 </p>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">5. Sécurité des Données</h2>
+                <h2 class="fs-4 fw-semibold mb-4">5. Sécurité des Données</h2>
                 <p class="fs-6" style="margin-bottom: 12px">
                     Nous mettons en place des mesures de sécurité techniques et organisationnelles pour protéger vos données
                     contre tout accès, modification, divulgation ou destruction non autorisés.
                 </p>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">6. Droits des Utilisateurs</h2>
+                <h2 class="fs-4 fw-semibold mb-4">6. Droits des Utilisateurs</h2>
                 <p class="fs-6 mb-4">
                     Conformément aux lois en vigueur, vous disposez des droits suivants :
                 </p>
@@ -112,14 +112,14 @@
                         class="text-primary text-decoration-underline">{{ env('CONTACT_MAIL_ADDRESS') }}</a>.
                 </p>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">7. Modifications de la Politique de Confidentialité</h2>
+                <h2 class="fs-4 fw-semibold mb-4">7. Modifications de la Politique de Confidentialité</h2>
                 <p class="fs-6" style="margin-bottom: 12px">
                     Nous nous réservons le droit de modifier cette Politique de confidentialité. En cas de modification,
                     nous vous informerons par e-mail ou via une notification sur notre plateforme. Nous vous encourageons à
                     consulter régulièrement notre Politique de confidentialité pour rester informé des mises à jour.
                 </p>
 
-                <h2 class="fs-4 fw-semibold mb-4 text-dark">8. Contact</h2>
+                <h2 class="fs-4 fw-semibold mb-4">8. Contact</h2>
                 <p class="fs-6">
                     Pour toute question ou préoccupation concernant notre Politique de confidentialité ou le traitement de
                     vos données, vous pouvez nous contacter à l’adresse suivante : <a

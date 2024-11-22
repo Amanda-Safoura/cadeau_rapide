@@ -141,7 +141,7 @@ class HomeController extends Controller
             $gift_card->used = true;
             $gift_card->save();
 
-            return view('new_client_site.pages.check_validity.is_invalid')->with('message', 'Le chèque cadeau vient d\'être marqué comme utilisé.');
+            return redirect()->route('client.gift_card.check', ['gift_card_id' => $id])->with('message', 'Le chèque cadeau vient d\'être marqué comme utilisé.');
         }
 
         return redirect()->back()->with(['message' => 'Identifiants incorrects']);
