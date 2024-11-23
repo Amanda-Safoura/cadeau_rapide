@@ -68,7 +68,7 @@
 
         .partner-section {
             width: 30%;
-            background: url("{{ Storage::disk('public')->url($gift_card->partner->picture_1) }}") center center / cover no-repeat;
+            background: url("{{ Storage::url($gift_card->partner->picture_1) }}") center center / cover no-repeat;
             position: relative;
         }
 
@@ -161,7 +161,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    {!! QrCode::size(80)->generate("{{ route('client.gift_card.check', ['gift_card_id' => $gift_card->id]) }}") !!}
+                    <img src="{{ $qrCodeBase64 }}" alt="QR Code">
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>

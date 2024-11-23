@@ -6,9 +6,10 @@ use App\CustomHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\CustomLog;
+use SimpleSoftwareIO\QrCode\Facades\QrCode; // QR Code Facade
+use PDF;
 use App\Models\GiftCard;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -87,32 +88,38 @@ class GiftCardController extends Controller
 
     public function generateGiftCard(int $id)
     {
+        // Récupérer le chèque cadeau avec ses informations de paiement
         $gift_card = GiftCard::with('paymentInfo')->findOrFail($id);
 
+        // Vérifier si le paiement a été effectué avec succès
         if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
-            // Configuration de Dompdf
-            $options = new Options();
-            $options->set('defaultFont', 'Arial');
-            $options->set('isHtml5ParserEnabled', true);
-            $options->set('isRemoteEnabled', true);
-            $dompdf = new Dompdf($options);
 
-            // Génération du contenu HTML et du PDF
-            
-            $html = view('to_generate.gift_card', compact('gift_card', /* 'partnerPictureBase64' */))->render();
+            // Générer un QR Code en base64 (encodage PNG)
+            $qrCode = QrCode::format('png') // Format PNG
+                ->size(100) // Taille en pixels
+                ->margin(2) // Marge autour du QR Code
+                ->generate(route('client.gift_card.check', ['gift_card_id' => $gift_card->id])); // URL du QR Code
 
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'landscape');
-            $dompdf->render();
+            // Encodage Base64 pour l'intégrer directement dans le PDF
+            $qrCodeBase64 = 'data:image/png;base64,' . base64_encode($qrCode);
 
-            // Enregistrer le fichier PDF
-            $output = $dompdf->output();
-            $filename = "Chèque_Cadeau_$gift_card->id.pdf";
-            file_put_contents(storage_path("app/public/$filename"), $output);
+            // Configuration des options pour DomPDF
+            PDF::setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isPhpEnabled' => true,
+                'isRemoteEnabled' => true, // Permet le chargement des images depuis des URL externes
+            ]);
 
-            return response()->download(storage_path("app/public/$filename"));
+            // Chargement de la vue et génération du PDF
+            $pdf = PDF::loadView('to_generate.gift_card', compact('gift_card', 'qrCodeBase64'))
+                ->setPaper('a4', 'landscape')
+                ->setWarnings(false); // Désactiver les avertissements
+
+            // Retourner le fichier PDF en téléchargement
+            return $pdf->download("Chèque_Cadeau_{$gift_card->id}.pdf");
         } else {
-            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payée');
+            // Rediriger avec un message si le paiement n'est pas réussi
+            return redirect()->back()->with('message', 'Le chèque cadeau n\'a pas été payé');
         }
     }
 
@@ -121,43 +128,55 @@ class GiftCardController extends Controller
     {
         $gift_card = GiftCard::with('partner')->findOrFail($id);
 
-        // Configuration de Dompdf
-        $options = new Options();
-        $options->set('defaultFont', 'Arial');
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true); // Permettre les ressources externes
-        $dompdf = new Dompdf($options);
+        // Générer un QR Code en base64 (encodage PNG)
+        $qrCode = QrCode::format('png')
+            ->size(100)
+            ->margin(2)
+            ->generate(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
+        $qrCodeBase64 = 'data:image/png;base64,' . base64_encode($qrCode);
 
-        // Génération du contenu HTML et du PDF
-        $html = view('to_generate.gift_card', compact('gift_card'))->render();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
+        // Configuration des options pour DomPDF
+        PDF::setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isPhpEnabled' => true,
+            'isRemoteEnabled' => true,
+        ]);
 
-        // Stocker le fichier PDF temporairement
-        $pdfContent = $dompdf->output();
-        $fileName = "Chèque Cadeau N° $gift_card->id.pdf";
-        $tempPath = "temp/$fileName";
-        Storage::disk('public')->put($tempPath, $pdfContent);
+        // Générer le PDF
+        $pdfContent = PDF::loadView('to_generate.gift_card', compact('gift_card', 'qrCodeBase64'))
+            ->setPaper('a4', 'landscape')
+            ->setWarnings(false)
+            ->output();
 
-        // Envoyer l'email avec le PDF en pièce jointe
-        Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($gift_card, $tempPath) {
-            $message->to($gift_card->is_client_beneficiary
-                ? $gift_card->client_email
-                : $gift_card->beneficiary_email) // Adresse email du destinataire
-                ->subject("Votre chèque cadeau")
-                ->attach(Storage::path($tempPath), [
-                    'as' => "Chèque Cadeau N° {$gift_card->id}.pdf",
-                    'mime' => 'application/pdf',
-                ]);
-        });
+        // Déterminer l'adresse email du destinataire
+        $email = $gift_card->is_client_beneficiary
+            ? $gift_card->client_email
+            : $gift_card->beneficiary_email;
 
-        $gift_card->sent = true;
-        $gift_card->save();
+        // Vérifier si l'email est valide
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \Exception("Adresse email invalide pour le chèque cadeau N° {$gift_card->id}");
+        }
 
-        // Supprimer le fichier temporaire après l'envoi de l'email
-        Storage::delete($tempPath);
+        try {
+            // Envoyer l'email avec le PDF
+            Mail::send('mails.gift_card', compact('gift_card'), function ($message) use ($email, $pdfContent, $gift_card) {
+                $message->to($email)
+                    ->subject("Votre chèque cadeau")
+                    ->attachData($pdfContent, "Chèque Cadeau N° {$gift_card->id}.pdf", [
+                        'mime' => 'application/pdf',
+                    ]);
+            });
+
+            // Mettre à jour le statut du chèque cadeau
+            $gift_card->sent = true;
+            $gift_card->save();
+        } catch (Exception $e) {
+            CustomLog::error("Erreur lors de l'envoi du chèque cadeau : " . $e->getMessage());
+            throw $e;
+        }
     }
+
 
     public function settings()
     {
