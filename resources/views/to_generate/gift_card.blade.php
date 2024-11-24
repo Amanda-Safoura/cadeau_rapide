@@ -8,75 +8,91 @@
     <link href="{{ env('APP_URL') }}/public/assets/backoffice/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .gift-card {
-            background-color: #ffffff;
-            width: 900px;
-            height: 470px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: auto;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .gift-card-header {
-            background-color: #005073;
-            color: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            font-size: 1.8em;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .gift-card-header h2 {
-            margin: 0;
-            font-size: 1.5em;
-            text-transform: uppercase;
-            flex-grow: 1;
-            text-align: center;
-        }
-
-        .partner-name {
-            font-size: 0.7em;
-            /* Taille de police par défaut */
-            font-weight: 700;
-            max-width: 250px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-
-        .partner-logo {
-            max-height: 40px;
-            position: absolute;
-            right: 10px;
-            top: 20px;
-        }
-
-        .partner-section {
-            width: 30%;
-            background: url("{{ env('APP_URL') . '/public/storage/' . $gift_card->partner->picture_1 }}") center center / cover no-repeat;
-            position: relative;
-        }
-
-        .separator {
-            width: 10px;
-            background-color: #800020;
-        }
-
+    <style>body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    .gift-card {
+        background-color: #ffffff;
+        width: 900px;
+        height: 470px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: auto;
+        position: relative;
+        display: block; /* Remplacer flex par block pour DomPDF */
+    }
+    
+    .gift-card-header {
+        background-color: #005073;
+        color: #ffffff;
+        padding: 15px 20px;
+        font-size: 1.8em;
+        font-weight: bold;
+        text-align: center;
+        position: relative;
+    }
+    
+    .gift-card-header h2 {
+        margin: 0;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    .partner-name {
+        font-size: 0.7em;
+        font-weight: 700;
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+    }
+    
+    .partner-section {
+        width: 30%;
+        height: 100%; /* Fixer la hauteur pour que l'image remplisse la section */
+        background: url("{{ env('APP_URL') . '/storage/' . $gift_card->partner->picture_1 }}") center center no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 0;
+    }
+    
+    .separator {
+        width: 10px;
+        background-color: #800020;
+        display: inline-block;
+        height: 100%;
+        position: absolute;
+        left: 30%;
+    }
+    
+    .gift-card-body {
+        display: block;
+        padding: 20px;
+        margin-left: 30%;
+    }
+    
+    .partner-logo {
+        max-width: 150px;
+        height: auto;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+    }
+    
+    .text-white {
+        color: #ffffff;
+    }
+    
+    .me-3 {
+        margin-right: 15px;
+    }
+    
         .details-section {
             padding: 20px;
             display: flex;
@@ -127,7 +143,7 @@
         <!-- Header avec "Chèque Cadeau", le nom du partenaire et le logo du site -->
         <div class="gift-card-header">
             <span class="partner-name">{{ $gift_card->partner->name }}</span>
-            <h2 class="me-5">Chèque Cadeau</h2>
+            <h2 class="text-white me-3">Chèque Cadeau</h2>
             <img src="{{ env('APP_URL')}}assets/LOGO CADEAURAPIDE.png" alt="Logo Site Web" class="partner-logo">
         </div>
 
