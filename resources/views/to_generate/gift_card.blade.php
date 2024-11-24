@@ -161,7 +161,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    <img src="{{ $qrCodeBase64 }}" alt="QR Code">
+                    <img src="{{ $qrCodeBase64 }}" style="width: 100px; height: 100px;"  alt="QR Code">
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^3.0",
+        "chillerlan/php-qrcode": "^5.0",
         "dompdf/dompdf": "^3.0",
         "feexpay/feexpay-php": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
@@ -15,7 +16,6 @@
         "laravel/tinker": "^2.8",
         "league/glide-laravel": "^1.0",
         "pusher/pusher-php-server": "^7.2",
-        "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {

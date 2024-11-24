@@ -6,9 +6,10 @@ use App\CustomHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\CustomLog;
-use SimpleSoftwareIO\QrCode\Facades\QrCode; // QR Code Facade
 use PDF;
 use App\Models\GiftCard;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -94,14 +95,13 @@ class GiftCardController extends Controller
         // Vérifier si le paiement a été effectué avec succès
         if ($gift_card->paymentInfo->status == 'SUCCESSFUL') {
 
-            // Générer un QR Code en base64 (encodage PNG)
-            $qrCode = QrCode::format('png') // Format PNG
-                ->size(100) // Taille en pixels
-                ->margin(2) // Marge autour du QR Code
-                ->generate(route('client.gift_card.check', ['gift_card_id' => $gift_card->id])); // URL du QR Code
+            $options = new QROptions([
+                'scale' => 1,
+                'imageBase64' => true
+            ]);
 
-            // Encodage Base64 pour l'intégrer directement dans le PDF
-            $qrCodeBase64 = 'data:image/png;base64,' . base64_encode($qrCode);
+            $qrCode = new QRCode($options);
+            $qrCodeBase64 = $qrCode->render(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
 
             // Configuration des options pour DomPDF
             PDF::setOptions([
@@ -128,12 +128,13 @@ class GiftCardController extends Controller
     {
         $gift_card = GiftCard::with('partner')->findOrFail($id);
 
-        // Générer un QR Code en base64 (encodage PNG)
-        $qrCode = QrCode::format('png')
-            ->size(100)
-            ->margin(2)
-            ->generate(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
-        $qrCodeBase64 = 'data:image/png;base64,' . base64_encode($qrCode);
+        $options = new QROptions([
+            'scale' => 1,
+            'imageBase64' => true
+        ]);
+
+        $qrCode = new QRCode($options);
+        $qrCodeBase64 = $qrCode->render(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
 
         // Configuration des options pour DomPDF
         PDF::setOptions([
