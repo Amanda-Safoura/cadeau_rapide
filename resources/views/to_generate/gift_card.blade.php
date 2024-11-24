@@ -128,7 +128,7 @@
         <div class="gift-card-header">
             <span class="partner-name">{{ $gift_card->partner->name }}</span>
             <h2 class="text-white me-3">Chèque Cadeau</h2>
-            <img src="{{ env('APP_URL')}}assets/LOGO CADEAURAPIDE.png" alt="Logo Site Web" class="partner-logo">
+            <img src="{{ env('APP_URL')}}/public/assets/LOGO CADEAURAPIDE.png" alt="Logo Site Web" class="partner-logo">
         </div>
 
         <!-- Section du contenu principal du chèque cadeau -->
