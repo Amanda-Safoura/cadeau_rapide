@@ -128,8 +128,7 @@
         <div class="gift-card-header">
             <span class="partner-name">{{ $gift_card->partner->name }}</span>
             <h2 class="me-5">Chèque Cadeau</h2>
-            <img src="{{ env('APP_URL') }}/public/assets/LOGO CADEAURAPIDE.png" alt="Logo Site Web"
-                class="partner-logo">
+            <img src="{{ env('APP_URL')}}assets/LOGO CADEAURAPIDE.png" alt="Logo Site Web" class="partner-logo">
         </div>
 
         <!-- Section du contenu principal du chèque cadeau -->
@@ -162,7 +161,7 @@
 
                 <!-- Code QR -->
                 <div class="qr-code">
-                    <img src="{{ $qrCodeBase64 }}" style="width: 100px; height: 100px;" alt="QR Code">
+                    <img src="{{ $qrCodeBase64 }}" style="width: 100px; height: 100px;"  alt="QR Code">
                 </div>
                 <!-- Modalités d'utilisation -->
                 <div>

@@ -103,17 +103,9 @@ class GiftCardController extends Controller
             $qrCode = new QRCode($options);
             $qrCodeBase64 = $qrCode->render(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
 
-            // Configuration des options pour DomPDF
-            PDF::setOptions([
-                'isHtml5ParserEnabled' => true,
-                'isPhpEnabled' => true,
-                'isRemoteEnabled' => true, // Permet le chargement des images depuis des URL externes
-            ]);
-
             // Chargement de la vue et génération du PDF
             $pdf = PDF::loadView('to_generate.gift_card', compact('gift_card', 'qrCodeBase64'))
-                ->setPaper('a4', 'landscape')
-                ->setWarnings(false); // Désactiver les avertissements
+                ->setPaper('a4', 'landscape'); // Désactiver les avertissements
 
             // Retourner le fichier PDF en téléchargement
             return $pdf->download("Chèque_Cadeau_{$gift_card->id}.pdf");
@@ -136,17 +128,9 @@ class GiftCardController extends Controller
         $qrCode = new QRCode($options);
         $qrCodeBase64 = $qrCode->render(route('client.gift_card.check', ['gift_card_id' => $gift_card->id]));
 
-        // Configuration des options pour DomPDF
-        PDF::setOptions([
-            'isHtml5ParserEnabled' => true,
-            'isPhpEnabled' => true,
-            'isRemoteEnabled' => true,
-        ]);
-
         // Générer le PDF
         $pdfContent = PDF::loadView('to_generate.gift_card', compact('gift_card', 'qrCodeBase64'))
             ->setPaper('a4', 'landscape')
-            ->setWarnings(false)
             ->output();
 
         // Déterminer l'adresse email du destinataire
