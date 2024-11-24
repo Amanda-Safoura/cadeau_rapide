@@ -117,7 +117,7 @@
         .qr-code {
             position: absolute;
             top: 20px;
-            right: -15px;
+            right: -125px;
         }
     </style>
 </head>
